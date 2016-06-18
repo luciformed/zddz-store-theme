@@ -1,0 +1,361 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+  {% if settings.favicon != empty %}
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <link rel="canonical" href="{{ canonical_url }}" />
+  
+  {% if page_description != '' %}
+  <meta name="description" content="{{ page_description }}" />
+  {% endif %}
+  
+  {% if template == 'index' %}
+  <title>{{ shop.name }}</title>
+  {% elsif template == '404' %}
+  <title>Page Not Found | {{ shop.name }}</title>
+  {% else %}
+  <title>{{ page_title }} | {{ shop.name }}</title>
+  {% endif %}
+  
+  {% include 'fb-open-graph' %}
+  
+  {% case settings.header_font %}
+  {% when "'Lato', sans-serif" %} 
+  <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+  {% when "Rancho, cursive" %}
+  <link href='//fonts.googleapis.com/css?family=Rancho:500' rel='stylesheet' type='text/css'>
+  {% when "'Amatic SC', cursive" %}
+  <link href='//fonts.googleapis.com/css?family=Amatic+SC:700' rel='stylesheet' type='text/css'>
+  {% when "'Sancreek', cursive" %}
+  <link href='//fonts.googleapis.com/css?family=Sancreek' rel='stylesheet' type='text/css'>
+  {% when "'Ubuntu Condensed', sans-serif" %}
+  <link href='//fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+  {% when "'Advent Pro', sans-serif" %}
+  <link href='http://fonts.googleapis.com/css?family=Advent+Pro:400,600,700,500' rel='stylesheet' type='text/css'>
+  {% when "'Roboto', sans-serif" %}
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic,500italic,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'>
+  {% endcase %}
+  
+  {% case settings.general_font %}  
+  {% when "Rancho, cursive" %}
+  <link href='//fonts.googleapis.com/css?family=Rancho:500' rel='stylesheet' type='text/css'>
+  {% when "'Amatic SC', cursive" %}
+  <link href='//fonts.googleapis.com/css?family=Amatic+SC:700' rel='stylesheet' type='text/css'>
+  {% when "'Sancreek', cursive" %}
+  <link href='//fonts.googleapis.com/css?family=Sancreek' rel='stylesheet' type='text/css'>
+  {% when "'Ubuntu Condensed', sans-serif" %}
+  <link href='//fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+  {% when "'Advent Pro', sans-serif" %}
+  <link href='http://fonts.googleapis.com/css?family=Advent+Pro:400,600,700,500' rel='stylesheet' type='text/css'>
+  {% when "'Roboto', sans-serif" %}
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic,500italic,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'>
+  {% endcase %}
+  
+  {{ 'elusive-webfont.css' | asset_url | stylesheet_tag }}  
+  <!--[if lte IE 7]>
+	{{ 'lte-ie7.js'  | asset_url | script_tag }}
+  <![endif]-->
+  {{ 'shopmusic.css' | asset_url | stylesheet_tag }}
+  {{ 'style.css' | asset_url | stylesheet_tag }}	
+  {{ 'adapt-base.css' | asset_url | stylesheet_tag }}
+  {{ 'app.css' | asset_url | stylesheet_tag }}
+  {{ 'typo.css' | asset_url | stylesheet_tag }}
+  {{ 'media.css' | asset_url | stylesheet_tag }}
+  {{ 'bebas.css'  | asset_url | stylesheet_tag }}
+  
+  
+  <!--[if IE 7 ]> 
+{{ 'ie7.css' | asset_url | stylesheet_tag }} 
+{{ 'lte-ie7.js' | asset_url | script_tag }}
+<![endif]-->
+  <!--[if IE 8 ]> {{ 'ie8.css' | asset_url | stylesheet_tag }} <![endif]-->
+  
+  {% if template contains 'customers' %}
+  {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+  {{ "csCustomer_area.js"  | asset_url | script_tag }}
+  {% endif %}
+  
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js' | script_tag }}
+  
+  {{ 'modernizr.js' | asset_url | script_tag }}
+  {{ 'csOptionSelect.js' | asset_url | script_tag }}
+  {{ 'csCustomSelect.js' | asset_url | script_tag }}  
+  {{ 'app.js' | asset_url | script_tag }}
+  
+  
+  {{ 'jquery.mousewheel.min.js' | asset_url | script_tag }}
+  {{ 'jquery.touchSwipe.min.js' | asset_url | script_tag }}
+  {{ 'jquery.ba-throttle-debounce.min.js' | asset_url | script_tag }}
+  
+  {{ 'jquery.animate_from_to-1.0.min.js' | asset_url | script_tag }}
+  {{ 'jquery.carouFredSel.js' | asset_url | script_tag }}
+  {{ 'jquery.cycle2.min.js' | asset_url | script_tag }}
+  {{ 'jquery.cycle2.tile.js' | asset_url | script_tag }}
+  {{ 'jquery.color.js' | asset_url | script_tag }}
+  {{ 'json2.min.js' | asset_url | script_tag }}
+  
+  {% if template == 'search' or template == 'collection' %}
+  {{ 'jquery.mixitup.min.js' | asset_url | script_tag }}
+  {% endif %}
+  
+  {% assign assets = {{ '' | asset_url }} | split: '?' %}
+  <script type="text/javascript">
+    //<![CDATA[
+    var ADAPT_CONFIG = {
+      path: '//cdn.shopify.com/s/files/1/0274/0369/t/2/assets/',
+      dynamic: true,
+      range: [
+        '0 to 767px = adapt-mobile.css',        
+        '767px to 1024px = adapt-tablet.css',        
+        '1024px = adapt-desktop.css'
+      ]
+    };
+    //]]>
+  </script>
+  
+  {{ '/services/javascripts/currencies.js' | script_tag }}
+  {{ 'jquery.currencies.min.js' | asset_url | script_tag }}
+  {{ 'adapt.min.js' | asset_url | script_tag }}
+  {{ 'harmony.js' | asset_url | script_tag }}
+  
+  
+  <script type="text/javascript">
+        $('a.fancybox').fancybox({
+            type: "iframe"
+        });
+    </script>
+  
+  {{ content_for_header }}
+  
+</head>
+
+<body class="{% if customer %}customer-logged-in {% endif %}template{{ template | split: '.' | first | camelize }}">
+  
+  <!-- Header -->
+  {% if template != 'index' %}
+  <header id="top">
+    {% endif %}
+    <div class="top">
+      <div class="grid-container">
+        <div class="grid-100 tablet-grid-100 mobile-grid-100 remove_padding add_bot_padding">
+          <div class="grid-50 tablet-grid-50 mobile-grid-100 remove_padding hide-on-mobile">
+            {% include 'customer-links' %}
+            {% if settings.show_multiple_currencies %}
+            {% include 'currencies-switcher' %}
+            {% endif %}
+          </div>
+          <div class="grid-50 tablet-grid-50 mobile-grid-100 grid-parent">
+            <div class="grid-85 tablet-grid-80 mobile-grid-50">
+              {% if settings.show_header_search %}
+              <form id="header-search" action="/search" method="get">
+                <label for="top-search-input" class="visuallyhidden">Search</label>
+                <input type="text" id="top-search-input" name="q" class="search-input" value="" accesskey="4"  autocomplete="off" placeholder="Search" />
+                <button type="submit" id="top-search-submit" class="search-submit" value="Search">
+                <i class="icon-search"></i>
+                </button>
+              </form>
+              {% else %}
+              <span style="text-indent: -999em; visibility: hidden;">Not available</span>
+              {% endif %}
+            </div>
+            <div class="grid-15 tablet-grid-20 mobile-grid-50 remove_padding">
+              {% if settings.show_header_cart %}
+              <div id="umbrella" class="cart">
+                <div class="cart-link">
+                  <a href="#" class="num-items-in-cart">
+                    <span class="icon">
+                      <span>Cart</span>(<span class="number">{{ cart.item_count }}</span>)
+                      <i class = "icon-caret-down"></i>
+                    </span> 
+                  </a>
+                </div>
+                {% if settings.cart_dropdown %}
+                <div id="cart-info" style="clear:both;">
+                </div>
+                {% endif %}
+              </div><!-- /#umbrella -->
+              <script type="text/javascript">
+                
+                jQuery(document).ready(function($) {
+                  if(getWidthBrowser() <= 1024){
+                    cartPopup();
+                  }
+                });
+                /*Carts */
+                
+                function cartPopup(){
+                  var button = $('.cart-link');
+                  var box = $('#cart-info');
+                  var form = $('.cart-link');
+                  button.removeAttr('href');
+                  button.mouseup(function(cart) {
+                    box.toggle();
+                    button.toggleClass('active');
+                  });
+                  form.mouseup(function() { 
+                    return false;
+                  });
+                  $(this).mouseup(function(cart) {
+                    if(!($(cart.target).parent('.cart-link').length > 0)) {
+                      button.removeClass('active');
+                    }
+                  });
+                }
+              </script>
+              {% else %}
+              <span style="text-indent: -999em; visibility: hidden;">Not available</span>
+              {% endif %}<!-- /#umbrella -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-container">
+        {% if template != 'index' %}
+        <div class="wrapbody clearfix">
+          {% endif %}
+          <div class="grid-40 tablet-grid-40 mobile-grid-100 remove_padding">
+            <h1 id="site-title">
+              <a href="/" title = "{{ shop.name | escape }}">
+                {% if settings.logo_image == "logo.png" %}
+                <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}" />
+                {% else %}
+                {{ settings.logo_text | escape }}
+                {% endif %}
+              </a>
+            </h1>
+          </div>
+          
+          <div class="navigation grid-60 tablet-grid-60"> 
+            {% include 'navigation' %}
+          </div>
+          {% include 'navigation-mobile' %}
+          {% if template != 'index' %}
+        </div>
+        {% endif %}
+      </div>
+      {% if template != 'index' %}
+      <div class="grid-container">
+        <span class="line"></span>
+      </div>
+      {% endif %}
+    </div>
+    {% if template != 'index' %}
+  </header>
+  {% endif %}
+  {% if template == 'index' %}
+  <div class="mainsilder">
+    {% include 'home-carousel' %}
+  </div>
+  {% endif %}
+  
+  <!-- Content -->
+  <div id="content" {% if template == 'index' %} class = "content-home" {% endif %} {% if template contains 'product' %} class = "pro-detail" {% endif %}>
+    <section class="content grid-container {% if template contains 'product' %}remove_padding{% endif %}" >
+      
+      {% if template == 'list-collections' %}
+      {% include 'collection-listing' %}
+      {% else %}
+  {% include 'lockdown' %}
+{% if allowed %}
+    {{ content_for_layout }}
+{% else %}
+    {% if template contains 'cart' %}
+        {{ content_for_layout }}
+    {% elsif customer %}
+        {% include 'lock-message' %}
+    {% else %}
+        <meta content="0; url=/account/login?checkout_url={{ return_url }}" http-equiv="refresh" />
+    {% endif %}
+{% endif %}
+      {% endif %}
+      
+    </section>
+  </div><!-- /.content -->
+  
+  <!-- Footer -->
+  <footer id="footer" class="clearfix">
+    {% if template != 'index' %}
+    <div class = "grid-container"><span class = "line"></span></div>
+    {% endif %}
+    <div class="grid-container remove_padding">
+      {% include 'footer-top' %}
+    </div> 
+    <div class="grid-container">
+      <span class="line clearfix"></span>
+    </div>
+    <div class="grid-container">
+      <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
+        <div class="grid-50 tablet-grid-50 mobile-grid-100 align-left remove_padding">
+          <p class="copyright">&copy; {{ 'now' | date: '%Y' }} <a href="http://zddz.co.uk/">ZDDZ London Ltd</a>. Registered in England and Wales № 07932919. All Rights Reserved.</p>
+          
+        </div>
+        <div class="grid-50 tablet-grid-50 mobile-grid-100 remove_padding">
+          {% if settings.show_visa or settings.show_mastercard or settings.show_amex or settings.show_paypal or settings.show_moneybookers %}
+          <ul id="footer-payment-methods">
+            {% if settings.show_visa %}
+            <li><a href="#" class="icon-payment visa tooltip-tipsy" original-title="Visa"><span></span></a></li>
+            {% endif %}
+            
+            {% if settings.show_mastercard %}
+            <li><a href="#" class="icon-payment mastercard tooltip-tipsy" original-title="Mastercard"><span></span></a></li>
+            {% endif %}
+            
+            {% if settings.show_amex %}
+            <li><a href="#" class="icon-payment amex tooltip-tipsy" original-title="American Express"><span></span></a></li>
+            {% endif %}
+            
+            {% if settings.show_moneybookers %}
+            <li><a href="#" class="icon-payment moneybookers tooltip-tipsy" original-title="Moneybookers"><span></span></a></li>
+            {% endif %}
+            
+            {% if settings.show_paypal %}
+            <li><a href="#" class="icon-payment paypal tooltip-tipsy" original-title="Paypal"><span></span></a></li>
+            {% endif %}
+        
+            
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+  </footer>
+  
+  <!--[if lt IE 8]>
+<script>
+// IE 6+7 do not calculate the width of the #umbrella properly
+$('#umbrella').width( $('#umbrella ul').width() );
+</script>
+<![endif]-->
+  
+  {{ 'enhance.jquery.js' | asset_url | script_tag }}
+  {{ 'hoverintent.jquery.js' | asset_url | script_tag }}
+  {{ 'radiance.js' | asset_url | script_tag }}
+  
+  <script type="text/javascript">
+    //<![CDATA[
+    
+    // Including api.jquery.js conditionnally.
+    if (typeof Shopify.onCartShippingRatesUpdate === 'undefined') {
+      document.write({{ "api.jquery.js" | shopify_asset_url | script_tag | json }});
+    }
+    
+    //]]>
+  </script>
+  
+  {{ 'api.jquery.custom.js' | asset_url | script_tag }}
+  
+  {% include 'quick-shop' %}
+  
+  {% include 'currencies' %}
+  
+
+</body>
+</html>

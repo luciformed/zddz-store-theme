@@ -1,0 +1,198 @@
+<!-- Related Products -->
+{% if settings.productspg_related_products %}
+
+  {% assign number_of_related_products_to_show = settings.productspg_featured_limit %}
+  
+  {% capture number_of_related_products_to_fetch %}{{ number_of_related_products_to_show | plus: 1 }}{% endcapture %}
+  
+  {% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+  {% assign found_a_collection = false %}
+  {% for c in product.collections %}
+  {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+  {% assign found_a_collection = true %}
+  {% assign collection = c %}
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  
+  {% if collection %}
+  <section class="rel-container clearfix">
+    {% unless settings.productspg_featured_collection_heading == blank %}
+    <header class="section-details clearfix">
+      <h2>{{ settings.productspg_featured_collection_heading }}</h2>
+      <a id="prev-prod-related" title = "Prev" href="#"><i class="icon-chevron-left"></i></a>
+      <a id="next-prod-related" title = "Next" href="#"><i class="icon-chevron-right"></i></a>
+    </header> 
+    {% endunless %}
+    <div class="grid-container remove_padding list_carousel responsive">
+      <ul id="prod-related" class="grid remove_margin clearfix">
+        {% assign current_product_found = false %}
+        {% for prod in collection.products limit: number_of_related_products_to_fetch %}
+        {% if prod.handle == product.handle %}
+        {% assign current_product_found = true %}
+        {% else %}
+        {% unless current_product_found == false and forloop.last %}
+        <li class="opacity_hover" style="width:269px !important;">
+          {% include 'related-products-item' %}
+        </li>
+        {% endunless %}
+        {% endif %}
+        {% endfor %}
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <script type="text/javascript">
+      
+      $(window).resize(function() {
+        
+        $(this).oneTime(500, function() {
+          
+          if(getWidthBrowser() < 1024){
+            $('#prod-related').trigger('destroy', true);
+            initReletedCarousel(350);
+          }
+          else {
+            $('#prod-related').trigger('destroy', true);
+            initReletedCarousel(270);
+          }
+          
+          $(this).stopTime();
+        });
+
+      });
+      
+      function initReletedCarousel(width){
+        $("#prod-related").carouFredSel({
+          circular: false,
+          infinite: false,
+          responsive: true,
+          width : '100%',
+          //mousewheel: true,
+          prev: '#prev-prod-related',
+          next: '#next-prod-related',
+          auto: false,
+          swipe: {
+            onMouse: false,
+            onTouch: true
+          },
+          items: {
+            width: 300,
+            height:440,
+            visible: {
+              min: 1,
+              max: 4
+            }
+          }
+        });
+      }
+      
+      jQuery(document).ready(function($) {
+        if(getWidthBrowser() < 1024){
+          $('#prod-related').trigger('destroy', true);
+          initReletedCarousel(350);
+        }
+        else {
+          $('#prod-related').trigger('destroy', true);
+          initReletedCarousel(270);
+        }
+      });
+      
+    </script>
+  </section>
+  {% endif %}
+
+<!-- Beneath Products -->
+{% elsif settings.productspg_featured_collection != blank %}
+
+  {% assign collection = collections[settings.productspg_featured_collection] %}
+  {% assign products   = collection.products %}
+  
+  {% if products.size > 0 %}
+  <section class="rel-container clearfix">
+    
+    {% unless settings.productspg_featured_collection_heading == blank %}
+    <header class="section-details clearfix">
+      <h4 class="rtitle">{{ settings.productspg_featured_collection_heading }}</h4>
+      <a id="prev-prod-related" title = "Prev" href="#"><i class="icon-chevron-left"></i></a>
+      <a id="next-prod-related" title = "Next" href="#"><i class="icon-chevron-right"></i></a>
+    </header> 
+    {% endunless %}
+    <div class="grid-container remove_padding list_carousel responsive">
+      <ul id="prod-related" class="grid remove_margin clearfix">
+        {% assign current_product_found = false %}
+        {% for prod in collection.products limit: number_of_related_products_to_fetch %}
+        {% if prod.handle == product.handle %}
+        {% assign current_product_found = true %}
+        {% else %}
+        {% unless current_product_found == false and forloop.last %}
+        <li class="opacity_hover">
+          {% include 'related-products-item' %}
+        </li>
+        {% endunless %}
+        {% endif %}
+        {% endfor %}
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    
+    <script type="text/javascript">
+      
+      $(window).resize(function() {
+        
+        $(this).oneTime(500, function() {
+          
+          if(getWidthBrowser() < 1024){
+            $('#prod-related').trigger('destroy', true);
+            initReletedCarousel(350);
+          }
+          else {
+            $('#prod-related').trigger('destroy', true);
+            initReletedCarousel(270);
+          }
+          
+          $(this).stopTime();
+        });
+
+      });
+      
+      function initReletedCarousel(width){
+        $("#prod-related").carouFredSel({
+          circular: false,
+          infinite: false,
+          responsive: true,
+          //mousewheel: true,
+          width: '100%',
+          prev: '#prev-prod-related',
+          next: '#next-prod-related',
+          auto: false,
+          swipe: {
+            onMouse: false,
+            onTouch: true
+          },
+          items: {
+            width: 300,
+            height: 440,	//	optionally resize item-height
+            visible: {
+              min: 1,
+              max: 4
+            }
+          }
+        });
+      }
+      
+      jQuery(document).ready(function($) {
+        if(getWidthBrowser() < 1024){
+          $('#prod-related').trigger('destroy', true);
+          initReletedCarousel(350);
+        }
+        else {
+          $('#prod-related').trigger('destroy', true);
+          initReletedCarousel(270);
+        }
+      });
+      
+    </script>
+  </section>
+  {% endif %}
+
+{% endif %}

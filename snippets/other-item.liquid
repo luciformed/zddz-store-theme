@@ -1,0 +1,20 @@
+<div class="prod-item product-item">
+
+  <div class="list-left thumbnail hover">
+    <a href="{{ prod.url | within: collection }}" class="product-link" title="{{ prod.featured_image.alt | escape }}">
+      <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ prod.featured_image | product_img_url: 'large' }}" class="product-photo unveil" alt="{{ prod.featured_image.alt | escape }}" />
+    </a>
+  </div>
+  
+  <div class="list-right">
+    <div class="prod-information">
+      <div class="prod-title"><a href="{{ prod.url | within: collection }}">{{ prod.title }}</a></div>
+      <div class="prod-desc-grid">
+        {{ prod.content | strip_html | truncate: 50 }}
+      </div>
+      <div class="prod-desc-list">
+        {{ prod.content | strip_html | truncate: 300 }}
+      </div>
+    </div>
+  </div>
+</div>

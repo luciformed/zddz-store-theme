@@ -1,0 +1,49 @@
+{% layout settings.customer_layout %}
+
+<div id="customer-accounts" class="content clearfix">
+
+  <!-- Create Customer -->
+  <div id="customer-register">
+    
+    <div id="page-header">
+      <h1 id="page-title">Register</h1> 
+    </div>
+
+    {% form 'create_customer' %}
+    
+    {% if form.errors %}
+    <div class="alert alert-error">
+      {{ form.errors | default_errors }}
+    </div>
+    {% endif %}
+
+    <div class="clearfix form-row">
+      <label for="first_name" class="label1">First Name</label>
+      <input type="text" value="{{ form.first_name }}" name="customer[first_name]" id="first_name"  />
+    </div>
+
+    <div class="clearfix form-row">
+      <label for="last_name" class="label1">Last Name</label>
+      <input type="text" value="{{ form.last_name }}" name="customer[last_name]" id="last_name" class="{% if form.errors contains 'last_name' %} error{% endif %}" />
+    </div>
+
+    <div class="clearfix form-row">
+      <label for="email" class="label1">Your Email <span class="req">*</span></label>
+      <input type="text" value="{{ form.email }}" name="customer[email]" id="email" class="{% if form.errors contains 'email' %} error{% endif %}" />
+    </div>
+
+    <div class="clearfix form-row">
+      <label for="password" class="label1">Your Password <span class="req">*</span></label>
+      <input type="password" value="" name="customer[password]" id="password" class="{% if form.errors contains 'password' %} error{% endif %}" />
+    </div>
+
+    <div class="action_bottom">
+      <input type="submit" value="Register" />
+      <a class="button" href="/">Cancel</a>
+    </div>
+    </div>
+    {% endform %}
+  
+  </div><!-- /#customer-register -->
+
+</div>

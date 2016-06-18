@@ -1,0 +1,142 @@
+<script type="text/javascript">
+  jQuery(document).ready(function($){
+    {% if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' %}
+        /* Fancybox */
+        $(".fancybox").fancybox({
+        });
+     {% endif %}
+  
+	//  When user clicks on tab, this code will be executed
+	$(".head_tabs").click(function() {
+		
+		if(!$(this).parent().hasClass('active')) {
+			//  First remove class "active" from currently active tab
+			$(".head_tabs").parent().removeClass("active");
+			
+			//  Here we get the data-src(parent) value of the selected tab
+			var $src_tab = $(this).attr("data-src");
+			
+			//  Now add class "active" to the selected/clicked tab
+			$($src_tab).parent().addClass("active");
+			
+			//  Hide all tab content
+			$(".content_tabs").hide();
+			
+			//  Here we get the href value of the selected tab
+			var $selected_tab = $(this).attr("href");
+			  
+			//  Show the selected tab content
+          	if(isMobile.any())
+              $($selected_tab).show();
+          	else
+              $($selected_tab).fadeIn();
+          
+          	// Scroll to content
+            $('html, body').animate({
+              scrollTop: $($selected_tab).offset().top - 150
+            }, 0); 
+            
+		}
+      else {
+        if(isMobile.any()){
+        $(".head_tabs").parent().removeClass("active");
+        var $selected_tab = $(this).attr("href");
+          $($selected_tab).hide();
+        }
+      }
+
+		//  At the end, we add return false so that the click on the link is not executed
+		return false;
+	});
+  });
+</script>
+<div class="grid-container remove_padding">
+  <div id="tabs_container" class="hide-on-mobile clearfix" >
+    <ul id="tabs" class = "clearfix">
+      <li class="active"><a class="head_tab1 head_tabs" href="#content_tab1" data-src=".head_tab1" >{{ settings.section_1_title }}</a></li>
+      <li><a class="head_tab2 head_tabs remove_border" href="#content_tab2" data-src=".head_tab2" >{{ settings.section_2_title }}</a></li>
+      <li><a class="head_tab3 head_tabs remove_border" href="#content_tab3" data-src=".head_tab3" >{{ settings.section_3_title }}</a></li>
+    </ul>
+    <div class= "clearfix" ></div>
+  </div>
+  <div class= "clearfix" ></div>
+  
+  <div id="tabs_content_container">
+    {% assign hideOnDesktop = ' hide-on-desktop hide-on-tablet' %}
+    
+   <h3 class="active{{ hideOnDesktop }}"><a class="head_tab1 head_tabs" href="#content_tab1" data-src=".head_tab1">{{ settings.section_1_title }}</a></h3>
+    <div id="content_tab1" class="content_tabs ">
+      <ul class="grid remove_margin">
+        {% assign tab1Collection = collections[settings.section_1_collection] %}
+        {% for product in tab1Collection.products limit:settings.featured_products_homepage_num1 %}
+        <li class="thumbnail-fly opacity_hover">
+          {% include 'home-tabs-item' %}
+        </li>
+        {% endfor %}
+      </ul>
+      <ul id="tab1col1" class="grid remove_margin" style="display:none;">
+        {% assign tab1Collection = collections[settings.section_1_collection] %}
+        {% for product in tab1Collection.products offset:settings.featured_products_homepage_num1 %}
+        <li class="thumbnail-fly opacity_hover">
+          {% include 'home-tabs-item' %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% assign counthtproducts = tab1Collection.products_count %}
+      {% assign limitproducts = settings.featured_products_homepage_num1 | plus:0 %}
+      {% if counthtproducts > limitproducts %}
+      <div class="grid-100 tablet-grid-100 mobile-grid-100 text-center"><button id = "showmoreht1" class="showmoreht" onclick = "showmoreht()">Show more</button></div>
+      {% endif %}
+    </div>
+    
+    <h3 class="{{ hideOnDesktop }}"><a class="head_tab2 head_tabs" href="#content_tab2" data-src=".head_tab2">{{ settings.section_2_title }}</a><span class="line_tab"></span></h3>
+    <div id="content_tab2" class="content_tabs" style="display: none;">
+      <ul class="grid remove_margin">
+        {% assign tab2Collection = collections[settings.section_2_collection] %}
+        {% for product in tab2Collection.products limit:settings.featured_products_homepage_num2 %}
+        <li class="thumbnail-fly opacity_hover">
+          {% include 'home-tabs-item' %}
+        </li>
+        {% endfor %}
+      </ul>
+      <ul id="tab2col2" class="grid remove_margin" style="display:none;">
+        {% assign tab2Collection = collections[settings.section_2_collection] %}
+        {% for product in tab2Collection.products offset:settings.featured_products_homepage_num2 %}
+        <li class="thumbnail-fly opacity_hover">
+          {% include 'home-tabs-item' %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% assign counthtproducts = tab2Collection.products_count %}
+      {% assign limitproducts = settings.featured_products_homepage_num2 | plus:0 %}
+      {% if counthtproducts > limitproducts %}
+      <div class="grid-100 tablet-grid-100 mobile-grid-100 text-center"><button id = "showmoreht2" class="showmoreht" onclick = "showmoreht()">Show more</button></div>
+      {% endif %}
+    </div>
+    
+    <h3 class="{{ hideOnDesktop }} last"><a class="head_tab3 head_tabs last" href="#content_tab3" data-src=".head_tab3">{{ settings.section_3_title }}</a><span class="line_tab"></span></h3>
+    <div id="content_tab3" class="content_tabs" style="display: none;">
+      <ul data-next="#next_tab3" class="grid remove_margin">
+        {% assign tab3Collection = collections[settings.section_3_collection] %}
+        {% for product in tab3Collection.products limit:settings.featured_products_homepage_num3 %}
+        <li class="thumbnail-fly opacity_hover">
+          {% include 'home-tabs-item' %}
+        </li>
+        {% endfor %}
+      </ul>
+      <ul id="tab3col3" class="grid remove_margin" style="display:none;">
+        {% assign tab3Collection = collections[settings.section_3_collection] %}
+        {% for product in tab3Collection.products offset:settings.featured_products_homepage_num3 %}
+        <li class="thumbnail-fly opacity_hover">
+          {% include 'home-tabs-item' %}
+        </li>
+        {% endfor %}
+      </ul>
+        {% assign counthtproducts = tab3Collection.products_count %}
+      {% assign limitproducts = settings.featured_products_homepage_num3 | plus:0 %}
+      {% if counthtproducts > limitproducts %}
+      <div class="grid-100 tablet-grid-100 mobile-grid-100 text-center"><button id = "showmoreht3" class="showmoreht" onclick = "showmoreht()">Show more</button></div>
+      {% endif %}
+    </div>
+  </div>
+</div>

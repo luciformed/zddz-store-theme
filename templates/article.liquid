@@ -1,0 +1,133 @@
+{% paginate article.comments by settings.comment_pagination_limit %}
+<div id="page-header">
+  <h1 id="page-title">{{ blog.title }}</h1> 
+</div>
+<div id="col-main" class="content {% if(settings.blog_sidebar_show) %}grid-75 tablet-grid-70{% else %}grid-100{% endif %} remove_padding">
+  
+  {% if(settings.blog_sidebar_show) %}
+  <div class="remove_margin">
+  {% endif %}
+  
+  <article class="article post align-left clearfix">
+    <h2 class="title">{{ article.title | escape }}</h2>
+    
+    {{ article.content }}
+    
+    <footer class="article-extras f_blog clearfix">
+      <span class="author"><span class="written">Posted by</span> <strong class="admin">{{ article.author | escape }}</strong></span>
+      <span class="date"><i> on </i> {{ article.created_at | date: "%B %d, %Y" }} </span>
+      {% if article.comments_count > 0 %}
+      <span class="num-comment"><a href="{{article.url}}#comments">{{ article.comments_count }} {{ article.comments_count | pluralize: 'comment', 'comments' }}</a></span>
+      {% endif %}
+      <div class="article-nav">
+        
+        {% assign current_found = false %}
+        {% assign done = false %}
+        {% for a in blog.articles %}
+            {% if current_found and done == false %}
+                {% assign next_article = a %}
+                {% assign done = true %}
+            {% endif %}
+            {% unless done %}
+                {% if a.id == article.id %}
+                    {% assign current_found = true %}
+                {% else %}
+                    {% assign prev_article = a %}
+                {% endif %}
+            {% endunless %}
+        {% endfor %}
+        
+        {% if prev_article %}
+        <span class="prev-post"><a class="button" href="{{ prev_article.url }}" alt="" title="">Previous Posts</a></span>
+        {% endif %}
+        
+        {% if next_article %}
+        <span class="next-post"><a class="button" href="{{ next_article.url }}" alt="" title="">Next Posts</a></span>
+        {% endif %}    
+      </div>
+    </footer>
+    
+  </article>
+  
+  {% if blog.comments_enabled? %}
+  
+  {% form article %}
+  <div class="comment_form" id="comment-form">
+    
+    <h4>Leave a comment</h4>
+    
+    {% if blog.moderated? %}
+    <p class="notice">Please note: comments must be approved before they are published.</p>
+    {% endif %}
+    
+    {% if form.posted_successfully? %}
+    {% if blog.moderated? %}
+    <div class="alert alert-success">
+      Your comment has been successfully submitted. It must be approved before it is published.
+    </div>
+    {% else %}
+    <div class="alert alert-success">
+      Successfully posted your comment.
+    </div>
+    {% endif %}
+    {% endif %}
+    
+    {% if form.errors %}
+    <div class="alert alert-error">
+      {{ form.errors | default_errors }}
+    </div>
+    {% endif %}
+    
+    <div class="clearfix{% if form.errors contains 'author' %} has-error{% endif %}">
+      <label for="comment_author" class="label1">Your Name <span class="req">*</span></label><br />
+      <input type="text" id="comment_author" name="comment[author]" value="{% if form.author %}{{ form.author }}{% elsif customer %}{{ customer.first_name }} {{ customer.last_name }}{% endif %}" class="{% if form.errors contains 'author' %}input-error{% endif %}" />
+    </div>
+    <div class="clearfix{% if form.errors contains 'email' %} has-error{% endif %}">
+      <label for="comment_email" class="label1">Your Email <span class="req">*</span></label><br />
+      <input type="text" id="comment_email" name="comment[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" class="{% if form.errors contains 'email' %}input-error{% endif %}" />
+    </div>
+    <div class="clearfix{% if form.errors contains 'body' %} has-error{% endif %}">
+      <label for="comment_body" class="label1">Your Comment <span class="req">*</span></label><br />
+      <textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% endif %}">{{form.body}}</textarea>
+    </div> 
+    
+    <input type="submit" value="Post comment" id="comment-submit" />
+    
+  </div> <!-- end div.comment_form -->
+  {% endform %}
+  
+  {% if article.comments != blank %}
+  
+  <div id="comments" class="comments">
+    <h4>Comments ({{ article.comments_count }})</h4>
+    
+    {% comment %} Loop through approved comments: {% endcomment %}        
+    {% for comment in article.comments reversed %}
+    {% include 'comment-template' %}
+    {% endfor %}  
+    
+    {% comment %} Show a comment that was *just* submitted {% endcomment %}
+    {% if comment and comment.created_at %}
+    {% include 'comment-template' %}
+    {% endif %}       
+    
+    {% include 'pagination' %}
+    
+  </div> <!-- end #comments -->
+  {% endif %}
+  
+  {% endif %}
+  
+  {% if(settings.blog_sidebar_show) %}
+  </div>
+  {% endif %}
+</div> <!-- /#col-main -->
+
+{% if(settings.blog_sidebar_show) %}
+<!-- Begin sidebar -->
+<div class="grid-25 tablet-grid-30 asider">
+  {% include 'sidebar-blog' %}
+</div>
+<!-- End sidebar -->
+{% endif %}
+{% endpaginate %}

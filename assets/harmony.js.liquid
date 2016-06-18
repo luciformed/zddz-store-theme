@@ -1,0 +1,299 @@
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
+
+/* Function set border sidebar */
+function harmonySidebarBorder(main, sidebar, line){
+  
+  jQuery(line).removeAttr('style');
+  
+  if(getWidthBrowser() > 768){
+    var m_height = jQuery(main).outerHeight();
+    var s_height = jQuery(sidebar).outerHeight();
+    
+    var height = 0;
+    if(m_height > s_height)
+      height = m_height;
+    else
+      height = s_height;
+    
+    jQuery(line).css('min-height', height);
+  }
+}
+
+/* Function add class */
+function harmonyAddClass(main, clss){
+  
+  jQuery(main).last().addClass(clss);
+  
+}
+
+/* Fucntion get width browser */
+function getWidthBrowser() {
+	var myWidth;
+
+	if( typeof( window.innerWidth ) == 'number' ) { 
+		//Non-IE 
+		myWidth = window.innerWidth;
+		//myHeight = window.innerHeight; 
+	} 
+	else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) { 
+		//IE 6+ in 'standards compliant mode' 
+		myWidth = document.documentElement.clientWidth; 
+		//myHeight = document.documentElement.clientHeight; 
+	} 
+	else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) { 
+		//IE 4 compatible 
+		myWidth = document.body.clientWidth; 
+		//myHeight = document.body.clientHeight; 
+	}
+	
+	return myWidth;
+}
+
+$(window).bind('orientationchange',function(e) {
+  if(isMobile){
+    fixOrientation();
+  }
+});
+
+$(window).bind('resize',function(e) {
+  if(isMobile){
+    fixOrientation();
+  }
+});
+
+function fixOrientation() {
+  
+  $('.grid_list').find('li').removeClass('active');
+  $('.grid_list #lgrid').addClass('active');
+  
+  $('#collectionListing').removeClass('list').addClass('grid');
+}
+
+$(function() {
+
+  $("img.unveil").unveil(300);
+  
+  /* Quantity */
+  $('.quantity-wrapper').on('click', '.qty-up', function() {
+    var $this = $(this);
+    
+    var qty = $this.data('src');
+    $(qty).val(parseInt($(qty).val()) + 1);
+  });
+  
+  $('.quantity-wrapper').on('click', '.qty-down', function() {
+    var $this = $(this);
+    
+    var qty = $this.data('src');
+    
+    if(parseInt($(qty).val()) > 1)
+    	$(qty).val(parseInt($(qty).val()) - 1);
+  });
+
+  
+  /* Tooltip */
+  if($('.tooltip-tipsy').length)
+  $('.tooltip-tipsy').tipsy({
+    gravity: 'nw',
+    fade: true,
+    opacity: 1
+  });
+  
+  
+  /* Hover opacity */
+  $('.opacity_hover .hover').hover(function () {
+    
+    var opacity = $(this).parents('.opacity_hover').parent().find('.opacity_hover');
+    opacity.addClass('opacity_active');
+    
+    $(this).parents('.opacity_hover').removeClass('opacity_active');
+    
+  },function () {
+    
+    var opacity = $(this).parents('.opacity_hover').parent().find('.opacity_hover');
+    opacity.removeClass('opacity_active');
+    
+  });
+    
+  
+ 
+  
+  
+  /* Sort by */
+  sortbyPopup();
+  if($('#collectionListing').length)
+  $('#collectionListing').mixitup({
+    layoutMode: '{{settings.collection_grid_list_default}}', // Start in list mode (display: block) by default
+    listClass: 'list', // Container class for when in list mode
+    gridClass: 'grid', // Container class for when in grid mode
+    effects: ['fade','blur'], // List of effects 
+    listEffects: ['fade','rotateX'] // List of effects ONLY for list mode
+  });
+  $('#sortForm li').click(function(){  // add event any time the sort box changes
+    
+    var button = $('#sortButton');
+    var box = $('#sortBox');
+    
+    $('#sortButton label').html($(this).html());
+    
+    button.removeClass('active');
+    box.hide();
+  });
+  
+
+  function sortbyPopup(){
+    var button = $('#sortButton');
+    var box = $('#sortBox');
+    var form = $('#sortBox #sortForm');
+    button.removeAttr('href');
+    button.mouseup(function(sort) {
+      box.toggle();
+      button.toggleClass('active');
+    });
+    form.mouseup(function() { 
+      return false;
+    });
+    $(this).mouseup(function(sort) {
+      if(!($(sort.target).parent('#sortButton').length > 0)) {
+        button.removeClass('active');
+        box.hide();
+      }
+    });
+  }
+  
+  
+  /* Grid - List */
+  $("a.switcher").bind("click", function(e){
+    e.preventDefault();
+    
+    var theid = $(this).attr("id");
+    var theproducts = $("#collectionListing");
+    var classNames = $(this).attr('class').split(' ');
+    
+    if($(this).parent().hasClass("active")) {
+      // if currently clicked button has the active class
+      // then we do nothing!
+      return false;
+    } 
+    else {
+      // otherwise we are clicking on the inactive button
+      // and in the process of switching views!
+      
+      if(theid == "gridview") {
+        $(this).parent().addClass("active");
+        $("#listview").parent().removeClass("active");
+        
+        // List to Grid
+        $('#collectionListing').mixitup('toGrid');
+        
+        // remove the list class and change to grid
+        theproducts.removeClass("list");
+        theproducts.addClass("grid");
+        
+      }
+      
+      else if(theid == "listview") {
+        $(this).parent().addClass("active");
+        $("#gridview").parent().removeClass("active");
+        
+        // Grid to List
+        $('#collectionListing').mixitup('toList');
+        
+        // remove the grid view and change to list
+        theproducts.removeClass("grid")
+        theproducts.addClass("list");
+        
+      } 
+    }
+  });
+  
+   $("a.switcher").bind("touchstart", function(e){
+    e.preventDefault();
+    
+    var theid = $(this).attr("id");
+    var theproducts = $("#collectionListing");
+    var classNames = $(this).attr('class').split(' ');
+    
+    if($(this).parent().hasClass("active")) {
+      // if currently clicked button has the active class
+      // then we do nothing!
+      return false;
+    } 
+    else {
+      // otherwise we are clicking on the inactive button
+      // and in the process of switching views!
+      
+      if(theid == "gridview") {
+        $(this).parent().addClass("active");
+        $("#listview").parent().removeClass("active");
+        
+        // List to Grid
+        $('#collectionListing').mixitup('toGrid');
+        
+        // remove the list class and change to grid
+        theproducts.removeClass("list");
+        theproducts.addClass("grid");
+        
+      }
+      
+      else if(theid == "listview") {
+        $(this).parent().addClass("active");
+        $("#gridview").parent().removeClass("active");
+        
+        // Grid to List
+        $('#collectionListing').mixitup('toList');
+        
+        // remove the grid view and change to list
+        theproducts.removeClass("grid")
+        theproducts.addClass("list");
+        
+      } 
+    }
+  });
+  
+  /* selectCallback */
+  selectOptionsCallback = function(variant, selector) {
+    
+    var add_to_cart = '#add-to-cart';
+    var $price = '#purchase-' + selector.product.id.toString() + ' .detail-price';
+    if (variant && variant.available) {
+      // selected a valid variant
+      $(add_to_cart).removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+      
+      if(variant.compare_at_price == null){
+        $($price).html('<span class="price"><span class="money">'+Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}")+'</span></span>');
+        
+        $('[name=currencies]').change();
+        
+      } else {
+        $($price).html('<span class="price_sale"><span class="money">'+Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}") + '</span></span> <span class="price"> <del><span class="money">' + Shopify.formatMoney(variant.compare_at_price, "{{shop.money_with_currency_format}}") + '</span></del></span></span>');
+        
+        $('[name=currencies]').change();
+      }
+    } else {
+      $(add_to_cart).addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+      var message = variant ? "<span class='sold_out'>Sold Out</span>" : "<span class='unavailable'>Unavailable</span>";
+      $($price).addClass('unavailable').html(message); // update price-field message
+    }
+  };
+});

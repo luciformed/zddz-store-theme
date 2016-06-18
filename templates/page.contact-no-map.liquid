@@ -1,0 +1,54 @@
+<div id="col-main" class="contact content">
+
+  <div id="page-header">
+    <h1 id="page-title">{{ page.title }}</h1> 
+  </div>
+
+  <div class="contact-content align-left add_margin">
+  {{ page.content }}
+  </div>
+  
+  <div class="grid-container remove_padding">
+  
+    {% if settings.contact_map and settings.contact_embedded != '' %}
+      {% assign bodyGrid = 'grid-45 tablet-grid-45' %}
+    {% else %}
+      {% assign bodyGrid = 'grid-100' %}
+    {% endif %}
+    <div class="{{ bodyGrid }}">
+    {% form 'contact' %}
+    
+      {% if form.posted_successfully? %}
+      <div class="alert alert-success">
+        Thanks for contacting us! We'll get back to you as soon as possible.
+      </div>
+      {% endif %}
+  
+      {% if form.errors %}
+      <div class="alert alert-error">
+        {{ form.errors | default_errors }}
+      </div>
+      {% endif %}
+      
+      <ul id="contact-form">
+        <li class="clearfix type-text">
+          <label for="name" class="label1">Your Name</label>
+          <input type="text" id="name"  name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.first_name }} {{ customer.last_name }}{% endif %}" />
+        </li> 
+        <li class="clearfix type-text{% if form.errors contains 'email' %} has-error{% endif %}">
+          <label for="email" class="label1">Your Email <span class="req">*</span></label>
+          <input type="text" id="email"  name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" />
+        </li>   
+        <li class="clearfix type-textarea{% if form.errors contains 'body' %} has-error{% endif %}">
+          <label for="message" class="label1">Your Message <span class="req">*</span></label>
+          <textarea id="message" class="textarea1 width1" name="contact[body]">{{ form.body }}</textarea>
+        </li>
+        <li class="clearfix type-submit">
+          <input type="submit" value="Submit Contact" />
+        </li>
+      </ul>
+    {% endform %}
+    </div>
+   
+  </div>
+</div><!-- /#col-main -->

@@ -1,0 +1,335 @@
+<div id="col-main" class="grid-100 tablet-grid-100 mobile-grid-100 remove_padding"> 
+    
+  <div id="product" class="content grid-contaner clearfix remove_padding">
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        {% if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' %}
+        /* Fancybox */
+        $(".fancybox").fancybox({
+          'hideOnContentClick': true,
+          
+          //prevEffect : 'none',
+          //nextEffect : 'none',
+          padding: 0
+        });
+         {% endif %}
+         
+         {% if settings.main_image_display == 'Zoom-in' or settings.main_image_display == 'Both' %}
+         /* Zoom image */
+         $('.zoom-in').zoom();
+          {% endif %}
+          });
+      </script>
+      
+      <script type="text/javascript">
+        $(window).load(function() {
+          $('#carousel-product').carouFredSel({
+            responsive: true,
+            circular: false,
+          	infinite: false,
+            direction: 'down',
+            auto:false,
+            transition: true,
+            swipe: {
+              onMouse: false,
+              onTouch: true
+            },
+            prev: '#prev-pp-thumb',
+            next: '#next-pp-thumb',
+            width: '100%', 
+            height: 'auto',
+            items: {
+              width: '100%',
+              visible: {
+                min: 1,
+                max: 5
+              }
+            },            
+          });
+        });
+        
+        jQuery(document).ready(function($) {
+          $('#carousel-product li').hover(function() {
+            if(!$(this).hasClass('active')){
+              $('#product_flex li').removeClass('active').hide();
+              var img = $(this).attr('data-img');
+              $(img).addClass('active').show();
+              
+              $('#carousel-product li').removeClass('active');
+              $(this).addClass('active');
+            }
+          });
+          $('#carousel-product li').on('touchstart',function() {
+            if(!$(this).hasClass('active')){
+              $('#product_flex li').removeClass('active').hide();
+              var img = $(this).attr('data-img');
+              $(img).addClass('active').show();
+              
+              $('#carousel-product li').removeClass('active');
+              $(this).addClass('active');
+            }
+          });
+        });
+        
+      </script>
+      <div class="grid-50 tablet-grid-50 mobile-grid-100 grid-parent remove_padding ">
+        <div class = "pro-slider-carousel grid-15 tablet-grid-30 mobile-grid-30">
+          <a id="prev-pp-thumb" title="Previous" href="#"><i class="icon-chevron-up"></i></a>
+          <a id="next-pp-thumb" title="Next" href="#"><i class="icon-chevron-down"></i></a>
+          <div class="list_carousel responsive" style="height: 380px;">
+            <ul id="carousel-product">
+              {% for image in product.images  %}
+              {% if product.images.size > 1 %}
+                   <li data-img="#slider{{ forloop.index }}" {% if forloop.index == 1 %} class="active"{% endif %}>
+                <a href="{{ image | product_img_url: 'original' }}" {% if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' %} class="fancybox" rel="group"{% endif %}>
+                  <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ image | product_img_url: 'small' }}" onclick = "return false;"  class="unveil" alt="{{ image.alt | escape }}" />
+                </a>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div id="product_flex" class="grid-85 tablet-grid-70 mobile-grid-70 {% for collection in product.collections %}{{ collection.title | strip | downcase }} {% endfor %}">
+          <ul class="slides">
+            {% for image in product.images %}
+            <li id="slider{{ forloop.index }}" {% if forloop.index > 1 %} style="display: none;" {% else %} class = "active" {% endif %}>
+              <a href="{{ image | product_img_url: 'master'}}" alt="{{ image.alt | escape }}" {% if settings.main_image_display == 'Lightbox' %} class="fancybox" rel="group"{% endif %}{% if settings.main_image_display == 'Zoom-in' or settings.main_image_display == 'Both' %} class="zoom zoom-in" onclick = "return false" {% endif %}>
+              
+                <img src="{{ 'blank.gif' | asset_url }}" data-src="{{image | product_img_url: 'master'}}" class="unveil">
+              </a>
+            </li>
+           
+  {% endfor %}
+            
+            
+          </ul>
+          
+
+        </div>
+        
+      </div>
+      <div id="product-information" class="grid-50 tablet-grid-50 mobile-grid-100">
+        <div id="page-header grid-100 tablet-grid-100 mobile-grid-100">
+          
+          <div class = "product-header grid-60 tablet-grid-55 mobile-grid-100" >
+                      
+            <h1 id="page-title-product" class="remove_margin">{{ product.title }}</h1></div>
+          {% if collection %}  
+          <div class="product-nav right grid-40 tablet-grid-45 mobile-grid-100">
+            {% if collection.previous_product %}
+            <span class="prev-products">
+              <a class="button prev-product" href="{{ collection.previous_product }}">Previous</a>
+            </span>
+            {% endif %}
+            {% if collection.next_product %}
+            <span class="next-products">
+              <a class="button next-product" href="{{ collection.next_product }}">Next</a>
+            </span>
+            {% endif %}
+          </div>
+          {% endif %}
+          
+          
+        </div>
+        
+        <div id="product-header" class="grid-100 tablet-grid-100 mobile-grid-100 clearfix">
+        
+          <div class="description">
+            
+            {% if product.description contains '<!-- split -->' %}
+    
+            <p>{{ product.description | split: '<!-- split -->' | first }}</p>
+    
+            <p><a class="fancybox button" href="{{ product.description | split: '<!-- split -->' | last }}" data-fancybox-type="iframe">3D View</a> </p>
+            
+            {% else %}
+            
+            {% for collection in product.collections %}
+            {% if collection.handle == "ss1666" %}
+            
+            <div id="preorder">{{ settings.product_preordertext }}</div>
+            
+            {% endif %}
+            {% endfor %}
+            
+            {{ product.description }}
+            
+            {% endif %}
+           
+            {% include 'social-sharing' %}
+            
+            
+            
+            
+          </div>
+
+           
+          
+ 
+         
+          
+          
+         
+          {% if product.tags.size > 0 %}
+          <div class="getthelook">
+          {% include 'getthelook' %}
+          </div>
+          {% endif %}
+          
+          <div class="relative">
+            
+                                                
+            <ul>
+              
+              {% comment %}
+              
+              <li class="vendor">
+                <span class="label">Vendor:</span>
+                {{ product.vendor | link_to_vendor }}
+              </li>
+              
+              {% endcomment %}
+              
+              <li class="type">
+                <span class="label">Type:</span>
+                {{ product.type | link_to_type }}
+              </li>
+              
+              {% comment %}
+              
+              {% if product.tags.size > 0 %}
+              {% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+              {% assign found_a_collection = false %}
+              {% for c in product.collections %}
+              {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+              {% assign found_a_collection = true %}
+              {% assign collection = c %}
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+              <li id="tags">
+                <span class="label">Tags:</span>
+                {% for tag in product.tags %}
+                <a href="/collections/{{ collection.handle }}/{{ tag | handle }}">
+                <strong>
+                  {% if forloop.index < product.tags.size %}
+                  {{ tag | handle }},
+                  {% else %}
+                  {{ tag | handle }}
+                  {% endif %}
+                </strong>
+                </a>
+                {% endfor %}
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+          
+          {% endcomment %}
+          
+         
+          
+          
+          {% if product.available %}
+          
+          {% assign hide_default_title = false %}
+          {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+          {% assign hide_default_title = true %}
+          {% endif %} 
+          
+          <form action="/cart/add" method="post" class="variants" id="product-actions" enctype="multipart/form-data">
+            <div id="product-actions-{{ product.id }}"  class="options clearfix">  
+              
+              <div id="purchase-{{ product.id }}">
+                <p class="detail-price"></p>
+              </div>
+              
+              <div class="variants-wrapper clearfix {% if hide_default_title %} hide {% endif %}"> 
+                <select id="product-select-{{ product.id }}" name="id">
+                  {% for variant in product.variants %}
+                  <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+                  {% endfor %}
+                </select>
+              </div>    
+              
+              <div class="quantity-wrapper clearfix">
+                <label>Quantity</label>
+                <span class="qty-group">
+                  <input id="quantity" type="text" name="quantity" value="1" class="tc item-quantity" />
+                </span>
+                <span class="qty-up" data-src="#quantity"><i class = "icon-plus-sign" ></i></span>
+                <span class="qty-down" data-src="#quantity"><i class = "icon-minus-sign" ></i></span>
+              </div>
+              <div class="add-cart">
+                <input id="add-to-cart" class="button1 add-to-carts" type="submit" name="add" value="Add to Cart" />
+              </div>
+            </div><!-- /.options -->
+          </form>
+          
+          
+          
+          <script type="text/javascript">
+            
+            // initialize multi selector for product
+            $(function() {
+              new Shopify.OptionSelectors("product-select-{{ product.id }}", { product: {{ product | json }}, onVariantSelected: selectOptionsCallback });
+              
+              $('.single-option-selector').customStyle();
+              
+              // Add label if only one product option and it isn't 'Title'.
+              {% if product.options.size == 1 and product.options.first != 'Title' %}
+              $('#product-actions-{{ product.id }} .selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+               {% endif %}
+               
+               // Auto-select first available variant on page load.
+               {% assign found_one_in_stock = false %}
+               {% for variant in product.variants %}
+               {% if variant.available and found_one_in_stock == false %}
+               {% assign found_one_in_stock = true %}
+               {% for option in product.options %} 
+               $('.single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change');
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+                
+                });
+          </script>
+          
+          {% else %}
+          <div id="product-actions" class="sold-out">
+            <div id="purchase">
+              <p class="price">Sold out.</p>      
+            </div>
+        </div>      
+        {% endif %}
+          
+         
+      </div><!-- /#product-header -->
+      
+       
+        
+    </div><!-- /#product-information -->
+    
+  </div><!-- /#product -->
+  
+  
+</div><!-- /#col-main -->
+
+{% include 'related-products' %}
+
+<script type="text/javascript">
+  
+  $(window).resize(function() {
+    
+    harmonySidebarBorder('#product_slider', '#product-information', '#product_slider');
+    
+  });
+  
+  jQuery(document).ready(function() {
+    
+    harmonySidebarBorder('#product_slider', '#product-information', '#product_slider');
+    
+  });
+</script>  

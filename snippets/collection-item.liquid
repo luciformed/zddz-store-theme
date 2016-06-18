@@ -1,0 +1,22 @@
+<li class="collection-item opacity_hover {{ collection.title | strip | downcase }}">
+  <div class="coll-item">
+    <div class="coll-image hover">
+      <a href="{{ collection.url }}" title="Browse our {{ collection.title | escape }} collection">
+        {% if collection.image %}
+        <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ collection.image.src | collection_img_url: 'large' }}" class="unveil" alt="{{ collection.title | escape }}" />
+        {% else %}
+        <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ collection.products.first.featured_image | product_img_url: 'large' }}" class="unveil" alt="{{ collection.title | escape }}" />
+        {% endif %}
+      </a>
+    </div>
+    <div class="coll-information">
+      <a href="{{ collection.url }}" title="Browse our {{ collection.title | escape }} collection">
+        {{ collection.title }}
+      </a>
+      <span class="desc-in-coll">
+        {{ collection.description | strip_html | truncate: 120 }}
+      </span>
+    </div>
+  </div>
+  
+</li>

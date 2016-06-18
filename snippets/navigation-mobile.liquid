@@ -1,0 +1,79 @@
+{% if settings.nav_linklist != '' %}
+<nav id="nav-mobiles" class="hide-on-desktop clearfix">
+  <script>
+    
+    var ww = document.body.clientWidth;
+    
+    $(document).ready(function() {
+      
+      $(".toggleMenu").click(function(e) {
+        e.preventDefault();
+        $(this).toggleClass("active");
+        $(".nav-mobile").slideToggle('slow');
+      });
+      adjustMenu();
+    })
+    
+    $(window).bind('resize orientationchange', function() {
+      ww = document.body.clientWidth;
+      adjustMenu();
+    });
+    
+    var adjustMenu = function() {
+      if(getWidthBrowser() < 1024 || isMobile.any()){
+        $(".toggleMenu").css("display", "inline-block");
+        if (!$(".toggleMenu").hasClass("active")) {
+          $(".nav-mobile").hide();
+        } else {
+          $(".nav-mobile").show();
+        }
+        $(".nav-mobile li").unbind('mouseenter mouseleave');
+        $(".nav-mobile li a.parent .nav-arrow").unbind('click').bind('click', function(e) {
+          // must be attached to anchor element to prevent bubbling
+          e.preventDefault();
+          
+          var $parent = $(this).parent();
+          
+          if($parent.hasClass('toggle')){
+            $parent.removeClass('toggle');
+          }else{
+            $parent.addClass('toggle'); 
+          }
+          
+          $parent.next().toggle('slow');
+        });
+      } 
+    }
+    
+  </script>
+  <div class="hide-on-mobile hide-on-desktop clearfix"></div>
+  <button type="button" class="toggleMenu">
+    <div class="group-bar">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <span class="text-bar">Menu</span>
+  </button>
+  <ul class="nav-mobile" style="display:none;">
+    {% for link in linklists.main-menu-mobile.links %}
+    <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%}">
+      {% assign child_list_handle = link.title | handleize %}
+      {% if linklists[child_list_handle].links != blank %}
+      <a href="{{ link.url }}" class="parent clearfix">
+        <span class="nav-label">{{ link.title | escape }}</span>
+        <span class="nav-arrow"><i class="icon-chevron-down"></i></span>
+      </a>
+      <ul style="display:none;">
+        {% for childlink in linklists[child_list_handle].links %}
+        <li><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+{% endif %}
