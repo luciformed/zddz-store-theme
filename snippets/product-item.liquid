@@ -2,27 +2,22 @@
 
   <div class="list-left thumbnail">
     <a href="{{ prod.url | within: collection }}" class="product-link" title="{{ prod.featured_image.alt | escape }}">
-      <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ prod.featured_image | product_img_url: 'medium' }}" class="product-photo unveil" alt="{{ prod.featured_image.alt | escape }}" />
+      <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ prod.featured_image | product_img_url: 'large' }}" class="product-photo unveil" alt="{{ prod.featured_image.alt | escape }}" />
     </a>
     {% if prod.price_min < prod.compare_at_price_min %}
       	<span class="sale_banner">Sale</span>
     {% endif %}
-    
-    <div class="product-ajax-cart hide-on-mobile">
-      <a href="#quick-shop-modal" class="quick-shop-fancybox quick_shop {% if prod.price_min < prod.compare_at_price_min %} sale{% endif %} action_button" title="Quick Shop">
-        <i class= "icon-eye-open"></i>
-        <div class="product-json" style="display:none;">{{ prod | json }}</div>
-      </a>
-    </div>
+
+
   </div>
-  
+
   <div class="list-right">
     <div class="prod-information">
       <div class="prod-title"><a href="{{ prod.url | within: collection }}">{{ prod.title }}</a></div>
       <span class="product-price{% if prod.compare_at_price > prod.price %} sale{% endif %}">
         {% if prod.available %}
           {% if prod.compare_at_price_max > prod.price %}
-          
+
              {% assign found_one_in_stock = false %}
              {% for variant in prod.variants %}
         		<del class="price"> {{ variant.compare_at_price | money }}</del>
@@ -46,35 +41,35 @@
         	 {% endif %}
           {% else %}
           <span class="price">
-            {% if prod.price_varies %} 
+            {% if prod.price_varies %}
             {{ prod.price | money }}
             {% else %}
             {{ prod.price | money }}
             {% endif %}
           </span>
-          {% endif %}  
+          {% endif %}
         {% else %}
         <span class="sold_out">Sold Out</span>
         {% endif %}
       </span>
       <div class="prod-desc-list">
-        
+
          {% if prod.description contains '<!-- split -->' %}
-        
+
         {{ prod.description | split: '<!-- split -->' | first | strip_html | truncate: 300 }}
         {% else %}
-        
+
         {{ prod.description | strip_html | truncate: 300 }}
-        
+
          {% endif %}
       </div>
     </div>
     {% if prod.available %}
       <form action="/cart/add" method="post" class="variants" enctype="multipart/form-data">
-        <div class="wrapper clearfix"> 
+        <div class="wrapper clearfix">
           <select name="id" style="display:none" >
           {% if prod.compare_at_price_max > prod.price %}
-          
+
              {% assign found_one_in_stock = false %}
              {% for variant in prod.variants %}
                {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
@@ -83,7 +78,7 @@
                  {% break %}
                {% endif %}
              {% endfor %}
-        
+
              {% if found_one_in_stock == false %}
                {% for variant in prod.variants %}
                  {% if variant.available and found_one_in_stock == false %}
@@ -93,7 +88,7 @@
                  {% endif %}
                {% endfor %}
              {% endif %}
-            
+
              {% for variant in prod.variants %}
                {% if variant.id == found_variant_id %}
                  <option selected="selected" value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
@@ -113,19 +108,25 @@
              {% endfor %}
           {% endif %}
           </select>
-        </div>  
-        
+        </div>
+
         <div class="selector-wrapper clearfix" style="display:none">
           <label>Quantity</label>
           <span class="qty-group">
             <input id="quantity" type="text" name="quantity" value="1" />
           </span>
         </div>
-        
+        <div class="product-ajax-cart">
+          <a href="#quick-shop-modal" class="quick-shop-fancybox quick_shop {% if prod.price_min < prod.compare_at_price_min %} sale{% endif %} action_button" title="Quick Shop">
+            <i class= "icon-eye-open"></i>
+            <div class="product-json" style="display:none;">{{ prod | json }}</div>
+          </a>
+        </div>
         <button class="add-to-carts" type="submit" name="add" value="" title = "Add To Cart" /><i class="icon-shopping-cart"></i></button>
         <!-- /.options -->
       </form>
     {% else %}
+
   <button class="add-to-carts disabled" disabled="disabled" type="submit" name="add" value="" title = "Add To Cart" /><i class="icon-shopping-cart"></i></button>
     {% endif %}
   </div>

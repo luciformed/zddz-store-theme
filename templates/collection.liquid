@@ -1,11 +1,11 @@
-<div id="col-main" class="{{ collection.handle }} grid-100 tablet-grid-100 remove_padding"> 
+<div id="col-main" class="{{ collection.handle }} grid-100 tablet-grid-100 remove_padding">
   <div id="page-header"  class="grid-100 tablet-grid-100 remove_padding">
     <div class="grid-35 tablet-grid-50 mobile-grid-100 remove_padding">
       <h1 id="page-title">{{ collection.title }}</h1>
     </div>
     {% if collection.products.size > 0 %}
     <div class="grid-65 tablet-grid-50 mobile-grid-100">
-      
+
          {% if settings.collection_sort %}
       <div class="sort">
         <span class="title">Sort by</span>
@@ -34,14 +34,14 @@
       </div>
       {% endif %}
     </div>
-    
-    
-    
-    
-      
-      
-      
-      
+
+
+
+
+
+
+
+
       {% if settings.collection_tags %}
       {% capture col_url%}{% if collection.url.size == 0 %}/collections/all{%else%}{{collection.url}}{%endif%}{%endcapture%}
       {% if collection.all_tags.size > 0 %}
@@ -54,7 +54,7 @@
           {% endfor %}
         </select>
       </div>
-      
+
       <div class="list_tags hide-on-tablet hide-on-mobile">
         <ul class="collection_menu">
           <li><span>Sort by tag</span></li>
@@ -75,7 +75,7 @@
   </div>
   <div class="">
     {% if settings.collection_image %}
-    <header class="grid-100 section-details group_section-details clearfix"> 
+    <header class="grid-100 section-details group_section-details clearfix">
       {% if settings.collection_image %}
       <div class="grid-30 tablet-grid-50 mobile-grid-100 remove_padding">
         {% if collection.image %}
@@ -87,8 +87,8 @@
       {% endif %}
       {% if settings.collection_desc %}
       <div class="grid-70 tablet-grid-50 mobile-grid-100 remove_padding">
-        {% if collection.description != empty %} 
-        <div class="description content">{{ collection.description }}</div> 
+        {% if collection.description != empty %}
+        <div class="description content">{{ collection.description }}</div>
         {% endif %}
       </div>
       {% endif %}
@@ -96,7 +96,7 @@
     {% endif %}
     {% if collection.products.size > 0 %}
     <div class="container-nav clearfix">
-   
+
     <div class= "grid-100 tablet-grid-100 mobile-grid-100">
       <ul id="collectionListing" class="{{ settings.collection_grid_list_default }} remove_margin">
         {% for prod in collection.products limit:settings.collection_limit_items %}
@@ -105,7 +105,7 @@
         </li>
         {% endfor %}
       </ul>
-      <ul id="collectionListing1" class="{{ settings.collection_grid_list_default }} remove_margin" style="display:none;">
+      <ul id="collectionListing1" class="{{ settings.collection_grid_list_default }} remove_margin" style="">
         {% for prod in collection.products offset:settings.collection_limit_items %}
         <li class="mix collectionItem opacity_hover {{ collection.title | strip | downcase }}" data-alpha="{{prod.title}}" data-price="{{prod.price}}">
           {% include 'product-item' %}
@@ -119,9 +119,9 @@
       {% endif %}
     </div>
     <div class = "clearfix"></div>
-    {% else %}    
+    {% else %}
     <h2 class="empty">No products found in this collection.</h2>
-    {% endif %}   
+    {% endif %}
   </div>
   {% assign countproducts = collection.products_count %}
   {% assign limitproducts = settings.collection_limit_items | plus:0 %}
