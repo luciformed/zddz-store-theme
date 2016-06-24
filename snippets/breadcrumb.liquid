@@ -1,39 +1,42 @@
-<div id="breadcrumb">
-  <a href="/" class="homepage-link" title="Back to the frontpage">Home</a>
-  {% if template contains "product" %}
-    {% if collection %}          
-      <span class="separator">&raquo;</span> 
-      {% if collection.handle %}
-         {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
-         {{ collection.title | link_to: url }}
-      {% elsif collection.all_products_count > 0 and collection.products.first.type == collection.title %}
-         {{ collection.title | link_to_type }}
-      {% elsif collection.all_products_count > 0 and collection.products.first.vendor == collection.title %}
-         {{ collection.title | link_to_vendor }}
-      {% endif %}
-    {% else %}
-      <span class="separator">&raquo;</span> 
-      {{ product.type | link_to_type }}
-    {% endif %}
-     <span class="separator">&raquo;</span>
-     <span class="page-title">{{ page_title }}</span>
-  {% elsif template == "article" %}
-      <span class="separator">&raquo;</span> 
-      {{ blog.title | link_to: blog.url }}
-      <span class="separator">&raquo;</span>
-      <span class="page-title">{{ page_title }}</span>
-  {% elsif template contains "collection" %}
-      {% if current_tags.size > 0 %}
-      <span class="separator">&raquo;</span>
-      {{ collection.title | link_to: collection.url }}
-      <span class="separator">&raquo;</span>
-      <span class="page-title">{{ current_tags.first }}</span>
-      {% else %}
-      <span class="separator">&raquo;</span>
-      <span class="page-title">{{ page_title }}</span>
-      {% endif %}
-  {% else %}
-      <span class="separator">&raquo;</span>
-      <span class="page-title">{{ page_title }}</span>
-  {% endif %}
+<!--START BREADCRUMB-->
+<div id="breadcrumb" class="desktop">
+	<a href="/" {% if template == 'index' %}class="active"{% endif %}>Home</a> {% unless template == 'index' %}&mdash;{% endunless %}
+	{% if template contains 'collection' %}
+		{% if current_tags %}
+		<a href="{{collection.url }}">{{ collection.title }}</a>  &mdash;  <a href="{{ collection.url }}/{{ current_tags | handle }}" class="active">{{ current_tags }}</a>
+		{% else %}
+		<a href="{{ collection.url }}" class="active">{{ collection.title }}</a>
+		{% endif %}
+		
+	{% endif %}
+	{% if template contains 'product' %}
+		{% if collection.url contains 'collections' %}
+			<a href="{{ collection.url }}">{{ collection.title }}</a> &mdash; <a href="{{ product.url }}" class="active">{{ product.title }}</a>
+		{% else %}
+			<a href="{{ product.url }}" class="active">{{ product.title }}</a>
+		{% endif %}
+	{% endif %}
+	{% if template contains 'page' %}
+		<a href="{{ page.url }}" class="active">{{ page.title }}</a>
+	{% endif %}
+	{% if template contains 'cart' %}
+		<a href="/cart" class="active">Cart</a>
+	{% endif %}
+	{% if template contains '404' %}
+		<a href="/" class="active">Page Not Found</a>
+	{% endif %}
+	{% if template contains 'search' %}
+		<a href="/search" class="active">Search</a>
+	{% endif %}
+	{% if template == 'blog' %}
+		{% if current_tags %}
+		<a href="{{ blog.url }}">{{ blog.title }}</a>  &mdash;  <a href="{{ blog.url }}/tagged/{{ current_tags.first | handle }}" class="active">{{ current_tags.first }}</a>
+		{% else %}
+		<a href="{{ blog.url }}" class="active">{{ blog.title }}</a>
+		{% endif %}
+	{% endif %}
+	{% if template == 'article' %}
+		<a href="{{ blog.url }}">{{ blog.title }}</a> &mdash; <a href="{{ article.url }}" class="active">{{ article.title }}</a>
+	{% endif %}
 </div>
+<!--END BREADCRUMB-->

@@ -1,0 +1,150 @@
+@gutter:18px;
+
+[am-gutter] {
+  padding-right: @gutter;
+  padding-left: @gutter;
+}
+
+[am-gutter~="x2"] {
+  padding-right: @gutter * 2;
+  padding-left: @gutter * 2;
+}
+
+[am-negative-gutter]  {
+  margin-right: -(@gutter)!important;
+  margin-left: -(@gutter)!important;
+}
+
+[am-height], [am-width] {
+  flex-shrink:0;
+}
+
+[am-height~="auto"] {
+  height:auto;
+  flex: 0 0 auto!important;
+  flex-basis:auto!important; /*IE*/
+}
+
+[am-width~="auto"] {
+  width:auto;
+  flex: 0 0 auto!important;
+  flex-basis:auto!important;
+}
+
+[am-height~="parent"] {
+  height:100%;
+}
+[am-width~="parent"] {
+  width:100%;
+}
+
+
+[am-offset-right][am-offset-right~="gutter"] {
+  margin-right: @gutter;
+}
+
+
+[am-offset-left][am-offset-left~="gutter"] {
+  margin-left: @gutter;
+}
+
+[am-offset-right][am-offset-right~="gutter/2"] {
+  margin-right: @gutter / 2;
+}
+
+
+[am-offset-left][am-offset-left~="gutter/2"] {
+  margin-left: @gutter / 2;
+}
+
+[am-offset-top][am-offset-top~="gutter"] {
+  margin-top: @gutter;
+}
+
+
+[am-offset-bottom][am-offset-bottom~="gutter"] {
+  margin-bottom: @gutter;
+}
+
+[am-offset-top][am-offset-top~="gutter/2"] {
+  margin-top: @gutter / 2;
+}
+
+
+[am-offset-bottom][am-offset-bottom~="gutter/2"] {
+  margin-bottom: @gutter / 2;
+}
+
+
+[am-offset-right~="auto"]{
+  margin-right:auto!important;
+}
+
+[am-offset-left~="auto"]{
+  margin-left:auto!important;
+}
+
+[am-offset-top~="auto"]{
+  margin-top:auto!important;
+}
+
+[am-offset-bottom~="auto"]{
+  margin-bottom:auto!important;
+}
+
+
+
+.loop-sizes(30);
+
+.loop-sizes(@index) when (@index > 0) {
+
+
+  [am-offset-top][am-offset-top~="x@{index}"] {
+    margin-top: @index * @height-single;
+  }
+
+  [am-offset-bottom][am-offset-bottom~="x@{index}"] {
+    margin-bottom: @index * @height-single;
+  }
+
+  [am-offset-left][am-offset-left~="x@{index}"] {
+    margin-left: @index * @height-single;
+  }
+
+  [am-offset-right][am-offset-right~="x@{index}"] {
+    margin-right: @index * @height-single;
+  }
+
+  [am-height~="x@{index}"] {
+    height: @index * @height-single;
+    max-height: @index * @height-single;
+
+    [am-Grid-Col] > & {
+      flex-basis:@index * @height-single;  // firefox
+    }
+  }
+  [am-width~="x@{index}"] {
+    width: @index * @width-single;
+    max-width: @index * @width-single;
+
+    [am-Grid-Row] > & {
+      flex-basis:@index * @width-single;  // firefox
+    }
+  }
+  [am-min-height][am-min-height~="x@{index}"] {
+    min-height: @index * @height-single;
+  }
+  [am-min-width][am-min-width~="x@{index}"] {
+    min-width: @index * @width-single;
+  }
+  .loop-sizes((@index - 1));
+  // next iteration
+}
+
+[am-scroll] {
+  overflow-y: auto;
+}
+
+[am-pos~="rel"],[am-pos~="relative"] {
+  position: relative;
+}

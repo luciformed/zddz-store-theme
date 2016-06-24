@@ -1,50 +1,38 @@
-
-<div class= "grid-container remove_padding" id="page-header">
-  <h1 id="page-title">{{ blog.title }}</h1>
+{% paginate blog.articles by 5 %}
+{% include 'breadcrumb' %}
+<!--START BLOG-->
+<div class="twelve columns alpha omega">
+	{% for article in blog.articles %}
+	<!--START POST-->
+	<article class="post {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %} clearfix">
+		<div class="two columns alpha date">
+			{{ article.published_at | date: '%d' }}
+			<span>{{ article.published_at | date: '%b' }}</span>
+		</div>
+		<div class="ten columns content omega clearfix">
+			<h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+			<div class="info clearfix">
+				<div class="eight columns alpha">
+					Posted by <b>{{ article.author }}</b> {% if article.tags.size > 0 %}in {% for tag in article.tags %}<a href="{{ blog.url }}/tagged/{{tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}
+				</div>
+				{% if blog.comments_enabled? %}
+				<div class="two columns omega comment-count">
+					<a href="{{ article.url }}#comments">{{ article.comments_count }} Comments</a>
+				</div>
+				{% endif %}
+			</div>
+			{% if article.excerpt.size > 0 %}
+		       <div class="wysisyg">
+					{{ article.excerpt }}
+				</div>
+		     {% else %}
+		       <p>{{ article.content }}</p>
+		     {% endif %}
+		</div>
+	</article>
+	<!--END POST-->
+	{% endfor %}
+	{% include 'paging' %}
 </div>
-<div id="col-main" class="content {% if(settings.blog_sidebar_show) %} grid-75 tablet-grid-70{% else %}grid-100{% endif %} remove_padding">
-  
-  {% if(settings.blog_sidebar_show) %}
-  <div class="remove_margin">
-    {% endif %}
-    
-    {% paginate blog.articles by settings.blog_pagination_limit %}
-    
-    {% for article in blog.articles %}
-    {% assign limitblog = settings.blog_pagination_limit | plus:0 %}
-    {% assign blogmod=forloop.index | modulo : limitblog %}
-    <article class="post align-left clearfix">
-      <h2 class="title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h2>
-      
-      {{ article.excerpt_or_content }}
-      
-      <footer class="article-extras f_blog{% if blogmod == 0 or forloop.length == forloop.index %} f_blog_last{% endif %} clearfix">
-        <span class="author"><span class="written">Posted by</span> <strong class="admin">{{ article.author | escape }}</strong></span>
-        <span class="date"><i> on </i> {{ article.created_at | date: "%B %d, %Y" }} </span>
-        {% if article.comments_count > 0 %}
-        <span class="num-comment"><a href="{{article.url}}#comments">{{ article.comments_count }} {{ article.comments_count | pluralize: 'comment', 'comments' }}</a></span>
-        {% endif %}
-      <p class="readmore-link">
-        <a href="{{article.url}}#comments" class = "button" title="Read more blog"> Read More </a>
-      </p>
-    </footer><!-- /.article-extras -->
-  </article>
-  
-  {% endfor %}
-  
-  {% include 'pagination' %}
-  
-  {% endpaginate %}
-  
-  {% if(settings.blog_sidebar_show) %}
-</div>
-{% endif %}
-</div> <!-- /#col-main -->
-
-{% if(settings.blog_sidebar_show) %}
-<!-- Begin sidebar -->
-<div class="grid-25 tablet-grid-30 asider">
-  {% include 'sidebar-blog' %}
-</div>
-<!-- End sidebar -->
-{% endif %}
+<!--END BLOG-->
+{% endpaginate %}

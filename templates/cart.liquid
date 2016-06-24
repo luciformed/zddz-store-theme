@@ -1,93 +1,76 @@
-<div id="col-main" class="full content">
-
-  <div id="page-header">
-    <h1 id="page-title">Shopping Cart</h1>
-  </div>
-
-  {% if cart.items == empty %} 
-    <p class="cart empty">Your shopping cart is empty. Check out our <a href="/collections/all">catalog</a> to see what's available.</p>
-
-  {% else %}
-    <form action="/cart" method="post" id="cartform" class="clearfix">
-      <div class="grid-container remove_padding">
-        <div class="wrap-table">
-          <table class="items">
-            <colgroup>
-              <col class="checkout-image" />
-              <col class="checkout-info" />
-              <col class="checkout-price" />
-              <col class="checkout-quantity" />
-              <col class="checkout-totals" />
-              <col class="checkout-delete" />
-            </colgroup>
-            
-            <thead>
-              <tr class="top-labels">
-                <th>&nbsp;</th>
-                <th class="text-left">Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>&nbsp;</th>
-              </tr>
-            </thead>
-            
-            <tbody>
-              {% for item in cart.items %}
-              <tr class="item {{ item.product.handle }}">
-                <td class="img">
-                  <a href="{{ item.product.url }}">
-                    <img src="{{ item.product.featured_image | product_img_url: 'small' }}"  alt="{{ item.product.title }}" />
-                  </a>
-                </td>
-                <td class="align-left td_description">
-                  <a href="{{item.product.url }}">
-                    <strong>{{ item.product.title }}</strong>
-                    {% if item.product.variants.size > 1 %}
-                    <span class="variant_title">{{ item.variant.title }}</span>
-                    {% endif %}
-                  </a>
-                </td>
-                <td class="price">{{ item.price | money }}</td>
-                <td> <input class="text1 quantity" type="text" size="4" id="updates_{{ item.id }}" name="updates[]" value="{{ item.quantity }}" class="replace" /> </td>
-                <td class="total">{{ item.line_price | money }}</td>
-                <td><a class="remove" title="Remove" href="/cart/change?line={{ forloop.index }}&quantity=0"><i class = "icon-remove-circle"></i></a></td>
-              </tr>
-              {% endfor %}
-            </tbody>
-            
-            <tfoot>
-              <tr class="bottom-summary">
-                <td colspan="3"></td>
-                <td class="update-quantities"><input type="submit" id="update-cart" class="button2" name="update" value="Update Qty" /></td>
-                <td class="subtotal">{{ cart.total_price | money }}</td>
-                <td>&nbsp;</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-      
-      <div class="grid-container remove_padding">
-        {% if settings.allow_note %}
-        <div id="checkout-addnote" class="grid-50 tablet-grid-50 mobile-grid-100 remove_padding">
-          <label for="note" class="label1"><a href="javascript:void(0);">Add a note for the seller</a></label>
-          <textarea id="note" rows="5" class="textarea1 width1" name="note">{{ cart.note }}</textarea>
-        </div>
-        {% endif %}
-        
-        <div id="checkout-proceed" class="grid-50 tablet-grid-50 mobile-grid-100 remove_padding">
-          <input class="button1" type="submit" name="checkout" value="Proceed to Checkout" />
-          {% if additional_checkout_buttons %}
-          <div id="additional-checkout-buttons">
-            <span id="additional-checkout-buttons-label">Or check out using:</span>
-            {{ content_for_additional_checkout_buttons }}
-          </div>
-          {% endif %}                       
-        </div>
-      </div>
-    </form>
-  {% endif %}
-
-  {% include 'shipping-calculator' %}
-</div><!--/#col-main -->
+{% include 'breadcrumb' %}
+<h1>My Cart</h1>
+<section id="cart">
+	{% if cart.item_count > 0 %}
+	<form action="/cart" method="post">
+		<!--START CART CONTENTS-->
+		<div class="twelve columns alpha omega">
+			<!-- START HEADERS-->
+			<div class="headers clearfix">
+				<div class="six columns alpha description">
+					Description
+				</div>
+				<div class="two columns price desktop">
+					Price
+				</div>
+				<div class="one columns quantity desktop">
+					Qty
+				</div>
+				<div class="two columns total desktop">
+					<span>Total</span>
+				</div>
+			</div>
+			<!-- END HEADERS-->
+			 {% for item in cart.items %}  
+			<!-- START ROW-->
+			<div class="row">
+				<div class="six columns alpha description">
+					<img src="{{ item.product.featured_image.src | product_img_url: 'compact' }}" alt="{{ item.title | escape }}" />
+					<div class="info">
+						<h3><a href="{{ item.product.url | within: collections.all }}">{{ item.title }}</a></h3>
+						<h4>{{ item.vendor }}</h4>
+						<p>{{ item.product.description | strip_html | truncatewords: 20 }}</p>
+						
+					</div>
+				</div>
+				<div class="two columns price desktop">
+					{{ item.price | money }} 
+				</div>
+				<div class="one columns quantity tr">
+					<input type="text" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" /> <p class="mobile">x {{ item.price | money }}</p>
+				</div>
+				<div class="two columns total desktop">
+					<span>{{ item.line_price | money }} </span>
+				</div>
+				<div class="one column remove omega desktop">
+					<a href="/cart/change?line={{ forloop.index }}&quantity=0">x</a>
+				</div>
+			</div>
+			<!-- END ROW-->
+			{% endfor %}
+		</div>
+		<!--END CART CONTENTS-->
+		<br class="clear">
+		<!--START TOTAL-->
+		<div class="twelve columns alpha omega row">
+			<div class="six columns alpha continue-shopping"><a href="/collections/all">« Continue Shopping</a></div>
+			<div class="six columns omega cart total"><h2>Total {{ cart.total_price | money }}</h2></div>
+		</div>
+		<!--END TOTAL-->
+		<br class="clear">
+		<!-- START ACTIONS -->
+		<div class="twelve columns alpha omega">
+			<div class="six columns alpha">
+				<textarea id="note" name="note" placeholder="Add a note to your order...">{{ cart.note }}</textarea>
+			</div>
+			<div class="six columns omega actions">
+		 		<input type="submit" id="update" name="update" value="Update" />
+				<input type="submit" id="checkout" name="checkout" value="Check Out" />
+			</div>
+		</div>
+		<!-- END ACTIONS -->
+	</form>
+	{% else %}
+	 <p>It appears that your cart is currently empty! <a href="/collections/all">Continue Shopping</a>.</p>
+	{% endif %}
+</section>

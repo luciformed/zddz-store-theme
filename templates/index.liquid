@@ -1,428 +1,74 @@
-<div id="col-main">
-  <!-- slider-home -->
-  {% if settings.slider_home_show %}
-  <div class="slider-home">
-    <a id="prev-bt-slider" href="#"><i class="icon-chevron-left"></i></a>
-    <a id="next-bt-slider" href="#"><i class="icon-chevron-right"></i></a>
-    <div class="list_carousel responsive clearfix">
-      <ul id="bt-slider" class="clearfix">
-        {% if settings.show_image_item_1 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_1_link != empty %}
-          <a href="{{ settings.image_item_1_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-1.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_1_alt }}" />
-            <h2>{{ settings.image_item_1_alt }}</h2>
-            {% if settings.show_small_image_item_1 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-1-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_1_alt }}"/>
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-1.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_1_alt }}" />
-            {% if settings.show_small_image_item_1 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-1-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_1_alt }}" />
-            {% endif %}
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_2 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_2_link != empty %}
-          <a href="{{ settings.image_item_2_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-2.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_2_alt }}" />
-            {% if settings.show_small_image_item_2 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-2-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_2_alt }}" />
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-2.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_2_alt }}" />
-            {% if settings.show_small_image_item_2 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-2-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_2_alt }}" />
-            {% endif %}   
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_3 %}
-        <li class="opacity_hover">
-          
-          
-                   
-          {% if settings.image_item_3_link != empty %}
-          
-          {% if customer.tags contains 'madetoorder' %}
-          <a href="collections/made-to-order/">
-          {% else %}     
-          <a href="{{ settings.image_item_3_link }}">
-            
-            {% endif %}
-            
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-3.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_3_alt }}" />
-            {% if settings.show_small_image_item_3 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-3-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_3_alt }}" />
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-3.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_3_alt }}" />
-            {% if settings.show_small_image_item_3 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-3-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_3_alt }}" />
-            {% endif %}
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_4 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_4_link != empty %}
-          <a href="{{ settings.image_item_4_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-4.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_4_alt }}" />
-            {% if settings.show_small_image_item_4 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-4-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_4_alt }}" />
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-4.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_4_alt }}" />
-            {% if settings.show_small_image_item_4 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-4-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_4_alt }}" />
-            {% endif %} 
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_5 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_5_link != empty %}
-          <a href="{{ settings.image_item_5_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-5.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_5_alt }}" />
-            {% if settings.show_small_image_item_5 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-5-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_5_alt }}" />
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-5.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_5_alt }}" />
-            {% if settings.show_small_image_item_5 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-5-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_5_alt }}" />
-            {% endif %}
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_6 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_6_link != empty %}
-          <a href="{{ settings.image_item_6_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-6.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_6_alt }}" />
-            {% if settings.show_small_image_item_6 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-6-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_6_alt }}" />
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-6.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_6_alt }}" />
-            {% if settings.show_small_image_item_6 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-6-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_6_alt }}" />
-            {% endif %}
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_7 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_7_link != empty %}
-          <a href="{{ settings.image_item_7_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-7.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_7_alt }}" />
-            {% if settings.show_small_image_item_7 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-7-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_7_alt }}" />
-            {% endif %}
-          </a>
-          
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-7.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_7_alt }}" />
-            {% if settings.show_small_image_item_7 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-7-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_7_alt }}" />
-            {% endif %} 
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_8 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_8_link != empty %}
-          <a href="{{ settings.image_item_8_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-8.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_8_alt }}" />
-            {% if settings.show_small_image_item_8 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-8-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_8_alt }}" />
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-8.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_8_alt }}" />
-            {% if settings.show_small_image_item_8 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-8-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_8_alt }}" />
-            {% endif %}
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_9 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_9_link != empty %}
-          <a href="{{ settings.image_item_9_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-9.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_9_alt }}" />
-            {% if settings.show_small_image_item_9 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-9-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_9_alt }}" />
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-9.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_9_alt }}" />
-            {% if settings.show_small_image_item_9 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-9-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_9_alt }}" />
-            {% endif %}
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_item_10 %}
-        <li class="opacity_hover">
-          {% if settings.image_item_10_link != empty %}
-          <a href="{{ settings.image_item_10_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-10.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_10_alt }}" />
-            {% if settings.show_small_image_item_10 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-10-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_10_alt }}" />
-            {% endif %}
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-10.jpg' | asset_url }}" class="hover unveil" alt="{{ settings.image_item_10_alt }}" />
-            {% if settings.show_small_image_item_10 %}
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-item-10-small.png' | asset_url }}" class="hover unveil small_image" alt="{{ settings.image_item_10_alt }}" />
-            {% endif %}
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-      </ul>
-      <div class="clearfix"></div>
-    </div>
-    
-  
-  </div>
-  {% endif %}
-  
-  {% if settings.show_that_page_on_homepage %}
-  <div class = "page_show_homepage">
-    {{ pages[settings.page_to_show_homepage].content }}
-  </div>
-  {% endif %}
-  
-  {% include 'if-shop-has-no-products' %}
-  {% if settings.tabs_on_homepage %}
-  {% include 'home-tabs' %}
-  {% endif %}  
-  <!-- slider logo -->
-  {% if settings.slider_logo_show %}
-  <div class="clearfix"><span class="line"></span></div>
-  <section class="slider-logo clearfix">
-    <a id="prev-logo-slider" href="#"><i class="icon-chevron-left"></i></a>
-    <a id="next-logo-slider" href="#"><i class="icon-chevron-right"></i></a>
-    <div class="list_carousel responsive wrap_list_carousel1 clearfix">
-      <ul id="logo-slider" class="clearfix">
-        {% if settings.show_image_logo_1 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_1_link != empty %}
-          <a href="{{ settings.image_logo_1_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-1.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_1_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-1.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_1_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_2 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_2_link != empty %}
-          <a href="{{ settings.image_logo_2_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-2.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_2_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-2.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_2_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_3 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_3_link != empty %}
-          <a href="{{ settings.image_logo_3_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-3.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_3_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-3.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_3_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_4 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_4_link != empty %}
-          <a href="{{ settings.image_logo_4_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-4.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_4_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-4.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_4_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_5 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_5_link != empty %}
-          <a href="{{ settings.image_logo_5_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-5.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_5_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-5.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_5_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_6 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_6_link != empty %}
-          <a href="{{ settings.image_logo_6_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-6.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_6_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-6.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_6_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_7 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_7_link != empty %}
-          <a href="{{ settings.image_logo_7_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-7.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_7_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-7.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_7_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_8 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_8_link != empty %}
-          <a href="{{ settings.image_logo_8_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-8.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_8_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-8.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_8_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_9 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_9_link != empty %}
-          <a href="{{ settings.image_logo_9_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-9.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_9_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-9.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_9_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-        
-        {% if settings.show_image_logo_10 %}
-        <li class="opacity_hover">
-          {% if settings.image_logo_10_link != empty %}
-          <a href="{{ settings.image_logo_10_link }}">
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-10.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_10_alt }}" />
-          </a>
-          {% else %}
-          <a>
-            <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ 'image-logo-10.png' | asset_url }}" class="hover unveil" alt="{{ settings.image_logo_10_alt }}" />
-          </a>
-          {% endif %}
-        </li>
-        {% endif %}
-      </ul>
-    </div>
-    
-    <script type="text/javascript">
-      jQuery(document).ready(function($) {
-        $("#logo-slider").carouFredSel({
-          circular: false,
-          infinite: false,
-          responsive: true,
-          //mousewheel: true,
-          width: '100%',
-          auto: false,
-          prev: '#prev-logo-slider',
-          next: '#next-logo-slider',
-          swipe: {
-            onMouse: false,
-            onTouch: true
-          },
-          items: {
-            width: 200,
-            height: 70,	//	optionally resize item-height
-            visible: {
-              min: 1,
-              max: 6
-            }
-          }
-        });
-        var li_logo_slider = $('#logo-slider').find('li');
-        li_logo_slider.each(function(index) {
-          $(this).addClass('text-center');      
-        });
-      });
-    </script>
-  </section>
-  {% endif %}
-  
-  <!-- box text -->
-  {% if settings.box_text %}
-  <div class = "box_text clearfix">
-    <p>{{settings.box_text_content}}</p>
-  </div>
-  {% endif %}
-  
-</div><!-- /#col-main -->
+{% if settings.show_frontpage_hero == true %}
+<!--START BANNER-->
+<div class="twelve columns alpha omega">
+	<section id="hero" class="alpha omega animated fadeInUpBig {% if settings.frontpage_hero_header == blank %}no-text{% endif %}">
+		<a href="{{ settings.banner_url }}"><img src="{{ 'hero.jpg' | asset_url }}" alt="{{ settings.frontpage_hero_alt }}"></a>
+	</section>
+</div>
+<!--END BANNER-->
+{% endif %}
+
+ {% if collections[settings.frontpage_collection].products.size == 0 %}
+
+ <br>
+
+ <div class="helper-section clearfix">
+
+ 	<div class="note helper-note">
+ 		<h3>Add a product to the Frontpage collection</h3>
+ 		<p>It takes less than a minute to <a href="/admin/products">add your first product</a> to your store. Make sure you add it to the <strong>Frontpage</strong> collection.</p>
+ 		<p class="p0">You can also pick which collection gets featured in this area or show a banner here by editing your <a href="/admin/themes/current/settings">Theme Settings</a>.</p>
+ 	</div>
+
+ 	<div class="helper-content">
+
+ 		 <section class="product-grid twelve columns alpha omega">
+
+ 		 <div class="four columns alpha">
+ 		 	<a href="#" id="product-1" class="animated fadeInUpBig">
+ 		 		<div class="sample-product-wrapper">
+ 		 			<div class="sample-product">Product image</div>
+ 		 		</div>
+ 		 		<h3>Test Product</h3>
+ 		 		<h4><small>From</small> {{ 2000 | money }} </h4>
+ 		 	</a>
+ 		 </div>
+
+ 		 <div class="four columns">
+ 		 	<a href="#" id="product-1" class="animated fadeInUpBig">
+ 		 		<div class="sample-product-wrapper">
+ 		 			<div class="sample-product">Product image</div>
+ 		 		</div>
+ 		 		<h3>Test Product</h3>
+ 		 		<h4><small>From</small> {{ 2000 | money }} </h4>
+ 		 	</a>
+ 		 </div>
+
+ 		 <div class="four columns omega">
+ 		 	<a href="#" id="product-1" class="animated fadeInUpBig">
+ 		 		<div class="sample-product-wrapper">
+ 		 			<div class="sample-product">Product image</div>
+ 		 		</div>
+ 		 		<h3>Test Product</h3>
+ 		 		<h4><small>From</small> {{ 2000 | money }} </h4>
+ 		 	</a>
+ 		 </div>
+ 		 
+ 		</section>
+ 		
+ 	</div><!-- helper content -->
+ </div><!-- helper section -->
+
+{% else %}
+
+<br>
+
+
+<section class="product-grid twelve columns alpha omega">
+	{% assign collection = collections.[settings.frontpage_collection] %}
+	{% for product in collection.products %}
+		{% include 'product-grid-item' %}
+	{% endfor %}
+</section>
+
+{% endif %}

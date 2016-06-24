@@ -1,91 +1,28 @@
-<div id="col-main" class="content grid-100 tablet-grid-100 mobile-grid-100 remove_padding">
-  
-  {% if settings.show_sidebar_prodcoll %}
-  <div class="remove_margin">
-  {% endif %}
-    
-  <div id="page-header">
-    <h1 id="page-title">Search</h1>  
-  </div>
-  
-    <div class="grid-container search-page ">
-      <form id="search-form" name="search" action="/search">
-        <div class="grid-100 tablet-grid-100 mobile-grid-100">
-          <input type="text" x-webkit-speech id="q" name="q" value="" title="Search" placeholder="Search" />
-          <input type="submit" class="remove_margin" id="search-submit" alt="Search" value="Search" />
-        </div>
-      </form>  
-    </div>
-
-  {% if search.performed %}
-    {% paginate search.results by settings.search_pagination_limit %}  
-      {% if search.results.size > 0 %}
-          
-      <div class="container-nav clearfix">
-         {% if settings.collection_sort %}
-        <div class="sort">
-          <span class="title">Sort by</span>
-          <a id="sortButton" href="#"><label for="sortForm">Random</label><span class="sortArrow"></span></a>
-          <div id="sortBox" style="display:none;">
-            <ul id="sortForm">
-              <li class="sort" data-sort="data-alpha" data-order="desc">Name: A to Z</li>
-              <li class="sort" data-sort="data-alpha" data-order="asc">Name: Z to A</li>
-              <li class="sort" data-sort="data-price" data-order="desc">Price: Low to High</li>
-              <li class="sort" data-sort="data-price" data-order="asc">Price: High to Low</li>
-              <li class="sort" data-sort="random">Random</li>
-            </ul>
-          </div>
-        </div>
-        {% endif %}
-        {% if settings.collection_grid_list %}
-        <div class="grid_list hide-on-mobile">
-          <ul>
-            <li id="lgrid" class="{% if settings.collection_grid_list_default == 'grid' %} active{% endif %}">
-              <a href="javascript:void(0);" id="gridview" class="switcher" title="Grid"><span>Grid</span></a>
-            </li>
-            
-            <li id="llist" class="{% if settings.collection_grid_list_default == 'list' %} active{% endif %}">
-              <a href="javascript:void(0);" id="listview" class="switcher" title="List"><span>List</span></a>
-            </li>
-          </ul>
-        </div>
-        {% endif %}
-        
-      </div>
-    
-      <ul id="collectionListing" class="{{ settings.collection_grid_list_default }} remove_margin clearfix">
-        {% for prod in search.results %}
-        <li class="mix collectionItem opacity_hover" data-alpha="{{prod.title}}" data-price="{{prod.price}}">
-          {% if prod.url contains 'products' %}
-          	{% include 'product-item' %}
-          {% else %}
-          	{% include 'other-item' %}
-          {% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-    
-      {% include 'pagination' %}
-  
-  	{% else %}
-  	<h2 class="empty">Your search for "{{ search.terms | escape }}" did not return any results.</h2>
-  	{% endif %}
-  
-  	{% endpaginate %}
-  {% else %}
-  <h2 class="empty">Your search for "{{ search.terms | escape }}" did not return any results.</h2>
-  {% endif %}
-
-  {% if settings.show_sidebar_prodcoll %}
-  </div>
-  {% endif %}
-</div><!-- /#col-main -->
-<script type="text/javascript">
-  jQuery(document).ready(function($){
-    {% if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' %}
-        /* Fancybox */
-        $(".fancybox").fancybox({
-        });
-     {% endif %}
-     });
-</script>
+{% include 'breadcrumb' %}
+{% paginate search.results by 50 %}
+<h1>Search Results</h1>
+{% if search.performed %}
+	{% if search.results_count == 0 %}  
+	<div id="keyword">
+		No results found for <span>{{ search.terms | escape }}</span>
+	</div>
+	{% else %}
+	<div id="keyword">
+		Showing results for <span>{{ search.terms | escape }}</span>
+	</div>
+	<!--START PRODUCT GRID-->
+	<section class="product-grid">
+		{% for item in search.results %}
+			{% assign product = item %}
+			{% include 'product-grid-item' %}
+		{% else %}
+			<p>There are no products in this view.</p>
+		{% endfor %}
+	</section>
+	<!--END PRODUCT GRID-->
+	{% endif %}
+{% else %}
+<p>No search performed. If you are looking for something, please try our <a href="/">homepage</a></p></p>
+{% endif %}
+{% include 'paging' %}
+{% endpaginate %} 

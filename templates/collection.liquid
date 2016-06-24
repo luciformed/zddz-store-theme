@@ -1,140 +1,43 @@
-<div id="col-main" class="{{ collection.handle }} grid-100 tablet-grid-100 remove_padding">
-  <div id="page-header"  class="grid-100 tablet-grid-100 remove_padding">
-    <div class="grid-35 tablet-grid-50 mobile-grid-100 remove_padding">
-      <h1 id="page-title">{{ collection.title }}</h1>
-    </div>
-    {% if collection.products.size > 0 %}
-    <div class="grid-65 tablet-grid-50 mobile-grid-100">
-
-         {% if settings.collection_sort %}
-      <div class="sort">
-        <span class="title">Sort by</span>
-        <a id="sortButton" href="#"><i class="icon-caret-down"></i><label for="sortForm">Random</label><span class="sortArrow"></span></a>
-        <div id="sortBox" style="display:none;">
-          <ul id="sortForm">
-            <li class="sort" data-sort="data-alpha" data-order="desc">Name: A to Z</li>
-            <li class="sort" data-sort="data-alpha" data-order="asc">Name: Z to A</li>
-            <li class="sort" data-sort="data-price" data-order="desc">Price: Low to High</li>
-            <li class="sort" data-sort="data-price" data-order="asc">Price: High to Low</li>
-            <li class="sort" data-sort="random">Random</li>
-          </ul>
-        </div>
-      </div>
-      {% endif %}
-      {% if settings.collection_grid_list %}
-      <div class="grid_list hide-on-mobile">
-        <ul>
-          <li id="lgrid" class="{% if settings.collection_grid_list_default == 'grid' %} active{% endif %}">
-            <a href="javascript:void(0);" id="gridview" class="tooltip-tipsy switcher" title="Grid"><span>Grid</span></a>
-          </li>
-          <li id="llist" class="{% if settings.collection_grid_list_default == 'list' %} active{% endif %}">
-            <a href="javascript:void(0);" id="listview" class="tooltip-tipsy switcher" title="List"><span>List</span></a>
-          </li>
-        </ul>
-      </div>
-      {% endif %}
-    </div>
-
-
-
-
-
-
-
-
-      {% if settings.collection_tags %}
-      {% capture col_url%}{% if collection.url.size == 0 %}/collections/all{%else%}{{collection.url}}{%endif%}{%endcapture%}
-      {% if collection.all_tags.size > 0 %}
-      <div class="browse-tags hide-on-desktop">
-        <label>Sort by tag:</label>
-        <select name="collection_tags" id="collection_tags" class="loc_on_change">
-          <option value="{{ col_url }}">All</option>
-          {% for tag in collection.all_tags %}
-          <option value="/collections/{{ collection.handle }}/{{ tag | handle }}"{% if current_tags contains tag %} selected="selected" {% endif %}>{{ tag }}</option>
-          {% endfor %}
-        </select>
-      </div>
-
-      <div class="list_tags hide-on-tablet hide-on-mobile">
-        <ul class="collection_menu">
-          <li><span>Sort by tag</span></li>
-          <li{% unless current_tags %} class="active"{% endunless %}><a href="{{ col_url }}">All</a></li>
-          {% for tag in collection.all_tags %}
-          {% if current_tags contains tag %}
-          <li class="active{% if forloop.length == forloop.index %} last{% endif %}">{{ tag | link_to_tag: tag }}</li>
-          {% else %}
-          <li{% if forloop.length == forloop.index %} class="last"{% endif %}>{{ tag | link_to_tag: tag }}</li>
-          {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-      {% endif %}
-    </div>
-    {% endif %}
-  </div>
-  <div class="">
-    {% if settings.collection_image %}
-    <header class="grid-100 section-details group_section-details clearfix">
-      {% if settings.collection_image %}
-      <div class="grid-30 tablet-grid-50 mobile-grid-100 remove_padding">
-        {% if collection.image %}
-        <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ collection.image.src | collection_img_url: 'medium' }}" class="collection-photo unveil" alt="{{ collection.title | escape }}" />
-        {% else %}
-        <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ collection.products.first.featured_image | product_img_url: 'medium' }}" class="product-photo unveil" alt="{{ collection.title | escape }}" />
-        {% endif %}
-      </div>
-      {% endif %}
-      {% if settings.collection_desc %}
-      <div class="grid-70 tablet-grid-50 mobile-grid-100 remove_padding">
-        {% if collection.description != empty %}
-        <div class="description content">{{ collection.description }}</div>
-        {% endif %}
-      </div>
-      {% endif %}
-    </header>
-    {% endif %}
-    {% if collection.products.size > 0 %}
-    <div class="container-nav clearfix">
-
-    <div class= "grid-100 tablet-grid-100 mobile-grid-100">
-      <ul id="collectionListing" class="{{ settings.collection_grid_list_default }} remove_margin">
-        {% for prod in collection.products limit:settings.collection_limit_items %}
-        <li class="mix collectionItem opacity_hover {% for collection in prod.collections %}{{ collection.title | strip | downcase }} {% endfor %}" data-alpha="{{prod.title}}" data-price="{{prod.price}}">
-          {% include 'product-item' %}
-        </li>
-        {% endfor %}
-      </ul>
-      <ul id="collectionListing1" class="{{ settings.collection_grid_list_default }} remove_margin" style="">
-        {% for prod in collection.products offset:settings.collection_limit_items %}
-        <li class="mix collectionItem opacity_hover {{ collection.title | strip | downcase }}" data-alpha="{{prod.title}}" data-price="{{prod.price}}">
-          {% include 'product-item' %}
-        </li>
-        {% endfor %}
-      </ul>
-      {% assign counthtproducts = prod.products_count %}
-      {% assign limitproducts = settings.collection_limit_items | plus:0 %}
-      {% if counthtproducts > limitproducts %}
-      <div class="grid-100 tablet-grid-100 mobile-grid-100 text-center"><button id = "showmoreht" onclick = "showmore()">Show More</button></div>
-      {% endif %}
-    </div>
-    <div class = "clearfix"></div>
-    {% else %}
-    <h2 class="empty">No products found in this collection.</h2>
-    {% endif %}
-  </div>
-  {% assign countproducts = collection.products_count %}
-  {% assign limitproducts = settings.collection_limit_items | plus:0 %}
-  {% if collection.products_count > limitproducts %}
-  <div class = "grid-100 tablet-grid-100 mobile-grid-100 text-center"><button id = "showmore" onclick = "showmore()">Show More</button></div>
-  {% endif %}
-</div> <!-- /#col-main -->
-<script type="text/javascript">
-  jQuery(document).ready(function($){
-    {% if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' %}
-        /* Fancybox */
-        $(".fancybox").fancybox({
-        });
-     {% endif %}
-     });
-</script>
+{% paginate collection.products by 50 %} 
+{% include 'breadcrumb' %}
+{% if current_tags %}
+<h1>{{ current_tags }}</h1>
+{% else %}
+<h1>{{ collection.title }} </h1>
+{% endif %}
+{% assign show_hero = false %}
+{% if collection.image %}
+	{% assign show_hero = true %}
+{% endif %}
+{% if collection.description.size > 0 %}
+	{% assign show_hero = true %}
+{% endif %}
+{% if show_hero == true %}
+	{% unless current_tags %}
+	<!--START HERO-->
+	<div class="twelve columns alpha omega">
+		{% if collection.image %}
+			<section id="collection-hero" class="animated fadeInUpBig">
+				<img src="{{ collection.image.src | collection_img_url: 'large' }}" alt="{{ collection.title }}">
+			</section>
+		{% endif %}
+		{% if collection.description.size > 0 %}
+			<p id="collection-description" class="animated fadeInUpBig wysiwyg">{{ collection.description | strip_html }}</p>
+		{% endif %}
+	</div>
+	<!--END HERO-->
+	{% endunless %}
+{% endif %}
+<!--START PRODUCT GRID-->
+<section class="product-grid twelve columns alpha omega">
+	{% if collection.products.size > 0 %}
+		{% for product in collection.products %}
+			{% include 'product-grid-item' %}
+		{% endfor %}
+	{% else %}
+		<p id="no-products" class="animated fadeInUpBig">There aren't any products in this collection!</p>
+	{% endif %}
+</section>
+<!--END PRODUCT GRID-->
+{% include 'paging' %}
+{% endpaginate %}
