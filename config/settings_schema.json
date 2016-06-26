@@ -1,1 +1,320 @@
-[{"name":"Aesthetics","settings":[{"type":"header","content":"Colours"},{"type":"color","id":"background_color","label":"Background color","default":"#ffffff"},{"type":"color","id":"first_color","label":"Primary color","default":"#333333","info":"Text color, dark borders"},{"type":"color","id":"second_color","label":"Secondary color","default":"#999999","info":"Used for links hover states and light text"},{"type":"color","id":"heading_color","label":"Headings color","default":"#999999","info":"Used for text headings"},{"type":"color","id":"lighter_color","label":"Lighter border color","default":"#e8e8e8","info":"Used for light borders"},{"type":"color","id":"accent_color","label":"Accent color","default":"#ff0000","info":"Sale icon"},{"type":"header","content":"Fonts"},{"type":"select","id":"header_font","label":"Headers","options":[{"value":"Times, TimesNewRoman, 'Times New Roman', Baskerville, Georgia, serif","label":"Times"},{"value":"'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif","label":"Helvetica\/Arial"},{"value":"'PT Serif', serif","label":"PT Serif"},{"value":"'Cabin', sans-serif","label":"Cabin"},{"value":"'Source Sans Pro', sans-serif","label":"Source Sans Pro"},{"value":"'Open Sans Condensed', sans-serif","label":"Open Sans Condensed"}],"default":"Times, TimesNewRoman, 'Times New Roman', Baskerville, Georgia, serif"},{"type":"select","id":"body_font","label":"Body Font","options":[{"value":"'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif","label":"Helvetica\/Arial"},{"value":"Times, TimesNewRoman, 'Times New Roman', Baskerville, Georgia, serif","label":"Times"},{"value":"'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace","label":"Courier"},{"value":"'PT Serif', serif","label":"PT Serif"},{"value":"'Source Sans Pro', sans-serif","label":"Source Sans Pro"},{"value":"'Open Sans Condensed', sans-serif","label":"Open Sans Condensed"}],"default":"'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif"}]},{"name":"Header","settings":[{"type":"header","content":"Logos"},{"type":"checkbox","id":"use_logo","label":"Use custom logo?","info":"Recommended 400px by 172px PNG"},{"type":"image","id":"logo.png","label":"Upload custom logo"},{"type":"checkbox","id":"use_logo_checkout","label":"Use custom logo on checkout?","info":"Recommended 400px by 172px PNG"},{"type":"image","id":"logo_checkout.png","label":"Upload custom logo on checkout"},{"type":"header","content":"Tagline"},{"type":"text","id":"tagline","label":"Store tagline","info":"The tagline is displayed to the right of the logo in the header."},{"type":"header","content":"Icon colors"},{"type":"checkbox","id":"light_search_icon","label":"Use white search icon instead"},{"type":"checkbox","id":"light_cart_icon","label":"Use white cart icon instead"}]},{"name":"Social Media","settings":[{"type":"paragraph","content":"Social media links appear as icons in the sidebar"},{"type":"text","id":"facebook_url","label":"Your Facebook page URL","info":"Start the URL with http:\/\/"},{"type":"text","id":"twitter_url","label":"Your Twitter page URL","info":"Start the URL with http:\/\/"},{"type":"text","id":"instagram_url","label":"Your Instagram page URL","info":"Start the URL with http:\/\/"},{"type":"text","id":"pinterest_url","label":"Your Pinterest page URL","info":"Start the URL with http:\/\/"},{"type":"text","id":"youtube_url","label":"Your YouTube page URL","info":"Start the URL with http:\/\/"},{"type":"text","id":"vimeo_url","label":"Your Vimeo page URL","info":"Start the URL with http:\/\/"},{"type":"text","id":"flickr_url","label":"Your Flickr page URL","info":"Start the URL with http:\/\/"},{"type":"checkbox","id":"show_rss","label":"Show RSS?"},{"type":"blog","id":"main_blog","label":"Your blog"},{"type":"header","content":"Use black Social Media Icons"},{"type":"checkbox","id":"light_social_icons","label":"Use black social icons"}]},{"name":"Footer","settings":[{"type":"header","content":"Mailing List"},{"type":"paragraph","content":"You can use Mailchimp or Shopify to handle Email Alerts sign ups. By default, the theme uses Shopify (whenever a user signs up a tagged customer account is created). If you want to use Mailchimp instead, enter your Mailchimp Form Action URL below:"},{"type":"text","id":"mailchimp_form_action","label":"MailChimp form action URL [( ? )](http:\/\/support.shopify.com\/customer\/portal\/articles\/640278)"},{"type":"header","content":"Footer Content"},{"type":"paragraph","content":"What page content do you want to show in the footer? By default the theme uses the About page."},{"type":"page","id":"footer_page","label":"Select page"},{"type":"header","content":"Payment methods:"},{"type":"checkbox","id":"show_amex","label":"American Express","default":true},{"type":"checkbox","id":"show_discover","label":"Discover","default":true},{"type":"checkbox","id":"show_visa","label":"Visa","default":true},{"type":"checkbox","id":"show_mastercard","label":"Mastercard","default":true},{"type":"checkbox","id":"show_maestro","label":"Maestro","default":true},{"type":"checkbox","id":"show_cirrus","label":"Cirrus","default":true},{"type":"checkbox","id":"show_paypal","label":"Paypal","default":true},{"type":"checkbox","id":"show_google","label":"Google Wallet","default":true}]},{"name":"Frontpage","settings":[{"type":"header","content":"Banner Image"},{"type":"checkbox","id":"show_frontpage_hero","label":"Show a banner image on the frontpage?"},{"type":"image","id":"hero.jpg","label":"Upload banner image","info":"Should be at least 950px wide"},{"type":"text","id":"banner_url","label":"Banner url","info":"Where does the banner image link"},{"type":"text","id":"frontpage_hero_alt","label":"Banner ALT text"},{"type":"header","content":"Featured Products"},{"type":"collection","id":"frontpage_collection","label":"Frontpage collection","info":"Select which product collection will appear on the frontpage of your store."}]},{"name":"Product Page","settings":[{"type":"header","content":"Page Layout"},{"type":"checkbox","id":"product_desc_right","label":"Show product description to the right of the main image?"},{"type":"header","content":"Show an extra tab of info on the product page"},{"type":"checkbox","id":"show_shipping_tab","label":"Show an extra info tab on the product pages?","info":"Great for showing shipping rates"},{"type":"text","id":"shipping_tab_label","label":"Extra tab label","info":"What do you want to call the tab? By default the theme uses 'Shipping Information'"},{"type":"page","id":"shipping_tab_content","label":"Extra tab content","info":"Select which page will appear in the shipping tab on the product page."},{"type":"text","id":"description_tab_label","label":"Product description tab label","info":"What do you want to call the tab? By default theme uses 'Product Description'"},{"type":"text","id":"related_products_header","label":"Related products header","info":"By default theme uses 'You Might Also Like...' and shows related products from the current collection."}]}]
+[{
+  "name": "Aesthetics",
+  "settings": [{
+    "type": "header",
+    "content": "Colours"
+  }, {
+    "type": "color",
+    "id": "background_color",
+    "label": "Background color",
+    "default": "#ffffff"
+  }, {
+    "type": "color",
+    "id": "first_color",
+    "label": "Primary color",
+    "default": "#333333",
+    "info": "Text color, dark borders"
+  }, {
+    "type": "color",
+    "id": "second_color",
+    "label": "Secondary color",
+    "default": "#999999",
+    "info": "Used for links hover states and light text"
+  }, {
+    "type": "color",
+    "id": "heading_color",
+    "label": "Headings color",
+    "default": "#999999",
+    "info": "Used for text headings"
+  }, {
+    "type": "color",
+    "id": "lighter_color",
+    "label": "Lighter border color",
+    "default": "#e8e8e8",
+    "info": "Used for light borders"
+  }, {
+    "type": "color",
+    "id": "accent_color",
+    "label": "Accent color",
+    "default": "#ff0000",
+    "info": "Sale icon"
+  }, {
+    "type": "header",
+    "content": "Fonts"
+  }, {
+    "type": "select",
+    "id": "header_font",
+    "label": "Headers",
+    "options": [{
+      "value": "Times, TimesNewRoman, 'Times New Roman', Baskerville, Georgia, serif",
+      "label": "Times"
+    }, {
+      "value": "'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif",
+      "label": "Helvetica\/Arial"
+    }, {
+      "value": "'PT Serif', serif",
+      "label": "PT Serif"
+    }, {
+      "value": "'Cabin', sans-serif",
+      "label": "Cabin"
+    }, {
+      "value": "'Source Sans Pro', sans-serif",
+      "label": "Source Sans Pro"
+    }, {
+      "value": "'Open Sans Condensed', sans-serif",
+      "label": "Open Sans Condensed"
+    }],
+    "default": "Times, TimesNewRoman, 'Times New Roman', Baskerville, Georgia, serif"
+  }, {
+    "type": "select",
+    "id": "body_font",
+    "label": "Body Font",
+    "options": [{
+      "value": "'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif",
+      "label": "Helvetica\/Arial"
+    }, {
+      "value": "Times, TimesNewRoman, 'Times New Roman', Baskerville, Georgia, serif",
+      "label": "Times"
+    }, {
+      "value": "'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace",
+      "label": "Courier"
+    }, {
+      "value": "'PT Serif', serif",
+      "label": "PT Serif"
+    }, {
+      "value": "'Source Sans Pro', sans-serif",
+      "label": "Source Sans Pro"
+    }, {
+      "value": "'Open Sans Condensed', sans-serif",
+      "label": "Open Sans Condensed"
+    }],
+    "default": "'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif"
+  }]
+}, {
+  "name": "Header",
+  "settings": [{
+    "type": "header",
+    "content": "Logos"
+  }, {
+    "type": "checkbox",
+    "id": "use_logo",
+    "label": "Use custom logo?",
+    "info": "Recommended 400px by 172px PNG"
+  }, {
+    "type": "image",
+    "id": "logo.png",
+    "label": "Upload custom logo"
+  }, {
+    "type": "checkbox",
+    "id": "use_logo_checkout",
+    "label": "Use custom logo on checkout?",
+    "info": "Recommended 400px by 172px PNG"
+  }, {
+    "type": "image",
+    "id": "logo_checkout.png",
+    "label": "Upload custom logo on checkout"
+  }, {
+    "type": "header",
+    "content": "Icon colors"
+  }, {
+    "type": "checkbox",
+    "id": "light_search_icon",
+    "label": "Use white search icon instead"
+  }, {
+    "type": "checkbox",
+    "id": "light_cart_icon",
+    "label": "Use white cart icon instead"
+  }]
+}, {
+  "name": "Social Media",
+  "settings": [{
+    "type": "paragraph",
+    "content": "Social media links appear as icons in the sidebar"
+  }, {
+    "type": "text",
+    "id": "facebook_url",
+    "label": "Your Facebook page URL",
+    "info": "Start the URL with http:\/\/"
+  }, {
+    "type": "text",
+    "id": "twitter_url",
+    "label": "Your Twitter page URL",
+    "info": "Start the URL with http:\/\/"
+  }, {
+    "type": "text",
+    "id": "instagram_url",
+    "label": "Your Instagram page URL",
+    "info": "Start the URL with http:\/\/"
+  }, {
+    "type": "text",
+    "id": "pinterest_url",
+    "label": "Your Pinterest page URL",
+    "info": "Start the URL with http:\/\/"
+  }, {
+    "type": "text",
+    "id": "youtube_url",
+    "label": "Your YouTube page URL",
+    "info": "Start the URL with http:\/\/"
+  }, {
+    "type": "text",
+    "id": "vimeo_url",
+    "label": "Your Vimeo page URL",
+    "info": "Start the URL with http:\/\/"
+  }, {
+    "type": "text",
+    "id": "flickr_url",
+    "label": "Your Flickr page URL",
+    "info": "Start the URL with http:\/\/"
+  }, {
+    "type": "checkbox",
+    "id": "show_rss",
+    "label": "Show RSS?"
+  }, {
+    "type": "blog",
+    "id": "main_blog",
+    "label": "Your blog"
+  }, {
+    "type": "header",
+    "content": "Use black Social Media Icons"
+  }, {
+    "type": "checkbox",
+    "id": "light_social_icons",
+    "label": "Use black social icons"
+  }]
+}, {
+  "name": "Footer",
+  "settings": [{
+    "type": "header",
+    "content": "Mailing List"
+  }, {
+    "type": "paragraph",
+    "content": "You can use Mailchimp or Shopify to handle Email Alerts sign ups. By default, the theme uses Shopify (whenever a user signs up a tagged customer account is created). If you want to use Mailchimp instead, enter your Mailchimp Form Action URL below:"
+  }, {
+    "type": "text",
+    "id": "mailchimp_form_action",
+    "label": "MailChimp form action URL [( ? )](http:\/\/support.shopify.com\/customer\/portal\/articles\/640278)"
+  }, {
+    "type": "header",
+    "content": "Footer Content"
+  }, {
+    "type": "paragraph",
+    "content": "What page content do you want to show in the footer? By default the theme uses the About page."
+  }, {
+    "type": "page",
+    "id": "footer_page",
+    "label": "Select page"
+  }, {
+    "type": "header",
+    "content": "Payment methods:"
+  }, {
+    "type": "checkbox",
+    "id": "show_amex",
+    "label": "American Express",
+    "default": true
+  }, {
+    "type": "checkbox",
+    "id": "show_discover",
+    "label": "Discover",
+    "default": true
+  }, {
+    "type": "checkbox",
+    "id": "show_visa",
+    "label": "Visa",
+    "default": true
+  }, {
+    "type": "checkbox",
+    "id": "show_mastercard",
+    "label": "Mastercard",
+    "default": true
+  }, {
+    "type": "checkbox",
+    "id": "show_maestro",
+    "label": "Maestro",
+    "default": true
+  }, {
+    "type": "checkbox",
+    "id": "show_cirrus",
+    "label": "Cirrus",
+    "default": true
+  }, {
+    "type": "checkbox",
+    "id": "show_paypal",
+    "label": "Paypal",
+    "default": true
+  }, {
+    "type": "checkbox",
+    "id": "show_google",
+    "label": "Google Wallet",
+    "default": true
+  }]
+}, {
+  "name": "Frontpage",
+  "settings": [{
+    "type": "header",
+    "content": "Banner Image"
+  }, {
+    "type": "checkbox",
+    "id": "show_frontpage_hero",
+    "label": "Show a banner image on the frontpage?"
+  }, {
+    "type": "image",
+    "id": "hero.jpg",
+    "label": "Upload banner image",
+    "info": "Should be at least 950px wide"
+  }, {
+    "type": "text",
+    "id": "banner_url",
+    "label": "Banner url",
+    "info": "Where does the banner image link"
+  }, {
+    "type": "text",
+    "id": "frontpage_hero_alt",
+    "label": "Banner ALT text"
+  }, {
+    "type": "header",
+    "content": "Featured Products"
+  }, {
+    "type": "collection",
+    "id": "frontpage_collection",
+    "label": "Frontpage collection",
+    "info": "Select which product collection will appear on the frontpage of your store."
+  }]
+}, {
+  "name": "Product Page",
+  "settings": [{
+    "type": "header",
+    "content": "Page Layout"
+  }, {
+    "type": "checkbox",
+    "id": "product_desc_right",
+    "label": "Show product description to the right of the main image?"
+  }, {
+    "type": "header",
+    "content": "Show an extra tab of info on the product page"
+  }, {
+    "type": "checkbox",
+    "id": "show_shipping_tab",
+    "label": "Show an extra info tab on the product pages?",
+    "info": "Great for showing shipping rates"
+  }, {
+    "type": "text",
+    "id": "shipping_tab_label",
+    "label": "Extra tab label",
+    "info": "What do you want to call the tab? By default the theme uses 'Shipping Information'"
+  }, {
+    "type": "page",
+    "id": "shipping_tab_content",
+    "label": "Extra tab content",
+    "info": "Select which page will appear in the shipping tab on the product page."
+  }, {
+    "type": "text",
+    "id": "description_tab_label",
+    "label": "Product description tab label",
+    "info": "What do you want to call the tab? By default theme uses 'Product Description'"
+  }, {
+    "type": "text",
+    "id": "related_products_header",
+    "label": "Related products header",
+    "info": "By default theme uses 'You Might Also Like...' and shows related products from the current collection."
+  }]
+}]

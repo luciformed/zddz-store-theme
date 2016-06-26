@@ -68,7 +68,7 @@
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
 	<!--START DRAWER-->
-	<div id="drawer">
+{% comment %}	<div id="drawer">
 		<div class="container">
 			{% if cart.item_count > 0 %}
 			<form action="/cart" method="post">
@@ -120,12 +120,12 @@
 			</div>
 			{% endif %}
 		</div>
-	</div>
+	</div>{% endcomment %}
 	<!--END DRAWER-->
    <!--START HEADER-->
 	<header>
 		<!--START CONTAINER-->
-		<div class="container upper">
+		{% comment %}<div class="container upper">
 			<!--START SIDEBAR-->
 			<div class="three columns product-search-wrapper">
 				<div id="product-search">
@@ -149,102 +149,34 @@
 			<!--END MINI CART-->
 		</div>
 		<!--END CONTAINER-->
+{% endcomment %}
 
-		<!--START CONTAINER-->
-		<div class="container lower">
-			<div class="sixteen columns">
-				<div class="table logo-tagline">
-					<div class="table-cell">
-						<h1 id="logo">
-							<a href="/">
-								{% if settings.use_logo %}
-								{{ 'logo.png' | asset_url | img_tag: shop.name }}
-								{% else %}
-								<span class="no-logo">{{ shop.name }}</span>
-								{% endif %}
-							</a>
-						</h1>
-					</div>
-
-					<div class="table-cell">
-						<div id="tagline" class="desktop">
-							<h3>
-								{% if settings.tagline == blank %}
-								Enter a tagline for your shop using theme settings
-								{% else %}
-								{{ settings.tagline }}
-								{% endif %}
-							</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 	</header>
   	<!--START HEADER-->
 	<!--START CONTAINER-->
-	<div class="container">
+	<div >
 		<!--START SIDEBAR-->
-		<div id="sidebar" class="three columns">
+		{% comment %}<div id="sidebar" class="three columns">
 			<nav>
 
 				<a href="#" id="toggle-menu" class="mobile"><span>Menu</span></a>
 
 				<ul id="main-menu" class="accordion">
-					{% for link in linklists.main-menu.links %}
-						{% if link.type == 'collection_link' %}
-							{% if link.object.all_tags.size > 0 %}
-							<li>
-								<a href="#" class="accordion-button">{{ link.title }}
-									<span>{% if link.active %}-{% else %}+{% endif %}</span>
-								</a>
-								<div class="accordion-content" {% unless link.active %}style="display:none"{% endunless %} >
-									{% if link.object.all_tags.size > 0 %}
-									<a href="{{ link.object.url }}" class="first">All</a>
-									{% for tag in link.object.all_tags %}
-									<a href="{{ link.object.url }}/{{ tag | handle }}" {% if current_tags contains tag	 %}class="active"{% endif %}>{{ tag }} </a>
-									{% endfor %}
-									{% endif %}
-								</div>
-							</li>
-							{% else %}
-							<li>
-								<a href="{{ link.object.url }}" >{{ link.object.title }}</a>
-							</li>
-							{% endif %}
-
-						{% else %}
-						<li><a href="{{ link.url }}">{{ link.title }}</a></li>
-						{% endif %}
-					{% endfor %}
-
-
-
+						{% include 'credit-cards' %}
 				</ul>
-				<div id="social">
-
-
-					{% if settings.facebook_url != blank %}<a href="{{ settings.facebook_url }}" target="_blank" class="facebook {% if settings.light_social_icons %}light{% endif %}"></a>{% endif %}
-					{% if settings.twitter_url != blank  %}<a href="{{ settings.twitter_url }}" target="_blank" class="twitter {% if settings.light_social_icons %}light{% endif %}"></a>{% endif %}
-					{% if settings.instagram_url != blank  %}<a href="{{ settings.instagram_url }}" target="_blank" class="instagram {% if settings.light_social_icons %}light{% endif %}"></a>{% endif %}
-					{% if settings.pinterest_url != blank  %}<a href="{{ settings.pinterest_url }}" target="_blank" class="pinterest {% if settings.light_social_icons %}light{% endif %}"></a>{% endif %}
-					{% if settings.youtube_url != blank  %}<a href="{{ settings.youtube_url }}" target="_blank" class="youtube {% if settings.light_social_icons %}light{% endif %}"></a>{% endif %}
-					{% if settings.vimeo_url != blank  %}<a href="{{ settings.vimeo_url }}" target="_blank" class="vimeo {% if settings.light_social_icons %}light{% endif %}"></a>{% endif %}
-					{% if settings.flickr_url != blank  %}<a href="{{ settings.flickr_url }}" target="_blank" class="flickr {% if settings.light_social_icons %}light{% endif %}"></a>{% endif %}
-					{% if settings.show_rss == true %}<a href="/blogs/{{ settings.main_blog }}.atom" target="_blank" class="rss {% if settings.light_social_icons %}light{% endif %}"></a>{% endif %}
-
-
-				</div>
 			</nav>
-		</div>
+		</div>{% endcomment %}
 		<!--END SIDEBAR-->
 		<!--START MAIN-->
-		<div id="main" class="twelve columns offset-by-one">
+		{% comment %}<div id="main" class="twelve columns offset-by-one">
 			<div id="page-content">
 			{{ content_for_layout }}
 			<br class="clear">
 			</div>
+		</div>{% endcomment %}
+		<div am-Main-Container>
+			{{ content_for_layout }}
 		</div>
 		<!--END MAIN-->
 		<br class="clear">

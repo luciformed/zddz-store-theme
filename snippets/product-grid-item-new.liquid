@@ -1,0 +1,12 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}{% assign on_sale = true %}{% endif %}
+
+<div am-Grid-Col>
+  <a am-Product-Img href="{{ product.url | within: collection }}" id="product-{{ forloop.index }}">
+    {% if on_sale == true %}<div class="sale">Sale</div> {% endif %}
+    <img src="{{ product.featured_image.src | product_img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product" />
+  </a>
+
+  <h3 am-Product-Title>{{ product.title }}</h3>
+  <h4 am-Product-Price>{{ product.price | money }} {% if on_sale == true %}<del>{{ product.compare_at_price | money }}</del>{% endif %}</h4>
+</div>

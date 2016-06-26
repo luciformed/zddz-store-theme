@@ -1,0 +1,19 @@
+{% if settings.show_frontpage_hero == true %}
+<!--START BANNER-->
+<div class="twelve columns alpha omega">
+  <section id="hero" class="alpha omega animated fadeInUpBig {% if settings.frontpage_hero_header == blank %}no-text{% endif %}">
+    <a href="{{ settings.banner_url }}"><img src="{{ 'hero.jpg' | asset_url }}" alt="{{ settings.frontpage_hero_alt }}"></a>
+  </section>
+</div>
+<!--END BANNER-->
+{% endif %}
+
+
+<br>
+
+<section class="product-grid twelve columns alpha omega">
+  {% assign collection = collections.[settings.frontpage_collection] %}
+  {% for product in collection.products %}
+    {% include 'product-grid-item' %}
+  {% endfor %}
+</section>
