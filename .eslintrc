@@ -20,13 +20,9 @@
     "templateStrings": true
   },
   "globals": {
-    "angular": true,
     "_": true,
     "R": true,
-    "$": true,
-    "toastr": true,
-    "module": true,
-    "inject": true
+    "$": true
   },
   "rules": {
     "eqeqeq": 0,
@@ -39,17 +35,21 @@
     "no-underscore-dangle": 0,
     "camelcase": 0,
     "no-unused-vars": 1,
-    "no-var": 1,
+    "no-var": 0,
     "object-shorthand": [
       1,
-      "always"
+      "properties"
     ],
     "no-use-before-define": [
       2,
       "nofunc"
     ],
     "no-unused-expressions": [
-      1
+      2,
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true
+      }
     ]
   }
 }

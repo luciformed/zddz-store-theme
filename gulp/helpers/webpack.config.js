@@ -6,13 +6,12 @@ var gutil = require('gulp-util');
 module.exports = {
 
     entry: {
-       "app.js": path.resolve(config.BASE_PATH, 'src/mimosa.js')
-
+       "zddz.js": path.resolve(config.BASE_PATH, 'src/js/zddz.js')
     },
 
     output: {
-        path: path.resolve(config.BASE_PATH, 'dist/js'),
-        filename: 'app.js'
+        path: path.resolve(config.BASE_PATH, 'assets'),
+        filename: 'zddz.js'
     },
 
     externals: {
@@ -20,9 +19,7 @@ module.exports = {
     },
 
     watchOption: {
-
         aggregateTimeout: 100
-
     },
 
     devtool: 'source-map',

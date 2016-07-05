@@ -10,7 +10,6 @@ requireDir('./gulp/tasks', {
 gulp.task('build', function(callback) {
 
 
-
   runSequence('copy', 'templates', 'icons', 'scripts', [
     'styles',
     'bower-files',

@@ -15,7 +15,7 @@ gulp.task('watch', function () {
 
 
     gulp.watch(path.resolve(config.BASE_PATH, 'src/**/*.less'), ['styles']);
-    //gulp.watch(path.resolve(config.BASE_PATH, 'src/**/*.js'), ['webpack-scripts']);
+    gulp.watch(path.resolve(config.BASE_PATH, 'src/**/*.js'), ['scripts']);
     // gulp.watch(path.resolve(config.BASE_PATH, 'src/**/*.html'), ['templates']);
     // gulp.watch(path.resolve(config.BASE_PATH, 'src/**/*.jade'), ['templates']);
     // gulp.watch(path.resolve(config.BASE_PATH, 'bower.json'), ['bower-files']);
