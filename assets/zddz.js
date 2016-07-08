@@ -44,24 +44,10 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";var _glitch=__webpack_require__(1);var _glitch2=_interopRequireDefault(_glitch);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}$(document).ready(function(){console.log("hello");});
+	"use strict";var _glitchCanvas=__webpack_require__(1);var _glitchCanvas2=_interopRequireDefault(_glitchCanvas);var _glitch=__webpack_require__(2);var _glitch2=_interopRequireDefault(_glitch);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}$(document).ready(function(){console.log("hello");var images=$('[glitch-img]');(0,_glitch2.default)(images);window.GLITCHCANVAS=_glitchCanvas2.default;});
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=g;var _glitchCanvas=__webpack_require__(2);var _glitchCanvas2=_interopRequireDefault(_glitchCanvas);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}console.log(_glitchCanvas2.default,'glitchCanvas');window.glitchCanvas=_glitchCanvas2.default;window.TEST=5;var getRand100=function getRand100(){return Math.round(Math.random()*100);};var getInputVal=function getInputVal(name){return $('input[name='+name+']').val();};var getGlitchParams=function getGlitchParams(){return{seed:getRand100(),// integer between 0 and 99
-	quality:getInputVal('quality')||1,amount:getInputVal('amount')||1,iterations:getInputVal('iterations')||1};};var glitchEl=$('.glitch-test');var img=new Image();var testImgUrl='../images/t-shirt-big.jpg';var setToOriginalImage=function setToOriginalImage(){glitchEl.css('background-image','url('+testImgUrl+')');};var setGlitchedImage=function setGlitchedImage(){console.log(getGlitchParams());glitch(getGlitchParams()).fromImage(img).toDataURL().then(function(dataURL){glitchEl.css('background-image','url('+dataURL+'), url('+testImgUrl+')');});};// let throttled = _.throttle(() => {
-	// }, 500);
-	var glitchInterval=void 0;glitchEl.on('mouseover',function(){// setGlitchedImage();
-	console.log('mouseover');glitchInterval=setInterval(function(){setGlitchedImage();setTimeout(setToOriginalImage,250);},500);});glitchEl.on('mouseout',function(){console.log('mouseout');clearInterval(glitchInterval);setToOriginalImage();});setToOriginalImage();img.src=testImgUrl;img.onload=function(){glitch().fromImage(img).toDataURL().then(function(dataURL){// var glitchedImg = new Image();
-	// glitchedImg.src = dataURL;
-	// glitchEl.css('background-image', 'url')
-	// document.body.appendChild(glitchedImg);
-	});};function g(){}
-
-/***/ },
-/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;var require;(function(f) {
@@ -709,6 +695,18 @@
 	    }, {}, [ 1 ])(1);
 	});
 
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=glitch;var _glitchCanvas=__webpack_require__(1);var _glitchCanvas2=_interopRequireDefault(_glitchCanvas);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}console.log(_glitchCanvas2.default,'glitchCanvas');var DEFAULT_PARAMS={quality:99,amount:62,iterations:11,interval:25000,flash:150};var getRand100=function getRand100(){return Math.round(Math.random()*100);};var getGlitchParams=function getGlitchParams(){return{seed:getRand100(),// integer between 0 and 99
+	quality:DEFAULT_PARAMS['quality'],amount:DEFAULT_PARAMS['amount'],iterations:DEFAULT_PARAMS['iterations']};};// let throttled = _.throttle(() => {
+	// }, 500);
+	function glitch(elements,cfg){elements.each(function(index,el){console.log('element',index,el);el=$(el);var imgSrc=el.data('img-src');if(!imgSrc){throw new Error("No image source");}console.log({imgSrc:imgSrc});var image=new Image();image.setAttribute('crossOrigin','');var originalImgDataUrl=void 0;var setToOriginalImage=function setToOriginalImage(){el.css('background-image','url('+imgSrc+')');};var setGlitchedImage=function setGlitchedImage(){// console.log(getGlitchParams());
+	(0,_glitchCanvas2.default)(getGlitchParams()).fromImage(image).toDataURL().then(function(dataURL){el.css('background-image','url('+dataURL+'), url('+imgSrc+')');});};image.src=imgSrc;image.onload=function(){console.log('imgloaded');setToOriginalImage();(0,_glitchCanvas2.default)().fromImage(img).toDataURL().then(function(dataURL){console.log('dataUrl');originalImgDataUrl=dataURL;// el.data("img-original-data-url", dataURL);
+	});};var glitchInterval=void 0;el.on('mouseover',function(){// setGlitchedImage();
+	console.log('mouseover');glitchInterval=setInterval(function(){setGlitchedImage();setTimeout(setToOriginalImage,DEFAULT_PARAMS.flash);},DEFAULT_PARAMS.interval);});el.on('mouseout',function(){console.log('mouseout');clearInterval(glitchInterval);setToOriginalImage();});});};
 
 /***/ }
 /******/ ]);

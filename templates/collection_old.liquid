@@ -1,0 +1,43 @@
+{% paginate collection.products by 50 %}
+{% include 'breadcrumb' %}
+{% if current_tags %}
+<h1>{{ current_tags }}</h1>
+{% else %}
+<h1>{{ collection.title }} </h1>
+{% endif %}
+{% assign show_hero = false %}
+{% if collection.image %}
+  {% assign show_hero = true %}
+{% endif %}
+{% if collection.description.size > 0 %}
+  {% assign show_hero = true %}
+{% endif %}
+{% if show_hero == true %}
+  {% unless current_tags %}
+  <!--START HERO-->
+  <div class="twelve columns alpha omega">
+    {% if collection.image %}
+      <section id="collection-hero" class="animated fadeInUpBig">
+        <img src="{{ collection.image.src | collection_img_url: 'large' }}" alt="{{ collection.title }}">
+      </section>
+    {% endif %}
+    {% if collection.description.size > 0 %}
+      <p id="collection-description" class="animated fadeInUpBig wysiwyg">{{ collection.description | strip_html }}</p>
+    {% endif %}
+  </div>
+  <!--END HERO-->
+  {% endunless %}
+{% endif %}
+<!--START PRODUCT GRID-->
+<section class="product-grid twelve columns alpha omega">
+  {% if collection.products.size > 0 %}
+    {% for product in collection.products %}
+      {% include 'product-grid-item' %}
+    {% endfor %}
+  {% else %}
+    <p id="no-products" class="animated fadeInUpBig">There aren't any products in this collection!</p>
+  {% endif %}
+</section>
+<!--END PRODUCT GRID-->
+{% include 'paging' %}
+{% endpaginate %}

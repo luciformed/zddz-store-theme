@@ -2,97 +2,99 @@ import glitchCanvas from "../../bower_components/glitch-canvas/dist/glitch-canva
 
 console.log(glitchCanvas, 'glitchCanvas');
 
-window.glitchCanvas = glitchCanvas;
-window.TEST = 5;
 
+
+const DEFAULT_PARAMS = {
+  quality: 99,
+  amount: 62,
+  iterations: 11,
+  interval: 25000,
+  flash: 150
+};
 let getRand100 = () => {
   return Math.round(Math.random() * 100);
 };
-
-let getInputVal = (name) => {
-
-  return $(`input[name=${name}]`).val();
-};
-
 
 let getGlitchParams = () => {
 
   return {
     seed: getRand100(), // integer between 0 and 99
-    quality: getInputVal('quality') || 1,
-    amount: getInputVal('amount') || 1,
-    iterations: getInputVal('iterations') || 1,
+    quality: DEFAULT_PARAMS['quality'],
+    amount: DEFAULT_PARAMS['amount'],
+    iterations: DEFAULT_PARAMS['iterations'],
   }
 }
-
-let glitchEl = $('.glitch-test');
-
-
-let img = new Image();
-
-let testImgUrl = '../images/t-shirt-big.jpg'
-
-let setToOriginalImage = () => {
-  glitchEl.css('background-image', `url(${testImgUrl})`);
-};
-
-let setGlitchedImage = () => {
-  console.log(getGlitchParams());
-  glitch(getGlitchParams())
-    .fromImage(img)
-    .toDataURL()
-    .then((dataURL) => {
-      glitchEl.css('background-image', `url(${dataURL}), url(${testImgUrl})`);
-    })
-
-};
-
 
 
 // let throttled = _.throttle(() => {
 
 // }, 500);
 
-let glitchInterval;
 
-glitchEl.on('mouseover', () => {
-  // setGlitchedImage();
-  console.log('mouseover');
-  glitchInterval = setInterval(() => {
-    setGlitchedImage();
-    setTimeout(setToOriginalImage, 250);
-  }, 500)
+export default function glitch(elements, cfg) {
+  elements.each((index, el) => {
+    console.log('element', index, el);
+    el = $(el);
+    let imgSrc = el.data('img-src');
+    if (!imgSrc) {
+      throw new Error("No image source");
+    }
 
-});
-
-glitchEl.on('mouseout', () => {
-  console.log('mouseout');
-  clearInterval(glitchInterval);
-  setToOriginalImage();
-});
-
-
-
-
-setToOriginalImage();
-
-img.src = testImgUrl;
-
-img.onload = () => {
-
-  glitch()
-    .fromImage(img)
-    .toDataURL()
-    .then(function(dataURL) {
-      // var glitchedImg = new Image();
-      // glitchedImg.src = dataURL;
-
-      // glitchEl.css('background-image', 'url')
-      // document.body.appendChild(glitchedImg);
+    console.log({
+      imgSrc
     });
+
+    let image = new Image();
+    image.setAttribute('crossOrigin', '');
+    let originalImgDataUrl;
+
+    let setToOriginalImage = () => {
+      el.css('background-image', `url(${imgSrc})`);
+    };
+
+    let setGlitchedImage = () => {
+      // console.log(getGlitchParams());
+      glitchCanvas(getGlitchParams())
+        .fromImage(image)
+        .toDataURL()
+        .then((dataURL) => {
+          el.css('background-image', `url(${dataURL}), url(${imgSrc})`);
+        })
+    };
+
+    image.src = imgSrc;
+
+
+    image.onload = () => {
+      console.log('imgloaded')
+      setToOriginalImage();
+      glitchCanvas()
+        .fromImage(img)
+        .toDataURL()
+        .then(function(dataURL) {
+          console.log('dataUrl');
+          originalImgDataUrl = dataURL;
+          // el.data("img-original-data-url", dataURL);
+        });
+    };
+
+    let glitchInterval;
+
+    el.on('mouseover', () => {
+      // setGlitchedImage();
+      console.log('mouseover');
+      glitchInterval = setInterval(() => {
+        setGlitchedImage();
+        setTimeout(setToOriginalImage, DEFAULT_PARAMS.flash);
+      }, DEFAULT_PARAMS.interval)
+
+    });
+
+    el.on('mouseout', () => {
+      console.log('mouseout');
+      clearInterval(glitchInterval);
+      setToOriginalImage();
+    });
+
+  });
 };
-
-
-export default function g() {
-
-}

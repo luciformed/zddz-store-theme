@@ -1,5 +1,3 @@
-{% paginate collection.products by 50 %} 
-{% include 'breadcrumb' %}
 {% if current_tags %}
 <h1>{{ current_tags }}</h1>
 {% else %}
@@ -29,15 +27,17 @@
 	{% endunless %}
 {% endif %}
 <!--START PRODUCT GRID-->
-<section class="product-grid twelve columns alpha omega">
+<section am-Grid-Row="wrap">
 	{% if collection.products.size > 0 %}
 		{% for product in collection.products %}
-			{% include 'product-grid-item' %}
+		<div am-Collection-Item style="order:{{ forloop.index }};">
+			{% include 'product-grid-item-new' %}
+	  </div>
 		{% endfor %}
 	{% else %}
 		<p id="no-products" class="animated fadeInUpBig">There aren't any products in this collection!</p>
 	{% endif %}
 </section>
 <!--END PRODUCT GRID-->
-{% include 'paging' %}
-{% endpaginate %}
+
+

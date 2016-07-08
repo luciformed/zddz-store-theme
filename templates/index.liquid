@@ -13,11 +13,11 @@
   <div am-ZD>
     <img src="{{ 'ZD-01.svg' | asset_url }}"/>
     {% include 'navigation' %}
-    <div am-Search id="product-search">
+    <div am-Search>
       <form action="/search" method="get" class="search-form" role="search">
         <input type="hidden" name="type" value="product" />
         {% comment %}<input type="submit" id="search-submit" class="icon {% if settings.light_search_icon %}light{% endif %}" />{% endcomment %}
-        <input class="search" placeholder="Search" name="q" type="text" id="search-field"  />
+        <input class="search" placeholder="Search" name="q" type="text" />
       </form>
     </div>
 
