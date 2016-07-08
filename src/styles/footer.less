@@ -1,0 +1,76 @@
+[am-Footer]:extend([am-Grid-Row], [am-Grid-Row~="wrap"], [am-gutter], [am-negative-gutter]) {
+  @media only screen and (min-width: @width-wide) {
+    height:311px;
+  }
+
+  margin-top:60px;
+}
+
+[am-Footer-Section-Heading]:extend([am-Text~="heading"]) {
+  margin-bottom: 20px;
+}
+
+
+[am-Footer-Section]:extend([am-Grid-Col], [am-gutter], [am-Grid-Col~="wide:3"], [am-Grid-Col~="8"]) {
+  margin-bottom:20px;
+}
+
+
+[am-Footer-Item] {
+
+}
+
+
+[am-Footer-Item~="phone"]{
+  margin-top:35px;
+
+}
+
+[am-Footer-Item~="email"], [am-Footer-Item~="phone"] {
+  &:extend([am-Text~="red"]);
+}
+
+[am-Footer-Section~="follow-us"] {
+  @media only screen and (min-width: @width-wide) {
+    margin-top: 125px;
+  }
+}
+
+[am-Footer-Item~="facebook"], [am-Footer-Item~="twitter"], [am-Footer-Item~="pinterest"], [am-Footer-Item~="instagram"] {
+  margin-top:15px;
+  text-decoration: none;
+}
+
+
+[am-Footer-Section~="customer-info"] {
+  a {
+    text-decoration:none;
+  }
+
+  nav {
+    &:extend([am-Grid-Col]);
+  }
+}
+
+[am-Footer-Item~="Contact"] {
+  order:1;
+  margin-top:12px;
+  &:extend([am-Text~="red"]);
+}
+
+[am-Footer-Section~="newsletter"] {
+  @media only screen and (min-width: @width-wide) {
+      margin-top: 33px;
+    }
+}
+
+
+[am-Footer-Item="sign-up"] {
+  margin-top:16px;
+}
+
+[am-Copyright] {
+  &:extend([am-offset-top][am-offset-top~="x4"]);
+  font-style: italic;
+}
+

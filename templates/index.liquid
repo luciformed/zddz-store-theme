@@ -14,10 +14,10 @@
     <img src="{{ 'ZD-01.svg' | asset_url }}"/>
     {% include 'navigation' %}
     <div am-Search>
-      <form action="/search" method="get" class="search-form" role="search">
+      <form action="/search" method="get"  role="search">
         <input type="hidden" name="type" value="product" />
         {% comment %}<input type="submit" id="search-submit" class="icon {% if settings.light_search_icon %}light{% endif %}" />{% endcomment %}
-        <input class="search" placeholder="Search" name="q" type="text" />
+        <input placeholder="Search" name="q" type="text" />
       </form>
     </div>
 
@@ -30,7 +30,7 @@
 
 	{% assign collection = collections.[settings.frontpage_collection] %}
 	{% for product in collection.products %}
-  <div am-Collection-Item style="order:{{ forloop.index }};">
+  <div am-Collection-Item am-Flex-Item="order:{{ forloop.index }}">
 		{% include 'product-grid-item-new' %}
   </div>
 	{% endfor %}

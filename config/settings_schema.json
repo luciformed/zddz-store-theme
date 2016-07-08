@@ -184,6 +184,32 @@
 }, {
   "name": "Footer",
   "settings": [{
+    "type" : "header",
+    "content" : "Footer - About"
+  },{
+    "type": "text",
+    "id": "short_about_us",
+    "label": "Short 'About Us'"
+  },{
+    "type": "text",
+    "id": "phone_number",
+    "label": "Phone number"
+  },{
+    "type": "text",
+    "id": "email",
+    "label": "Email"
+  },
+  {
+    "type": "text",
+    "id": "email_disclaimer",
+    "label": "Email disclaimer"
+  },
+  {
+    "type": "text",
+    "id": "copyright_text",
+    "label": "Copyright text"
+  },
+  {
     "type": "header",
     "content": "Mailing List"
   }, {

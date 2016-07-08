@@ -62,7 +62,8 @@
 </head>
 
 
-<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}"
+		am-Main-Container>
 	<div id="cart-animation">1</div>
 	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
@@ -129,151 +130,73 @@
 	<!--END DRAWER-->
    <!--START HEADER-->
 	<header>
-		<!--START CONTAINER-->
-		{% comment %}<div class="container upper">
-			<!--START SIDEBAR-->
-			<div class="three columns product-search-wrapper">
-				<div id="product-search">
-					<form action="/search" method="get" class="search-form" role="search">
-						<input type="hidden" name="type" value="product" />
-						<input type="submit" id="search-submit" class="icon {% if settings.light_search_icon %}light{% endif %}" />
-						<input class="search" placeholder="Search" name="q" type="text" id="search-field"  />
-					</form>
-					<br class="clear">
-				</div>
-			</div>
-			<!--END SIDEBAR-->
-			<!--START MINICART-->
-			<div class="five columns minicart-wrapper">
-				<div id="minicart">
-					<a href="#" class="toggle-drawer cart desktop {% if settings.light_cart_icon %}light{% endif %}">My Cart <span id="cart-target-desktop" class="count cart-target">({{ cart.item_count }})</span></a>
-					<a href="/cart" class="cart mobile {% if settings.light_cart_icon %}light{% endif %} cart-target">My Cart <span id="cart-target-mobile" class="count cart-target">({{ cart.item_count }})</span></a>
-					<a href="/cart" class="checkout">Check Out</a>
-				</div>
-			</div>
-			<!--END MINI CART-->
-		</div>
-		<!--END CONTAINER-->
-{% endcomment %}
 
 
 	</header>
-  	<!--START HEADER-->
-	<!--START CONTAINER-->
 	<div >
-		<!--START SIDEBAR-->
-		{% comment %}<div id="sidebar" class="three columns">
-			<nav>
-
-				<a href="#" id="toggle-menu" class="mobile"><span>Menu</span></a>
-
-				<ul id="main-menu" class="accordion">
-						{% include 'credit-cards' %}
-				</ul>
-			</nav>
-		</div>{% endcomment %}
-		<!--END SIDEBAR-->
-		<!--START MAIN-->
-		{% comment %}<div id="main" class="twelve columns offset-by-one">
-			<div id="page-content">
-			{{ content_for_layout }}
-			<br class="clear">
-			</div>
-		</div>{% endcomment %}
-		<div am-Main-Container>
+		<div>
 			{{ content_for_layout }}
 		</div>
-		<!--END MAIN-->
-		<br class="clear">
-		<!--START FOOTER-->
 		<footer>
-			<section class="upper">
-
-				<!--START NAV-->
-				<div class="three columns ">
-					<nav>
-						<h2>{{ linklists.footer.title }}</h2>
-						{% for link in linklists.footer.links %}
-							<a href="{{ link.url }}">{{ link.title }}</a> {% unless forloop.last %}<br>{% endunless %}
-						{% endfor %}
-					</nav>
-				</div>
-				<!--END NAV-->
-
-				<!--START PAGE CONTENT-->
-				<div class="eight offset-by-one columns">
-					<div id="footer-content">
-
-						{% if settings.footer_page == blank %}
-						<h2>{{ pages.about-us.title }}</h2>
-						<p>{{ pages.about-us.content | strip_html | truncatewords: 30 }}</p>
-
-						{% else %}
-						<h2>{{ pages[settings.footer_page].title }}</h2>
-						<div>{{ pages[settings.footer_page].content }}</div>
-
-						{% endif %}
-
-						{% if settings.mailchimp_form_action != blank %}{% include 'credit-cards' %}{% endif %}
+			<section am-Footer>
+				<div am-Footer-Section="about">
+					<div am-Footer-Section-Heading>
+						About
+					</div>
+					<div am-Footer-Item>
+						{{settings.short_about_us}}
+					</div>
+					<div am-Footer-Item="phone">
+						Phone: {{settings.phone_number}}
+					</div>
+					<div am-Footer-Item="email">
+						Email: {{settings.email}}
 					</div>
 				</div>
-				<!--END PAGE CONTENT-->
 
-				<!--START MAILING LIST / OR CREDIT CARDS-->
-				<div class="three columns offset-by-one">
-					{% if settings.mailchimp_form_action != blank %}
-					<div id="mailing-list">
-						<h2>
-							{% if settings.mailing_list == blank %}
-								Mailing List
-							{% else %}
-								{{ settings.mailing_list }}
-							{% endif %}
-						</h2>
-						{% if settings.mailchimp_form_action.size > 0 %}
+				<div am-Footer-Section="follow-us">
+					<div am-Footer-Section-Heading>
+						Follow us
+					</div>
+					<a href="{{settings.facebook_url}}" target="_blank" am-Footer-Item="facebook">Facebook</a>
+					<a href="{{settings.twitter_url}}" target="_blank" am-Footer-Item="twitter">Twitter</a>
+					<a href="{{settings.pinterest_url}}" target="_blank" am-Footer-Item="pinterest">Pinterest</a>
+					<a href="{{settings.intagram_url}}" target="_blank" am-Footer-Item="instagram">Instagram</a>
+				</div>
+
+
+				<div am-Footer-Section="customer-info">
+					<div am-Footer-Section-Heading>
+						Customer info
+					</div>
+					<nav>
+						{% for link in linklists.footer.links %}
+			        <a href="{{ link.url }}" am-Footer-Item="{{ link.title }}" title="{{ link.title }}">{{ link.title }}</a>
+				    {% endfor %}
+					</nav>
+				</div>
+
+
+				<div am-Footer-Section="newsletter">
+					<div am-Footer-Section-Heading>
+						Newsletter
+					</div>
+					<div am-Footer-Item>
+						{{settings.email_disclaimer}}
+					</div>
+					<div am-Footer-Item="sign-up">
 						<form action="{{ settings.mailchimp_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-							<label>Your Email Address</label>
-						 	<input type="email" placeholder="you@email.com" name="EMAIL" id="email-input" />
-						 	<input type="submit" value="Sign Up" id="email-submit" />
+						 	<input am-Input="red" type="email" placeholder="Enter your email address" name="EMAIL" id="email-input"/>
 						</form>
-						{% else %}
-							<form id="email-alerts-footer" class="mailing-list" action="/contact" method="post">
-								<input type="hidden" value="customer" name="form_type">
-								<span class="success"><em>Thank you for signing up!</em></span>
-								<input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,mailing-list" />
-								<input type="hidden" id="mailinglist-first-name" name="contact[first_name]" value="Subscriber" />
-								<input type="hidden" id="mailinglist-last-name" name="contact[last_name]" value="Mailing List" />
-								<label>Your Email Address</label>
-								<input type="email" placeholder="you@email.com" name="contact[email]" id="email-input" class="required email" />
-								<input type="submit" value="Sign Up" class="button secondary" name="subscribe" id="email-submit" />
-							</form>
-						{% endif %}
 					</div>
-					{% else %}
-					{% comment %}{% include 'credit-cards' %}{% endcomment %}
-					{% endif %}
 				</div>
-				<!--END MAILING LIST / CREDIT CARDS-->
 
-				<br class="clear">
 			</section>
-			<section class="lower">
-				<div class="nine columns">
-					<div class="legals">
-						Copyright &copy; {{ "now" | date: "%Y" }} {{ shop.name }}. {{ powered_by_link }}.
-					</div>
-				</div>
-				<div class="six columns offset-by-one">
-					{% if linklists.footer.links.size > 0 %}
-					<nav>
-						{% for link in linklists.footer.links %}
-					        <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
-					    {% endfor %}
-					</nav>
-					{% endif %}
-				</div>
-			</section>
-			<br class="clear">
+
+			<div am-Copyright>
+        Copyright &copy; {{ "now" | date: "%Y" }} {{ settings.copyright_text }}
+			</div>
+
 		</footer>
 		<!--END FOOTER-->
 	</div>
