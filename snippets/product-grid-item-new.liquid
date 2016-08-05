@@ -3,7 +3,7 @@
 
 <div am-Grid-Col>
   <a am-Product-Link  href="{{ product.url | within: collection }}" id="product-{{ forloop.index }}">
-    {% if on_sale == true %}<div class="sale">Sale</div> {% endif %}
+    {% comment %}{% if on_sale == true %}<div class="sale">Sale</div> {% endif %}{% endcomment %}
     <div am-Product-Img glitch-img data-img-src="{{ product.featured_image.src | product_img_url: 'large' }}"> </div>
     {% comment %}<img src="{{ product.featured_image.src | product_img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product" />{% endcomment %}
   </a>

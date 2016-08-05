@@ -1,7 +1,7 @@
 {% if current_tags %}
 <h1>{{ current_tags }}</h1>
 {% else %}
-<h1>{{ collection.title }} </h1>
+<div am-gutter am-height="x2" am-Grid-Row="middle" am-Text="heading">{{ collection.title }} </div>
 {% endif %}
 {% assign show_hero = false %}
 {% if collection.image %}
@@ -10,6 +10,10 @@
 {% if collection.description.size > 0 %}
 	{% assign show_hero = true %}
 {% endif %}
+
+{% comment %}tmp{% endcomment %}
+{% assign show_hero = false %}
+
 {% if show_hero == true %}
 	{% unless current_tags %}
 	<!--START HERO-->

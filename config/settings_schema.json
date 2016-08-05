@@ -311,33 +311,6 @@
     "type": "header",
     "content": "Page Layout"
   }, {
-    "type": "checkbox",
-    "id": "product_desc_right",
-    "label": "Show product description to the right of the main image?"
-  }, {
-    "type": "header",
-    "content": "Show an extra tab of info on the product page"
-  }, {
-    "type": "checkbox",
-    "id": "show_shipping_tab",
-    "label": "Show an extra info tab on the product pages?",
-    "info": "Great for showing shipping rates"
-  }, {
-    "type": "text",
-    "id": "shipping_tab_label",
-    "label": "Extra tab label",
-    "info": "What do you want to call the tab? By default the theme uses 'Shipping Information'"
-  }, {
-    "type": "page",
-    "id": "shipping_tab_content",
-    "label": "Extra tab content",
-    "info": "Select which page will appear in the shipping tab on the product page."
-  }, {
-    "type": "text",
-    "id": "description_tab_label",
-    "label": "Product description tab label",
-    "info": "What do you want to call the tab? By default theme uses 'Product Description'"
-  }, {
     "type": "text",
     "id": "related_products_header",
     "label": "Related products header",

@@ -1,16 +1,18 @@
 import glitchCanvas from "../../bower_components/glitch-canvas/dist/glitch-canvas.js";
-
-console.log(glitchCanvas, 'glitchCanvas');
-
+import Rx from "../../bower_components/rxjs/dist/rx.all.js";
 
 
 const DEFAULT_PARAMS = {
-  quality: 99,
-  amount: 62,
-  iterations: 11,
-  interval: 25000,
-  flash: 150
+  quality: 37,
+  amount: 70,
+  iterations: 20,
+  mousemove_throttle:300,
+  glitch_throttle:5000,
+  glitch_chance : 10,
+  second_glitch:50,
+  flash: 100
 };
+
 let getRand100 = () => {
   return Math.round(Math.random() * 100);
 };
@@ -33,16 +35,12 @@ let getGlitchParams = () => {
 
 export default function glitch(elements, cfg) {
   elements.each((index, el) => {
-    console.log('element', index, el);
     el = $(el);
     let imgSrc = el.data('img-src');
     if (!imgSrc) {
       throw new Error("No image source");
     }
 
-    console.log({
-      imgSrc
-    });
 
     let image = new Image();
     image.setAttribute('crossOrigin', '');
@@ -53,11 +51,12 @@ export default function glitch(elements, cfg) {
     };
 
     let setGlitchedImage = () => {
-      // console.log(getGlitchParams());
-      glitchCanvas(getGlitchParams())
+      console.time('toglitch');
+      return glitchCanvas(getGlitchParams())
         .fromImage(image)
         .toDataURL()
         .then((dataURL) => {
+          console.timeEnd('toglitch');
           el.css('background-image', `url(${dataURL}), url(${imgSrc})`);
         })
     };
@@ -66,35 +65,40 @@ export default function glitch(elements, cfg) {
 
 
     image.onload = () => {
-      console.log('imgloaded')
       setToOriginalImage();
       glitchCanvas()
-        .fromImage(img)
+        .fromImage(image)
         .toDataURL()
         .then(function(dataURL) {
-          console.log('dataUrl');
           originalImgDataUrl = dataURL;
-          // el.data("img-original-data-url", dataURL);
         });
     };
 
-    let glitchInterval;
 
-    el.on('mouseover', () => {
-      // setGlitchedImage();
-      console.log('mouseover');
-      glitchInterval = setInterval(() => {
-        setGlitchedImage();
-        setTimeout(setToOriginalImage, DEFAULT_PARAMS.flash);
-      }, DEFAULT_PARAMS.interval)
+    let mouseMove = Rx.Observable.fromEvent(el, "mousemove");
+
+
+    let wait = (time) => {
+      return () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(resolve, time);
+        });
+      }
+    }
+
+    mouseMove
+    .throttle(DEFAULT_PARAMS.mousemove_throttle)
+    .filter(() => getRand100() < DEFAULT_PARAMS.glitch_chance)
+    .throttle(DEFAULT_PARAMS.glitch_throttle)
+    .subscribe(() => {
+      setGlitchedImage()
+        // .then(wait(DEFAULT_PARAMS.second_glitch))
+        // .then(setGlitchedImage)
+        .then(wait(DEFAULT_PARAMS.flash))
+        .then(setToOriginalImage);
 
     });
 
-    el.on('mouseout', () => {
-      console.log('mouseout');
-      clearInterval(glitchInterval);
-      setToOriginalImage();
-    });
 
   });
 };

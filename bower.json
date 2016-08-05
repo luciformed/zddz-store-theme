@@ -1,0 +1,24 @@
+{
+  "name": "zddz-store-theme",
+  "description": "ZDDZ Store",
+  "main": "",
+  "authors": [
+    "slava"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "glitch-canvas": "^1.0.2",
+    "rxjs": "^4.1.0",
+    "angular": "^1.5.8",
+    "ramda": "^0.22.0"
+  }
+}

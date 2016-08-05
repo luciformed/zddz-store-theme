@@ -1,5 +1,11 @@
 {
   "current": {
+    "short_about_us" : "ZDDZ is a contemporary womenswear
+brand, that views fashion
+as media and proves that
+ready-to-wear can be a contemporary
+form of street art.",
+    "email" : "bla",
     "background_color": "#ffffff",
     "first_color": "#333333",
     "second_color": "#999999",
@@ -37,7 +43,6 @@
     "banner_url": "",
     "frontpage_hero_alt": "",
     "frontpage_collection": "frontpage",
-    "product_desc_right": false,
     "show_shipping_tab": false,
     "shipping_tab_label": "",
     "shipping_tab_content": "",
@@ -117,7 +122,6 @@
       "show_paypal": true,
       "show_google": true,
       "show_frontpage_hero": false,
-      "product_desc_right": false,
       "show_shipping_tab": false,
       "mailing_list": "",
       "footer_page_link": "Read More",
@@ -179,7 +183,6 @@
       "show_paypal": true,
       "show_google": true,
       "show_frontpage_hero": false,
-      "product_desc_right": false,
       "show_shipping_tab": false,
       "mailing_list": "",
       "footer_page_link": "Read More",

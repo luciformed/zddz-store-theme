@@ -98,7 +98,7 @@
 .loop-sizes(@index) when (@index > 0) {
 
   [am-Flex-Item~="order:@{index}"] {
-    order:@index;
+    order:@index!important;
   }
 
   [am-offset-top][am-offset-top~="x@{index}"] {
