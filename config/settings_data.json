@@ -1,11 +1,10 @@
 {
   "current": {
-    "short_about_us" : "ZDDZ is a contemporary womenswear
-brand, that views fashion
-as media and proves that
-ready-to-wear can be a contemporary
-form of street art.",
-    "email" : "bla",
+    "short_about_us" : "ZDDZ is a contemporary womenswear brand, that views fashion as media and proves that ready-to-wear can be a contemporary form of street art.",
+    "phone_number" : "+44 7714 090 885",
+    "email" : "shop@zddz.co.uk",
+    "email_disclaimer" :"We promise to only send you good stuff.",
+    "copyright_text" : "© 2016 ZDDZ London Ltd. Registered in England and Wales № 07932919. All Rights Reserved.",
     "background_color": "#ffffff",
     "first_color": "#333333",
     "second_color": "#999999",
