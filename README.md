@@ -3,7 +3,9 @@
 # TODO
 
 - [ ] Sale
+  - [ ] old price first. Red current price
 - [ ] responsive
+- [ ] ZD - link to frontpage
 - [ ] carousel
 - [ ] collection view
 - [ ] product detail view

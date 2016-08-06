@@ -10,7 +10,7 @@ const DEFAULT_PARAMS = {
   glitch_throttle:5000,
   glitch_chance : 10,
   second_glitch:50,
-  flash: 100
+  flash: 1
 };
 
 let getRand100 = () => {

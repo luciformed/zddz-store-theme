@@ -1,12 +1,16 @@
 
-<nav am-Main-Menu>
-  {% for link in linklists.main-menu.links %}
-    {% if link.type == 'collection_link' %}
-      <li>
-        <a href="{{ link.object.url }}" >{{ link.object.title }}</a>
-      </li>
-    {% else %}
-    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-    {% endif %}
-  {% endfor %}
-</nav>
+<div am-Main-Menu-Outer>
+
+  <nav am-Main-Menu>
+
+    {% for link in linklists.main-menu.links %}
+      {% if link.type == 'collection_link' %}
+        <li>
+          <a href="{{ link.object.url }}" >{{ link.object.title }}</a>
+        </li>
+      {% else %}
+      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </nav>
+</div>

@@ -30,6 +30,17 @@ let app = angular.module('zddz', []).config(['$interpolateProvider', ($interpola
   console.log('ZDDZ APP');
 });
 
+app.filter('zddzSize', () => {
+  return (sizeName) => {
+    console.log({sizeName});
+    return {
+      "X-Small" : "XS",
+      "Small" : "S",
+      "Medium" : "M",
+      "Large" : "L"
+    }[sizeName];
+  };
+});
 
 app.controller('ProductCtrl', function ($scope, $data) {
   console.log('productctrl', this, $scope, $data);
