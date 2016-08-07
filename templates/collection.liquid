@@ -1,7 +1,7 @@
 {% if current_tags %}
 <h1>{{ current_tags }}</h1>
 {% else %}
-<div am-gutter am-Page-Title>{{ collection.title }} </div>
+{% comment %}<div am-gutter am-Page-Title>{{ collection.title }} </div>{% endcomment %}
 {% endif %}
 {% assign show_hero = false %}
 {% if collection.image %}
@@ -32,6 +32,8 @@
 {% endif %}
 <!--START PRODUCT GRID-->
 <section am-Grid-Row="wrap">
+  {% include 'zd' %}
+  {% include 'dz' %}
 	{% if collection.products.size > 0 %}
 		{% for product in collection.products %}
 		<div am-Collection-Item style="order:{{ forloop.index }};">

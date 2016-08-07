@@ -10,6 +10,7 @@
 
   <div am-Product-Summary>
     <div am-Product-Title>{{ product.title }}</div>
-    <div am-Product-Price>{{ product.price | money }} {% if on_sale == true %}<del>{{ product.compare_at_price | money }}</del>{% endif %}</div>
+
+    <div am-Product-Price="on-sale:{{ on_sale }}">{% if on_sale == true %}<del>{{ product.compare_at_price | money }}</del>&nbsp;{% endif %} {{ product.price | money }}</div>
   </div>
 </div>

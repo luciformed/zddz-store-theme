@@ -27,7 +27,6 @@ let app = angular.module('zddz', []).config(['$interpolateProvider', ($interpola
   $interpolateProvider.startSymbol('{[{');
   $interpolateProvider.endSymbol('}]}');
 }]).run(() => {
-  console.log('ZDDZ APP');
 });
 
 app.filter('zddzSize', () => {

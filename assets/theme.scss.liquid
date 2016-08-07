@@ -863,7 +863,7 @@ $heading-color: {{ settings.heading_color }};
 	  margin-bottom: 20px;
 	}
 	del {
-	  color: {{ settings.second_color }};
+	  color: {{ settings.first_color }}!important;
 	}
 	.error, .errors {
 	  color: {{ settings.accent_color }};
@@ -1979,11 +1979,11 @@ $heading-color: {{ settings.heading_color }};
 		right: 10px;
 	}
 	section#buy h2 {
-	  font-size: 28px;
-	  margin-bottom: 20px;
+	  {% comment %}font-size: 28px;{% endcomment %}
+	  {% comment %}margin-bottom: 20px;{% endcomment %}
 	}
 	section#buy form {
-	  margin-bottom: 10px;
+	  {% comment %}margin-bottom: 10px;{% endcomment %}
 	}
 	section#buy form div#product-variants {
 	  padding: 10px 0;

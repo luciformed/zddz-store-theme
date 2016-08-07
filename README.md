@@ -3,14 +3,15 @@
 # TODO
 
 - [ ] Sale
-  - [ ] old price first. Red current price
+  - [x] old price first. Red current price
 - [ ] responsive
-- [ ] ZD - link to frontpage
+- [x] ZD - link to frontpage
+- [x] collection view
+- [ ] search icon
 - [ ] carousel
-- [ ] collection view
 - [ ] product detail view
-  - [ ] image zoom
-  - [ ] social share btns?
+  - [ ] sizes - select, unavailable, no sizes case
+  - [ ] social share btns? ask artem
+  - [ ] size selection js
 - [ ] cart page
 - [ ] text pages view (privacy policy etc.)
-- [ ] phone/email fix on other pages

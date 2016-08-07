@@ -4,13 +4,13 @@
   <nav am-Main-Menu>
 
     {% for link in linklists.main-menu.links %}
-      {% if link.type == 'collection_link' %}
-        <li>
+      <li am-Main-Menu-Link="active:{{ link.active }}">
+        {% if link.type == 'collection_link' %}
           <a href="{{ link.object.url }}" >{{ link.object.title }}</a>
-        </li>
-      {% else %}
-      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-      {% endif %}
+        {% else %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
+      </li>
     {% endfor %}
   </nav>
 </div>

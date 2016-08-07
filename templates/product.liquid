@@ -4,31 +4,20 @@
 	<meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
 	<meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
 
-  <div am-Grid-Row>
-  	<section id="images" am-Grid-Col="12 wide:6">
-  		<!-- START ZOOM IMAGE-->
+  <div am-Grid-Row="wrap">
+    {% include 'zd' %}
+
+  	<section  am-Grid-Col="12 wide:6" am-height="item-block" am-gutter>
+
       {% if product.featured_image %}
-  		<img am-Collection-Item id="feature-image" height="auto" width="100%" class="desktop" src="{{ product.featured_image.src | product_img_url: 'master' }}" alt="Product Image" data-zoom-image="{{ product.featured_image.src | product_img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" />
-  		<img class="mobile" src="{{ product.featured_image.src | product_img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" />
-  		{% comment %}{% if on_sale == true %}<div class="sale">Sale</div>{% endif %}{% endcomment %}
+    		<img am-Featured-Image am-gutter  src="{{ product.featured_image.src | product_img_url: 'master' }}" alt="Product Image" alt="{{ product.featured_image.alt | escape }}" />
       {% endif %}
-  		<!-- END ZOOM IMAGE-->
-  		{% if product.images.size > 1 %}
-  		<!-- START GALLERY-->
-  		<section id="gallery" am-gutter>
-  			{% for image in product.images offset:1 %}
-  			<a href="{{ image.src | product_img_url: 'grande' }}" class="fancybox-media {% cycle '','','','last' %}">
-  				<img src="{{ image.src | product_img_url: 'medium' }}" alt="{{ image.alt | escape }}" />
-  			</a>
-  			{% endfor %}
-  		</section>
-  		<!-- END GALLERY-->
-  		{% endif %}
+
   	</section>
   	<!-- END PRODUCT IMAGES-->
   	<!--START BUY-->
-  	<section id="buy" am-Grid-Col="12 wide:6">
-  		<form action="/cart/add" method="post" id="product-form" class="quickAdd" enctype="multipart/form-data">
+  	<section id="buy" am-Block am-height="item-block">
+  		<form action="/cart/add" method="post" id="product-form" class="quickAdd" enctype="multipart/form-data" am-Flex-Item="fit" am-Grid-Col>
 
         <div am-Product-Title>{{ product.title }}</div>
   			<div am-Product-Price id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -38,8 +27,9 @@
   			      {% else %}
   			      <link itemprop="availability" href="http://schema.org/OutOfStock" />
   			      {% endif %}
+
   				  {% if product.compare_at_price > product.price %}
-  		          <span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>&nbsp;<del class="product-compare-price">{{ product.compare_at_price_max | money }}</del>
+  		          <del class="product-compare-price">{{ product.compare_at_price_max | money }}</del>&nbsp;<span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>
   		          {% else %}
   		          <span class="product-price" itemprop="price">{{ product.price | money }}</span>
   		          {% endif %}
@@ -49,27 +39,45 @@
   		        {% assign hide_default_title = true %}
   		    {% endif %}
 
-        <div am-Grid-Row>
+        <div am-Sizes>
             {% for variant in product.variants %}
              <div am-Size=""> {[{ "{{variant.title}}" | zddzSize }]} </div>
              {% endfor %}
         </div>
 
-  			<div id="product-variants" class="{% if hide_default_title %} hidden{% endif %}">
+  			{% comment %}<div id="product-variants" class="{% if hide_default_title %} hidden{% endif %}">
   		       <select id="product-select" name="id" class="hidden">
   		       {% for variant in product.variants %}
   		         <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
   		       {% endfor %}
   		       </select>
-  		    </div>
-          <div>
+  		    </div>{% endcomment %}
+          <div am-offset-top="auto">
             {{ product.description }}
           </div>
-  		   <input type="submit" value="Add To Cart" id="add" class="btn add-to-cart" />
+
+  		   <input type="submit"  am-Button value="Add to cart" id="add" />
   		</form>
   	    {% comment %}{% include 'social-sharing' %}{% endcomment %}
   	</section>
   	<!--END BUY-->
+    <section am-Block am-gutter am-height="item-block">
+        <a am-Secondary-Image href="{{ product.images[1].src | product_img_url: 'master' }}"" style="background-image:url({{ product.images[1].src | product_img_url: 'grande' }});">
+        </a>
+
+        <a am-Secondary-Image href="{{ product.images[2].src | product_img_url: 'master' }}"" style="background-image:url({{ product.images[2].src | product_img_url: 'grande' }});">
+        </a>
+
+    </section>
+
+    <section  am-Block am-offset-left="auto" am-gutter am-height="item-block">
+
+      <img am-Secondary-Image src="{{ 'DZ-01.svg' | asset_url }}"/>
+
+      <a am-Secondary-Image href="{{ product.images[3].src | product_img_url: 'master' }}"" style="background-image:url({{ product.images[3].src | product_img_url: 'grande' }});">
+      </a>
+
+    </section>
   </div>
   <!-- START PRODUCT IMAGES-->
 	{% assign current_product = product.handle %}
@@ -79,7 +87,7 @@
 	{% if current_collection != blank and collection.all_products_count > 1 %}
   <div am-Grid-Col >
 		<!--START PRODUCT GRID-->
-		<div am-gutter am-offset-top="x5" am-offset-bottom="x1" am-Text>{% if settings.related_products_header == blank %} {% else %}{{ settings.related_products_header }}{% endif %}</div>
+		<div am-gutter am-offset-bottom="x1" am-Text>{% if settings.related_products_header == blank %} {% else %}{{ settings.related_products_header }}{% endif %}</div>
 
     <section id="related-products" am-Grid-Row="wrap">
 

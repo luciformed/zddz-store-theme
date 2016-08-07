@@ -10,22 +10,10 @@
 
 <section am-Grid-Row="wrap">
 
-  <div am-ZD>
-    <img src="{{ 'ZD-01.svg' | asset_url }}"/>
-    {% include 'navigation' %}
-    <div am-Search>
-      <form action="/search" method="get"  role="search">
-        <input type="hidden" name="type" value="product" />
-        {% comment %}<input type="submit" id="search-submit" class="icon {% if settings.light_search_icon %}light{% endif %}" />{% endcomment %}
-        <input placeholder="Search" name="q" type="text" />
-      </form>
-    </div>
+  {% include 'zd' %}
 
-  </div>
+  {% include 'dz' %}
 
-  <div am-DZ>
-    <img src="{{ 'DZ-01.svg' | asset_url }}"/>
-  </div>
 
 
 	{% assign collection = collections.[settings.frontpage_collection] %}
