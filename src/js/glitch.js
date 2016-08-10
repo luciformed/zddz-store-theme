@@ -8,7 +8,7 @@ const DEFAULT_PARAMS = {
   iterations: 20,
   mousemove_throttle:300,
   glitch_throttle:5000,
-  glitch_chance : 10,
+  glitch_chance : 15,
   second_glitch:50,
   flash: 1
 };
@@ -77,6 +77,7 @@ export default function glitch(elements, cfg) {
 
     let mouseMove = Rx.Observable.fromEvent(el, "mousemove");
 
+    let mouseWheel = Rx.Observable.fromEvent(el, "mousewheel");
 
     let wait = (time) => {
       return () => {
@@ -87,18 +88,17 @@ export default function glitch(elements, cfg) {
     }
 
     mouseMove
+    .merge(mouseWheel)
     .throttle(DEFAULT_PARAMS.mousemove_throttle)
     .filter(() => getRand100() < DEFAULT_PARAMS.glitch_chance)
     .throttle(DEFAULT_PARAMS.glitch_throttle)
     .subscribe(() => {
       setGlitchedImage()
-        // .then(wait(DEFAULT_PARAMS.second_glitch))
-        // .then(setGlitchedImage)
+        .then(wait(DEFAULT_PARAMS.second_glitch))
+        .then(setGlitchedImage)
         .then(wait(DEFAULT_PARAMS.flash))
         .then(setToOriginalImage);
-
     });
-
 
   });
 };
