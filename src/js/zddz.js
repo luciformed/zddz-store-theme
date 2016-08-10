@@ -54,12 +54,13 @@ app.controller('ProductCtrl', function($scope, $data) {
 });
 
 app.directive('zddzInStock', () => {
-  let soldOutElWidth = 20;
 
   let redTape = (element) => {
     let soldOutEl = angular.element('<div am-Sold-Out> </div>');
 
     element.append(soldOutEl);
+
+    let soldOutElWidth = soldOutEl.width();
 
     return () => {
       /*<3 пифагор*/
@@ -78,7 +79,7 @@ app.directive('zddzInStock', () => {
       soldOutEl.css({
         'transform': `rotate(${degrees}deg)`,
         'top': `${(height - c)/2}px`,
-        'left': `${(width /2) - (soldOutElWidth / 2) }px`
+        'left': `${(width /2) - (Math.floor(soldOutElWidth / 2)) }px`
       });
 
     }
