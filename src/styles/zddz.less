@@ -32,7 +32,7 @@ body {
   h2 {
     &:extend([am-Text~="heading"]);
   }
-  opacity: 0!important;
+  // opacity: 0!important;
   //
   line-height: 1.2;
   footer{
@@ -65,7 +65,9 @@ body {
   margin:26px 0;
   justify-content:center;
 }
-
+[am-Main-Menu-Link] {
+  width:50%;
+}
 [am-Main-Menu-Link~="active:true"] {
   font-weight:bold;
 }
@@ -218,7 +220,11 @@ body[am-Main-Container] {
 [am-Featured-Image] {
   position:absolute;
   left:0;
+  width:100%;
   height:(@item-block-height * 2) + @row-spacing;
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-size:cover;
 }
 
 [am-Secondary-Image] + [am-Secondary-Image] {
@@ -230,6 +236,13 @@ body[am-Main-Container] {
   background-repeat:no-repeat;
   background-position:center center;
   background-size:cover;
+}
+
+
+[am-Sold-Out] {
+  position:absolute;
+  width:20px;
+  background:red;
 }
 
 @media only screen and (min-width: @width-wide) {

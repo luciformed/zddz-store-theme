@@ -2,16 +2,17 @@
 
 # TODO
 
-- [ ] Sale
-  - [x] old price first. Red current price
 - [ ] responsive
-- [x] ZD - link to frontpage
-- [x] collection view
 - [ ] search icon
 - [ ] carousel
+- [x] sold out
+- [ ] search results page
 - [ ] product detail view
   - [ ] sizes - select, unavailable, no sizes case
-  - [ ] social share btns? ask artem
+  - [x] social share btns? ask artem
+  - [ ] main picture glitch
   - [ ] size selection js
+  - [ ] instagram pics?
 - [ ] cart page
 - [ ] text pages view (privacy policy etc.)
+- [ ] experiment with glitch more

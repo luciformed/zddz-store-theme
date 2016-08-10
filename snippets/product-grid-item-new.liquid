@@ -3,14 +3,15 @@
 
 <div am-Grid-Col>
   <a am-Product-Link  href="{{ product.url | within: collection }}" id="product-{{ forloop.index }}">
-    {% comment %}{% if on_sale == true %}<div class="sale">Sale</div> {% endif %}{% endcomment %}
-    <div am-Product-Img glitch-img data-img-src="{{ product.featured_image.src | product_img_url: 'large' }}"> </div>
-    {% comment %}<img src="{{ product.featured_image.src | product_img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product" />{% endcomment %}
+    <div am-Product-Img glitch-img data-img-src="{{ product.featured_image.src | product_img_url: 'large' }}" ZDDZ-in-stock="{{ product.available }}"> </div>
   </a>
 
   <div am-Product-Summary>
     <div am-Product-Title>{{ product.title }}</div>
-
+    {% if product.available %}
     <div am-Product-Price="on-sale:{{ on_sale }}">{% if on_sale == true %}<del>{{ product.compare_at_price | money }}</del>&nbsp;{% endif %} {{ product.price | money }}</div>
+    {% else %}
+    <div am-Text="red">Sold out</div>
+    {% endif %}
   </div>
 </div>
