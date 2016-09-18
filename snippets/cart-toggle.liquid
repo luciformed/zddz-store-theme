@@ -1,0 +1,8 @@
+<div am-Cart-Toggle ng-controller="CartToggleCtrl as cart" ng-click="cart.toggle();">
+
+  <div am-Cart-Items-Total>
+    {[{cart.itemCount}]}
+  </div>
+
+  <img src="{{ 'cart_icn.svg' | asset_url }}"/>
+</div>

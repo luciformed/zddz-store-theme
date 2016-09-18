@@ -1,6 +1,6 @@
 {% if product.compare_at_price > product.price %}{% assign on_sale = true %}{% endif %}
 <!--START PRODUCT-->
-<div itemscope itemtype="http://schema.org/Product" zddz-ctrl="ProductCtrl as $product" zddz-data="{{ product | json | replace: '"' : '`'}}" >
+<div itemscope itemtype="http://schema.org/Product" zddz-ctrl="ProductCtrl as productCtrl" zddz-data="{{ product | json | replace: '"' : '`'}}" >
 	<meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
 	<meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
 
@@ -16,32 +16,38 @@
   	<!--START BUY-->
   	<section id="buy" am-Block am-height="item-block">
   		<form action="/cart/add" method="post" id="product-form" class="quickAdd" enctype="multipart/form-data" am-Flex-Item="fit" am-Grid-Col>
+        <div am-Grid-Row="between">
+          <div am-Grid-Col>
+            <div am-Product-Title>{{ product.title }}</div>
+    		      <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+            {% if product.available %}
+              <div am-Product-Price id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <link itemprop="availability" href="http://schema.org/InStock" />
+        				  {% if product.compare_at_price > product.price %}
+        		          <del class="product-compare-price">{{ product.compare_at_price_max | money }}</del>&nbsp;<span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>
+        		          {% else %}
+        		          <span class="product-price" itemprop="price">{{ product.price | money }}</span>
+        		          {% endif %}
+        			</div>
+            {% else %}
+              <link itemprop="availability" href="http://schema.org/OutOfStock" />
+              <div am-Text="red">Sold out</div>
+            {% endif %}
 
-        <div am-Product-Title>{{ product.title }}</div>
-		      <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
-        {% if product.available %}
-          <div am-Product-Price id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                <link itemprop="availability" href="http://schema.org/InStock" />
-    				  {% if product.compare_at_price > product.price %}
-    		          <del class="product-compare-price">{{ product.compare_at_price_max | money }}</del>&nbsp;<span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>
-    		          {% else %}
-    		          <span class="product-price" itemprop="price">{{ product.price | money }}</span>
-    		          {% endif %}
-    			</div>
-        {% else %}
-          <link itemprop="availability" href="http://schema.org/OutOfStock" />
-          <div am-Text="red">Sold out</div>
-        {% endif %}
+          </div>
+          {% include 'cart-toggle' %}
+        </div>
 
-  			{% assign hide_default_title = false %}
-  		    {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
-  		        {% assign hide_default_title = true %}
-  		    {% endif %}
 
-          <div am-Sizes>
-              {% for variant in product.variants %}
-               <div am-Size> {[{ "{{variant.title}}" | zddzSize }]}  </div>
-               {% endfor %}
+          <div am-Sizes ng-if="productCtrl.showSizes">
+             <div ng-repeat="variant in productCtrl.product.variants"
+                  am-Size="available:{[{variant.available}]} selected:{[{productCtrl.selectedVariant == variant}]}"
+                  ng-click="productCtrl.selectedVariant = variant"
+             > {[{ variant.title | zddzSize }]}  </div>
+
+              {% comment %}{% for variant in product.variants %}
+               <div am-Size="available:{{variant.available}}"> {[{ "{{variant.title}}" | zddzSize }]}  </div>
+               {% endfor %}{% endcomment %}
           </div>
 
   			{% comment %}<div id="product-variants" class="{% if hide_default_title %} hidden{% endif %}">
@@ -55,7 +61,7 @@
             {{ product.description }}
           </div>
 
-  		   <input type="submit" {% if product.available == false %} disabled {% endif %} am-Button value="Add to cart" id="add" />
+  		   <input type="submit" ng-disabled="{{!productCtrl.canAddToCart()}}" am-Button value="Add to cart" id="add" />
   		</form>
   	    {% comment %}{% include 'social-sharing' %}{% endcomment %}
   	</section>

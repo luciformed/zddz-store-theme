@@ -15,6 +15,7 @@
     "gulp-autoprefixer": "^2.3.1",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^4.0.0",
+    "gulp-debounced-watch": "^1.0.4",
     "gulp-debug": "^2.0.1",
     "gulp-eslint": "^0.15.0",
     "gulp-filter": "^2.0.2",

@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var webpack = require("webpack");
 var webpackConfig = require('../helpers/webpack.config.js');
 var gutil = require('gulp-util');
-
+var livereload = require('gulp-livereload');
 
 gulp.task("scripts", function (callback) {
     // run webpack
@@ -11,6 +11,8 @@ gulp.task("scripts", function (callback) {
         gutil.log("[webpack]", stats.toString({
             // output options
         }));
+        livereload.reload();
         callback();
+
     });
 });

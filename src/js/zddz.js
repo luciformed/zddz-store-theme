@@ -1,6 +1,7 @@
-import glitchCanvas from "../../bower_components/glitch-canvas/dist/glitch-canvas.js";
-import glitch from "./glitch.js";
-import angular from "../../bower_components/angular/index.js";;
+// import glitchCanvas from "../../bower_components/glitch-canvas/dist/glitch-canvas.js";
+// import glitch from "./glitch.js";
+import angular from "../../bower_components/angular/index.js";
+
 import {
   tryCatch
 } from "../../bower_components/ramda/dist/ramda.js";
@@ -8,14 +9,21 @@ import {
   Observable
 } from "../../bower_components/rxjs/dist/rx.all.js";
 
+import shopify from './shopify-api.js';
+
+import productCtrl from "./product.controller.js";
+
 function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+var log = console.debug.bind(console);
+
 
 $(document).ready(() => {
   let images = $('[glitch-img]');
-  glitch(images);
+  /*TMP*/
+  // glitch(images);
 
   let DZ = $('[am-DZ]');
 
@@ -28,10 +36,12 @@ $(document).ready(() => {
 
 
 
-let app = angular.module('zddz', []).config(['$interpolateProvider', ($interpolateProvider) => {
+let app = angular.module('zddz', [shopify.name]).config(['$interpolateProvider', ($interpolateProvider) => {
   $interpolateProvider.startSymbol('{[{');
   $interpolateProvider.endSymbol('}]}');
 }]).run(($http) => {});
+
+app.controller('ProductCtrl', productCtrl);
 
 app.filter('zddzSize', () => {
   return (sizeName) => {
@@ -45,12 +55,6 @@ app.filter('zddzSize', () => {
       "Large": "L"
     }[sizeName];
   };
-});
-
-app.controller('ProductCtrl', function($scope, $data) {
-  // console.log('productctrl', this, $scope, $data);
-  window.productctrl = this;
-
 });
 
 app.directive('zddzInStock', () => {
@@ -99,7 +103,7 @@ app.directive('zddzInStock', () => {
         let adjustPosition = redTape(element);
 
         let sub = Observable.fromEvent(window, 'resize')
-        .debounce(50).startWith(null).subscribe(adjustPosition);
+          .debounce(50).startWith(null).subscribe(adjustPosition);
 
         scope.$on('$destroy', sub.dispose.bind(sub));
 
@@ -126,4 +130,18 @@ app.directive('zddzCtrl', ($controller) => {
       // ctrl.$data = attrs.zddzData;
     }
   };
+});
+
+
+
+
+app.controller('CartToggleCtrl', function ($scope, ShopifyApi) {
+  let updateCount = () => {
+    return ShopifyApi.getCart().then((resp) => {
+      this.itemCount =  resp.data.item_count;
+    });
+  }
+
+  updateCount();
+
 });
