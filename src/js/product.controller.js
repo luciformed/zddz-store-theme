@@ -1,4 +1,4 @@
-export default function ProductCtrl($scope, $data, ZDDZShopify) {
+export default function ProductCtrl($scope, $data, ShopifyApi, Cart) {
   console.debug('productctrlnew', this, $scope, $data);
 
 
@@ -23,11 +23,10 @@ export default function ProductCtrl($scope, $data, ZDDZShopify) {
     if (!this.selectedVariant) {
       return;
     }
-
-    return ZDDZShopify.addToCart({
-      quantity: 1,
-      id: this.selectedVariant.id
-    })
+    return Cart.add({
+      quantity:1,
+      id : this.selectedVariant.id
+    });
   };
 
 };

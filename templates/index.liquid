@@ -1,4 +1,4 @@
-{% if settings.show_frontpage_hero == true %}
+{% comment %}{% if settings.show_frontpage_hero == true %}
 <!--START BANNER-->
 <div class="twelve columns alpha omega">
 	<section id="hero" class="alpha omega animated fadeInUpBig {% if settings.frontpage_hero_header == blank %}no-text{% endif %}">
@@ -6,7 +6,7 @@
 	</section>
 </div>
 <!--END BANNER-->
-{% endif %}
+{% endif %}{% endcomment %}
 
 <section am-Grid-Row="wrap">
 
@@ -22,6 +22,7 @@
 		{% include 'product-grid-item-new' %}
   </div>
 	{% endfor %}
+
 
 </section>
 

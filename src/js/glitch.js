@@ -33,10 +33,12 @@ let getGlitchParams = () => {
 // }, 500);
 
 
-export default function glitch(elements, cfg) {
+export default function glitch(elements, opts) {
   elements.each((index, el) => {
     el = $(el);
-    let imgSrc = el.data('img-src');
+    let imgSrc = opts.src || el.data('img-src');
+
+    console.debug({imgSrc});
     if (!imgSrc) {
       throw new Error("No image source");
     }
@@ -51,12 +53,12 @@ export default function glitch(elements, cfg) {
     };
 
     let setGlitchedImage = () => {
-      console.time('toglitch');
+      // console.time('toglitch');
       return glitchCanvas(getGlitchParams())
         .fromImage(image)
         .toDataURL()
         .then((dataURL) => {
-          console.timeEnd('toglitch');
+          // console.timeEnd('toglitch');
           el.css('background-image', `url(${dataURL}), url(${imgSrc})`);
         })
     };

@@ -8,14 +8,15 @@
     {% include 'zd' %}
   	<section  am-Grid-Col="12 wide:6" am-height="item-block" am-gutter>
       {% if product.featured_image %}
-    		<div style="background-image:url({{ product.featured_image.src | product_img_url: 'master' }});" am-Featured-Image ZDDZ-in-stock="{{ product.available }}"  am-gutter > </div>
+    		<div am-Featured-Image ZDDZ-in-stock="{{ product.available }}"
+            am-gutter zddz-glitch-img data-img-src="{{ product.featured_image.src | product_img_url: 'master' }}" > </div>
       {% endif %}
 
   	</section>
   	<!-- END PRODUCT IMAGES-->
   	<!--START BUY-->
   	<section id="buy" am-Block am-height="item-block">
-  		<form action="/cart/add" method="post" id="product-form" class="quickAdd" enctype="multipart/form-data" am-Flex-Item="fit" am-Grid-Col>
+  		<form  ng-submit="productCtrl.addToCart()" am-Flex-Item="fit" am-Grid-Col>
         <div am-Grid-Row="between">
           <div am-Grid-Col>
             <div am-Product-Title>{{ product.title }}</div>
@@ -126,7 +127,7 @@
 
 </div>
 <!--END PRODUCT-->
-<script>
+{% comment %}<script>
 jQuery(function($) {
   var selectCallback = function(variant, selector) {
     if (variant) {
@@ -165,3 +166,4 @@ jQuery(function($) {
   {% endfor %}
 });
 </script>
+{% endcomment %}

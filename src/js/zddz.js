@@ -12,6 +12,11 @@ import {
 import shopify from './shopify-api.js';
 
 import productCtrl from "./product.controller.js";
+import Cart from "./cart.service.js";
+import cartDirective from "./cart.directive.js";
+import glitchImgDirective from "./glitch-img.directive.js";
+
+import templates from "./zddz.templates.js";
 
 function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -21,27 +26,36 @@ var log = console.debug.bind(console);
 
 
 $(document).ready(() => {
-  let images = $('[glitch-img]');
-  /*TMP*/
-  // glitch(images);
-
+  /*TODO:*/
   let DZ = $('[am-DZ]');
 
   let order = getRandomIntInclusive(5, 7);
 
   DZ.attr('am-Flex-Item', `order:${order}`);
 
+  /*TODO:TMP DEV!*/
+
+  setTimeout(() => {
+    $('.shopify-preview-bar').hide();
+  }, 3000);
+
 });
 
 
 
-
-let app = angular.module('zddz', [shopify.name]).config(['$interpolateProvider', ($interpolateProvider) => {
+let app = angular.module('zddz', ['zddz.templates', shopify.name]).config(['$interpolateProvider', ($interpolateProvider) => {
   $interpolateProvider.startSymbol('{[{');
   $interpolateProvider.endSymbol('}]}');
 }]).run(($http) => {});
 
+app.factory('Cart', Cart);
+app.directive('zddzCart', cartDirective);
+app.directive('zddzGlitchImg', glitchImgDirective);
 app.controller('ProductCtrl', productCtrl);
+
+app.filter('money', () => {
+  return (price) => Shopify.formatMoney(price, Shopify.money_format);
+});
 
 app.filter('zddzSize', () => {
   return (sizeName) => {
@@ -135,13 +149,10 @@ app.directive('zddzCtrl', ($controller) => {
 
 
 
-app.controller('CartToggleCtrl', function ($scope, ShopifyApi) {
-  let updateCount = () => {
-    return ShopifyApi.getCart().then((resp) => {
-      this.itemCount =  resp.data.item_count;
-    });
-  }
+app.controller('CartToggleCtrl', function($scope, Cart) {
 
-  updateCount();
+  this.getItemCount = () => Cart.item_count;
+
+  this.toggle = Cart.toggle;
 
 });

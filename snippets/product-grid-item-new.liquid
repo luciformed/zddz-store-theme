@@ -3,7 +3,7 @@
 
 <div am-Grid-Col>
   <a am-Product-Link  href="{{ product.url | within: collection }}" id="product-{{ forloop.index }}">
-    <div am-Product-Img glitch-img data-img-src="{{ product.featured_image.src | product_img_url: 'large' }}" ZDDZ-in-stock="{{ product.available }}"> </div>
+    <div am-Product-Img zddz-glitch-img data-img-src="{{ product.featured_image.src | product_img_url: 'large' }}" ZDDZ-in-stock="{{ product.available }}"> </div>
   </a>
 
   <div am-Product-Summary>

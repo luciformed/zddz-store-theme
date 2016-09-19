@@ -1,6 +1,7 @@
 @import 'normalize';
 @import 'grid';
 @import 'layout';
+@import 'cart';
 
 body[am-Main-Container] {
   @import 'button';
@@ -28,11 +29,13 @@ body[am-Main-Container] {
 }
 
 body {
-
+  [ng-click]:not([disabled]) {
+    cursor:pointer;
+  }
   h2 {
     &:extend([am-Text~="heading"]);
   }
-  // opacity: 0!important;
+  opacity: 0!important;
 
   line-height: 1.2;
   footer{
@@ -52,12 +55,26 @@ body {
   height:@input-height;
   form {
     height:100%;
+    display:flex;
+
   }
   input, input:focus {
     height:100%;
     width:100%;
-    background-color: black;
+    background: black;
     &:extend([am-Input]);
+    // background
+  }
+
+  [am-Search-Icon] {
+    width:30px;
+    background-position:center center;
+    background-size:13px 13px;
+
+    background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16.1 16.1" enable-background="new 0 0 16.1 16.1" xml:space="preserve"><g fill="white"><path d="M9.3,0C5.5,0,2.4,3.1,2.4,6.8c0,1.5,0.5,2.9,1.4,4.1L0,14.7l1.4,1.4l3.8-3.8c1.1,0.8,2.5,1.4,4.1,1.4c3.8,0,6.8-3.1,6.8-6.8C16.1,3.1,13,0,9.3,0z M9.3,11.7c-2.7,0-4.8-2.2-4.8-4.8S6.6,2,9.3,2s4.8,2.2,4.8,4.8S11.9,11.7,9.3,11.7z"/></g></svg>');
+    background-repeat:no-repeat;
+    margin-left: auto;
+    background-color:black;
   }
 }
 [am-Main-Menu-Outer] {
