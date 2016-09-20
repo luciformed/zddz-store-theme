@@ -1,13 +1,58 @@
+[am-Cart-Toggle] {
+  background:red;
+  display:flex;
+  height:@input-height;
+  padding:6px 7px;
+  width:auto;
+  align-items:center;
 
+  [am-Cart-Items-Total]{
+    margin-right: 9px;
+    font-weight:bold;
+  }
+
+  img {
+    margin:0 auto;
+    height:100%;
+    // width:15px;
+    // height:100%;
+    // width:100%;
+  }
+
+
+  @media only screen and (max-width:(@width-wide - 1px)){
+    position:fixed;
+    right:0;
+    bottom:0;
+    z-index: 1;
+  }
+}
+
+[am-Cart].ng-hide{
+  opacity:0!important;
+}
 
 [am-Cart]:extend([am-Grid-Col]) {
   @container-width:@width-wide - 60px;
+
+  transition: opacity 0.2s ease-in-out;
+  opacity:1;
+
+  position:fixed;
   top:0;
-  position: absolute;
+  width:100%;
+  height:100%;
+  z-index:2;
+
+  @media only screen and (min-width:@width-wide){
+    position: absolute;
+    margin-left: @container-width/4;
+    width: @container-width/2;
+    height:(@item-block-height * 2) + @row-spacing + @product-info-height;
+  }
+
+
   color:white;
-  width: @container-width/2;
-  margin-left: @container-width/4;
-  height:(@item-block-height * 2) + @row-spacing + @product-info-height;
   background: white;
   // display:block;
 }
@@ -17,10 +62,14 @@
   margin-bottom:@input-height;
 }
 
-[am-Cart-Item]:extend([am-Grid-Col], [am-Grid-Col~="6"]) {
-  height:91px;
+[am-Cart-Item] {
   margin-bottom: @input-height;
   padding:0 @gutter/2;
+  height:150px;
+  @media only screen and (min-width:@width-wide){
+    /*TODO:*/
+    height:91px;
+  }
 }
 
 [am-Cart-Items]:extend([am-Grid-Row], [am-Grid-Row~="wrap"], [am-scroll]) {
@@ -44,7 +93,16 @@
 }
 
 [am-Checkout-Button] {
-  margin-bottom:-1px!important; /*don't know why this hack*/
+
+  width:auto!important;
+  margin:0 @gutter!important;
+
+  @media only screen and (min-width:@width-wide){
+    /*TODO:*/
+    margin:0!important;
+    margin-bottom:-1px!important; /*don't know why this hack*/
+  }
+
 }
 
 [am-Cart-Item-Controls] {
@@ -53,6 +111,7 @@
   height:@input-height;
   background-color:white;
 }
+
 [am-Cart-Item-Control] {
 
 }
@@ -71,4 +130,10 @@
   height:@product-info-height;
   display:flex;
   align-items:flex-end;
+  padding:5px @gutter;
+
+  @media only screen and (min-width:@width-wide){
+    padding:0;
+  }
+
 }

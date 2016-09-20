@@ -58,29 +58,31 @@
   		       {% endfor %}
   		       </select>
   		    </div>{% endcomment %}
-          <div am-offset-top="auto">
-            {{ product.description }}
+          <div am-offset-top="auto" am-offset-bottom="gutter/2">
+            {{ product.description | strip_html}}
           </div>
 
-  		   <input type="submit" ng-disabled="{{!productCtrl.canAddToCart()}}" am-Button value="Add to cart" id="add" />
+  		   <input type="submit" ng-disabled="{{!productCtrl.canAddToCart()}}" am-Button value="Add to cart" />
   		</form>
   	    {% comment %}{% include 'social-sharing' %}{% endcomment %}
   	</section>
   	<!--END BUY-->
     <section am-Block am-gutter am-height="item-block">
-        <a am-Secondary-Image href="{{ product.images[1].src | product_img_url: 'master' }}"" style="background-image:url({{ product.images[1].src | product_img_url: 'grande' }});">
+        <a ng-if="productCtrl.product.images[1]" am-Secondary-Image target="_blank" href="{{ product.images[1].src | product_img_url: 'master' }}"" zddz-glitch-img data-img-src="{{ product.images[1].src | product_img_url: 'grande' }}">
         </a>
 
-        <a am-Secondary-Image href="{{ product.images[2].src | product_img_url: 'master' }}"" style="background-image:url({{ product.images[2].src | product_img_url: 'grande' }});">
+        <a ng-if="productCtrl.product.images[2]" am-Secondary-Image target="_blank" href="{{ product.images[2].src | product_img_url: 'master' }}"" zddz-glitch-img data-img-src="{{ product.images[2].src | product_img_url: 'grande' }}">
         </a>
 
     </section>
 
     <section  am-Block am-offset-left="auto" am-gutter am-height="item-block">
 
+      <div ng-if="!productCtrl.product.images[3]" am-Secondary-Image></div>
+
       <img am-Secondary-Image src="{{ 'DZ-01.svg' | asset_url }}"/>
 
-      <a am-Secondary-Image href="{{ product.images[3].src | product_img_url: 'master' }}"" style="background-image:url({{ product.images[3].src | product_img_url: 'grande' }});">
+      <a ng-if="productCtrl.product.images[3]" am-Secondary-Image target="_blank" href="{{ product.images[3].src | product_img_url: 'master' }}"" zddz-glitch-img data-img-src="{{ product.images[3].src | product_img_url: 'grande' }}">
       </a>
 
     </section>

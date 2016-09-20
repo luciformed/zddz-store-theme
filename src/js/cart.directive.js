@@ -1,7 +1,7 @@
 export default function zddzCartDirective(Cart) {
   return {
     restrict: 'E',
-    replace:true,
+    replace: true,
     templateUrl: 'templates/cart.html',
     controller: function zddzCartDirectiveCtrl($scope) {
       this.cart = Cart;
@@ -10,19 +10,20 @@ export default function zddzCartDirective(Cart) {
         return Cart.total_price;
       };
 
-      this.removeItem = () => {
+      this.removeItem = (item) => {
+        return Cart.updateCartItem(angular.extend(item, {
+          quantity: Math.max(0, item.quantity - 1)
+        }));
 
       };
 
-      this.addItem = () => {
-
+      this.addItem = (item) => {
+        return Cart.updateCartItem(angular.extend(item, {
+          quantity: item.quantity + 1
+        }));
       };
 
       this.canAddMoreItems = () => true;
-
-      this.checkout = () => {
-
-      };
 
     },
     controllerAs: 'cartCtrl',

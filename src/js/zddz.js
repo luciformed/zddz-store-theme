@@ -1,6 +1,7 @@
 // import glitchCanvas from "../../bower_components/glitch-canvas/dist/glitch-canvas.js";
 // import glitch from "./glitch.js";
 import angular from "../../bower_components/angular/index.js";
+import ngAnimate from "../../bower_components/angular-animate/index.js";
 
 import {
   tryCatch
@@ -43,7 +44,7 @@ $(document).ready(() => {
 
 
 
-let app = angular.module('zddz', ['zddz.templates', shopify.name]).config(['$interpolateProvider', ($interpolateProvider) => {
+let app = angular.module('zddz', ['ngAnimate', 'zddz.templates', shopify.name]).config(['$interpolateProvider', ($interpolateProvider) => {
   $interpolateProvider.startSymbol('{[{');
   $interpolateProvider.endSymbol('}]}');
 }]).run(($http) => {});
@@ -67,7 +68,7 @@ app.filter('zddzSize', () => {
       "Small": "S",
       "Medium": "M",
       "Large": "L"
-    }[sizeName];
+    }[sizeName] || "-";
   };
 });
 

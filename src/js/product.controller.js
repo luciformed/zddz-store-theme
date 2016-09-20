@@ -23,10 +23,12 @@ export default function ProductCtrl($scope, $data, ShopifyApi, Cart) {
     if (!this.selectedVariant) {
       return;
     }
+
+
     return Cart.add({
       quantity:1,
       id : this.selectedVariant.id
-    });
+    }).then(Cart.open);
   };
 
 };

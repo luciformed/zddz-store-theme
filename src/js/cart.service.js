@@ -8,7 +8,6 @@ export default function(ShopifyApi) {
       angular.extend(Cart, resp.data);
 
       console.debug(Cart);
-      // this.itemCount = resp.data.item_count;
     });
   }
 
@@ -18,12 +17,20 @@ export default function(ShopifyApi) {
     return ShopifyApi.addToCart(productVariant).then(updateCart);
   };
 
-  Cart.remove = (cartItem) => {
-    return Shopify.updateCart({
-      id: cartItem.id,
-      quantity: cartItem.quantity - 1
+  Cart.updateCartItem = (cartItem) => {
+    return ShopifyApi.updateItemsInCart({
+      updates : {
+        [cartItem.id] : cartItem.quantity
+      }
     }).then(updateCart);
   };
+
+  // Cart.remove = (cartItem) => {
+  //   return ShopifyApi.updateItemsInCart({
+  //     id: cartItem.id,
+  //     quantity: cartItem.quantity - 1
+  //   }).then(updateCart);
+  // };
 
   Cart.open = () => Cart.isOpened = true;
   Cart.close = () => Cart.isOpened = false;

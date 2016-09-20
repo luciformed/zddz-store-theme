@@ -19,6 +19,7 @@
     "glitch-canvas": "^1.0.2",
     "rxjs": "^4.1.0",
     "angular": "^1.5.8",
-    "ramda": "^0.22.0"
+    "ramda": "^0.22.0",
+    "angular-animate": "^1.5.8"
   }
 }

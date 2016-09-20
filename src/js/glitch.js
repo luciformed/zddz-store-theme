@@ -38,7 +38,6 @@ export default function glitch(elements, opts) {
     el = $(el);
     let imgSrc = opts.src || el.data('img-src');
 
-    console.debug({imgSrc});
     if (!imgSrc) {
       throw new Error("No image source");
     }

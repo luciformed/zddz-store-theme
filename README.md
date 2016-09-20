@@ -3,24 +3,30 @@
 # TODO
 
 - [ ] responsive
+  - [ ] text pages
+  - [ ] cart
+  - [ ] product page
+  - [ ] collection page
+  - [ ] search results
+  - [ ] home page
+- [ ] glitch on touchmove
 - [x] search icon
 - [ ] carousel
 - [ ] inventory quantity + items in cart logic
 - [x] sold out
-- [ ] search results page
+- [x] search results page
 - [ ] product detail view
   - [x] sizes - select, unavailable, no sizes case
   - [x] social share btns? ask artem
-  - [ ] main picture glitch
-  - [ ] size selection js
+  - [x] main picture glitch
+  - [x] size selection js
   - [ ] secondary pic selection (hover?)
   - [ ] instagram pics?
-- [ ] cart page
 - [ ] text pages view (privacy policy etc.)
 - [ ] experiment with glitch more
 - [ ] text glitch
 - [ ] cart
-  - [ ] empty state
+  - [?x] empty state
   - [ ] should items in cart link to products?
 - [ ] image fade in
 - [ ] remove livereaload link after i'm done

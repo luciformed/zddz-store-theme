@@ -9,7 +9,6 @@ export default function zddzGlitchImgDirective() {
       // });
 
       attrs.$observe('imgSrc', () => {
-        console.debug('observe', attrs.imgSrc);
         glitch(element, {
           src: attrs.imgSrc
         });

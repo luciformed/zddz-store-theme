@@ -1,16 +1,18 @@
-form(am-Cart ng-show="cartCtrl.cart.isOpened" ng-submit="cartCtrl.checkout()")
+form(action="/cart" method="post" am-Cart="empty:{[{!cartCtrl.cart.items.length}]}"  ng-show="cartCtrl.cart.isOpened")
   div(am-Cart-Inner)
     div(am-Grid-Row="middle between" am-offset-top="gutter" am-offset-bottom="gutter")
       div(am-Text="heading white") Cart
       div(ng-click="cartCtrl.cart.close()" am-Close-Icon)
 
+    div(ng-if="!cartCtrl.cart.items.length" am-Text="em") Your cart is empty
+
     div(am-Cart-Items)
-      div(ng-repeat="item in cartCtrl.cart.items" am-Cart-Item)
+      div(ng-repeat="item in cartCtrl.cart.items track by item.id" am-Cart-Item am-Grid-Col="12 wide:6")
         div(am-Grid-Row am-Flex-Item="fit")
-          div(am-Grid-Col="4" am-Flex-Item="fit")
+          div(am-Grid-Col="6 wide:4" am-Flex-Item="fit")
             div(am-Cart-Item-Img zddz-glitch-img data-img-src="{[{item.image}]}")
             div(am-Grid-Row="middle" am-Cart-Item-Controls)
-              div(am-Flex-Item="fit") -
+              div(am-Flex-Item="fit" ng-click="cartCtrl.removeItem(item)") -
               div(am-Flex-Item="fit") {[{item.quantity}]}
               div(am-Flex-Item="fit" )
                 div(am-width="parent" ng-click="cartCtrl.addItem(item)" ng-show="cartCtrl.canAddMoreItems()") +
@@ -20,9 +22,9 @@ form(am-Cart ng-show="cartCtrl.cart.isOpened" ng-submit="cartCtrl.checkout()")
             div {[{item.variant_title | zddzSize }]}
             div {[{item.price | money}]}
 
-    div(am-offset-top="auto" am-offset-bottom="gutter")
+    div(am-offset-top="auto" am-offset-bottom="gutter" ng-if="cartCtrl.cart.items.length")
       div(am-Text="em") Subtotal: {[{cartCtrl.getSubtotal() | money}]}
 
 
-  input(type="submit" am-Checkout-Button am-Button="fit"  value="Checkout")
-  div(am-Cart-Disclaimer am-offset-top="auto") Shipping, taxes and discounts calculated at checkout
+  input(type="submit" ng-if="cartCtrl.cart.items.length" am-Checkout-Button am-Button="fit" name="checkout" value="Checkout")
+  div(ng-if="cartCtrl.cart.items.length" am-Cart-Disclaimer am-offset-top="auto") Shipping, taxes and discounts calculated at checkout
