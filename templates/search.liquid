@@ -10,10 +10,13 @@
 			Showing results for <span>{{ search.terms | escape }}</span>
 		</div>
 		<!--START PRODUCT GRID-->
-		<section class="product-grid">
+		<section am-Grid-Row="wrap" am-negative-gutter>
+
 			{% for item in search.results %}
 				{% assign product = item %}
-				{% include 'product-grid-item' %}
+				<div am-Collection-Item style="order:{{ forloop.index }};">
+					{% include 'product-grid-item-new' %}
+			  </div>
 			{% else %}
 				<p>There are no products in this view.</p>
 			{% endfor %}

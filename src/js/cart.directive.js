@@ -20,6 +20,10 @@ export default function zddzCartDirective(Cart) {
 
       this.canAddMoreItems = () => true;
 
+      this.checkout = () => {
+
+      };
+
     },
     controllerAs: 'cartCtrl',
     require: 'zddzCart',

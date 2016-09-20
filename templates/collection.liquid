@@ -14,7 +14,7 @@
 {% comment %}tmp{% endcomment %}
 {% assign show_hero = false %}
 
-{% if show_hero == true %}
+{% comment %}{% if show_hero == true %}
 	{% unless current_tags %}
 	<!--START HERO-->
 	<div class="twelve columns alpha omega">
@@ -29,7 +29,7 @@
 	</div>
 	<!--END HERO-->
 	{% endunless %}
-{% endif %}
+{% endif %}{% endcomment %}
 <!--START PRODUCT GRID-->
 <section am-Grid-Row="wrap">
   {% include 'zd' %}
