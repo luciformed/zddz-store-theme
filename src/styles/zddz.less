@@ -20,6 +20,7 @@ body[am-Main-Container] {
 
 // @width-wide:1280px;
 
+@width-tab:768px;
 
 @width-wide:960px;
 
@@ -28,6 +29,7 @@ body[am-Main-Container] {
 @input-height:22px;
 
 @item-block-height:260px;
+@product-image-height-mob:@item-block-height * 2;
 
 
 [am-hide] {
@@ -118,6 +120,7 @@ body {
 
 [am-DZ], [am-ZD] {
   &:extend([am-Block]);
+
   @media only screen and (min-width: @width-wide) {
     height:@item-block-height;
   }
@@ -130,9 +133,16 @@ body {
 }
 
 [am-Block] {
-  &:extend([am-Grid-Col], [am-Grid-Col~="wide:3"], [am-Grid-Col~="12"]);
+  &:extend([am-Grid-Col], [am-Grid-Col~="wide:3"],  [am-Grid-Col~="12"]);
   &:extend([am-gutter]);
-  margin-bottom:@row-spacing;
+
+  // margin-bottom:@input-height;
+
+  @media only screen and (min-width: @width-wide) {
+    margin-bottom:@row-spacing;
+  }
+
+
 }
 
 
@@ -151,7 +161,7 @@ body {
   }
 
   @media only screen and (max-width: (@width-wide - 1px)) {
-    height: @item-block-height * 2;
+    height: @product-image-height-mob;
     margin-left:-@gutter;
     margin-right:-@gutter;
   }
@@ -252,25 +262,68 @@ body[am-Main-Container] {
 
 }
 
+
+[am-Buy-Section] {
+  margin-bottom:@input-height*2;
+  @media only screen and (min-width:@width-wide) {
+    height:@item-block-height;
+    margin-bottom:0;
+    [am-Product-Summary] {
+      height:auto;
+    }
+  }
+}
+
 [am-Featured-Image] {
-  position:absolute;
-  left:0;
-  width:100%;
-  height:(@item-block-height * 2) + @row-spacing;
+  margin:0 -@gutter;
+  height:@product-image-height-mob;
   background-repeat:no-repeat;
   background-position:center center;
   background-size:cover;
+
+  @media only screen and (min-width:@width-wide) {
+    width:100%;
+    height:(@item-block-height * 2) + @row-spacing;
+    left:0;
+    position:absolute;
+    margin:0;
+  }
 }
 
 [am-Secondary-Image] + [am-Secondary-Image] {
-  margin-top:@product-info-height;
+
+  @media only screen and (min-width: @width-wide) {
+    margin-top:@product-info-height;
+  }
 }
 
 [am-Secondary-Image] {
-  flex:1;
   background-repeat:no-repeat;
   background-position:center center;
   background-size:cover;
+
+  &:not([dz]){
+    height:@product-image-height-mob;
+    margin-left:-@gutter;
+    margin-right:-@gutter;
+  }
+
+  &[dz] {
+    display:none;
+  }
+
+  // margin-top: @input-height;
+
+  @media only screen and (min-width: @width-wide) {
+    flex:1;
+    height:auto;
+    margin-left:0!important;
+    margin-right:0!important;
+
+    &[dz] {
+      display:block;
+    }
+  }
 }
 
 

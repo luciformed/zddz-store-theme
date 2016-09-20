@@ -809,6 +809,7 @@ $heading-color: {{ settings.heading_color }};
 	h6 {
 	  margin-bottom: 15px;
 	  font-weight: normal;
+	  font-family: {{ settings.body_font }}!important;
 	}
 	h1 {
 
@@ -2700,6 +2701,12 @@ $heading-color: {{ settings.heading_color }};
 	  font-weight: bold;
 	  line-height: 24px;
 	  white-space: nowrap;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		{% comment %}color: $heading-color;{% endcomment %}
+		{% comment %}font-family: "Georgia", "Times New Roman", serif;{% endcomment %}
+
+		font-weight: bold;
 	}
 	.fancybox-title-outside-wrap {
 	  position: relative;

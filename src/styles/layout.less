@@ -1,6 +1,12 @@
 [am-height~="item-block"] {
   height:@item-block-height;
 }
+[am-height~="wide:item-block"]{
+  @media only screen and (min-width:@width-wide){
+     height:@item-block-height;
+  }
+}
+
 
 [am-gutter] {
   padding-right: @gutter;

@@ -46,7 +46,7 @@
     "shipping_tab_label": "",
     "shipping_tab_content": "",
     "description_tab_label": "",
-    "related_products_header": "",
+    "related_products_header": "Related products",
     "checkout_use_header_image": false,
     "checkout_logo": "",
     "checkout_logo_position": "left",

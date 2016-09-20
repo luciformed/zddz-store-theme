@@ -6,7 +6,7 @@
 
   <div am-Grid-Row="wrap">
     {% include 'zd' %}
-  	<section  am-Grid-Col="12 wide:6" am-height="item-block" am-gutter>
+  	<section  am-Grid-Col="12 wide:6" am-gutter>
       {% if product.featured_image %}
     		<div am-Featured-Image ZDDZ-in-stock="{{ product.available }}"
             am-gutter zddz-glitch-img data-img-src="{{ product.featured_image.src | product_img_url: 'master' }}" > </div>
@@ -15,10 +15,10 @@
   	</section>
   	<!-- END PRODUCT IMAGES-->
   	<!--START BUY-->
-  	<section id="buy" am-Block am-height="item-block">
+  	<section am-Buy-Section am-Block>
   		<form  ng-submit="productCtrl.addToCart()" am-Flex-Item="fit" am-Grid-Col>
         <div am-Grid-Row="between">
-          <div am-Grid-Col>
+          <div am-Grid-Col am-Product-Summary>
             <div am-Product-Title>{{ product.title }}</div>
     		      <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
             {% if product.available %}
@@ -67,7 +67,8 @@
   	    {% comment %}{% include 'social-sharing' %}{% endcomment %}
   	</section>
   	<!--END BUY-->
-    <section am-Block am-gutter am-height="item-block">
+
+    <section am-Block am-gutter am-height="wide:item-block">
         <a ng-if="productCtrl.product.images[1]" am-Secondary-Image target="_blank" href="{{ product.images[1].src | product_img_url: 'master' }}"" zddz-glitch-img data-img-src="{{ product.images[1].src | product_img_url: 'grande' }}">
         </a>
 
@@ -76,11 +77,11 @@
 
     </section>
 
-    <section  am-Block am-offset-left="auto" am-gutter am-height="item-block">
+    <section  am-Block am-offset-left="auto" am-gutter am-height="wide:item-block">
 
       <div ng-if="!productCtrl.product.images[3]" am-Secondary-Image></div>
 
-      <img am-Secondary-Image src="{{ 'DZ-01.svg' | asset_url }}"/>
+      <img am-Secondary-Image dz src="{{ 'DZ-01.svg' | asset_url }}"/>
 
       <a ng-if="productCtrl.product.images[3]" am-Secondary-Image target="_blank" href="{{ product.images[3].src | product_img_url: 'master' }}"" zddz-glitch-img data-img-src="{{ product.images[3].src | product_img_url: 'grande' }}">
       </a>
@@ -95,7 +96,7 @@
 	{% if current_collection != blank and collection.all_products_count > 1 %}
   <div am-Grid-Col >
 		<!--START PRODUCT GRID-->
-		<div am-gutter am-offset-bottom="x1" am-Text>{% if settings.related_products_header == blank %} {% else %}{{ settings.related_products_header }}{% endif %}</div>
+		<div am-gutter am-offset-bottom="input-height" am-Grid-Row="bottom" am-height="x1" am-Text="heading">{% if settings.related_products_header == blank %} {% else %}{{ settings.related_products_header }}{% endif %}</div>
 
     <section id="related-products" am-Grid-Row="wrap">
 

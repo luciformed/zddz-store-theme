@@ -9,6 +9,7 @@
   - [ ] collection page
   - [ ] search results
   - [ ] home page
+  - [ ] sold out stripe
 - [ ] glitch on touchmove
 - [x] search icon
 - [ ] carousel
@@ -30,3 +31,6 @@
   - [ ] should items in cart link to products?
 - [ ] image fade in
 - [ ] remove livereaload link after i'm done
+- [ ] contact us page
+  - [ ] just remove the contact form?
+- [ ] test newsletter signup

@@ -1,4 +1,4 @@
-<div am-Cart-Toggle ng-controller="CartToggleCtrl as cart" ng-click="cart.toggle();">
+<div am-Cart-Toggle="empty:{[{cart.getItemCount() == 0}]}" ng-controller="CartToggleCtrl as cart" ng-click="cart.toggle();">
 
   <div am-Cart-Items-Total>
     {[{cart.getItemCount()}]}
