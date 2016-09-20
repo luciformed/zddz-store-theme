@@ -12,7 +12,15 @@
 
   {% include 'zd' %}
 
-  {% include 'dz' %}
+  {% comment %}{% include 'dz' %}{% endcomment %}
+
+  <div am-DZ>
+    <div am-offset-bottom="auto" am-Flex-Item="end">
+      {% include 'cart-toggle' %}
+    </div>
+    <img src="{{ 'DZ-01.svg' | asset_url }}"/>
+  </div>
+
 
 
 

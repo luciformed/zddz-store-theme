@@ -21,5 +21,6 @@
 - [ ] text glitch
 - [ ] cart
   - [ ] empty state
+  - [ ] should items in cart link to products?
 - [ ] image fade in
 - [ ] remove livereaload link after i'm done

@@ -1,23 +1,28 @@
-div(am-Cart ng-show="cartCtrl.cart.isOpened")
-  div(am-Grid-Row="middle between" am-height="x1")
-    div(am-Text="heading white") Cart
-    div(ng-click="cartCtrl.cart.close()" am-Text="white") x
+form(am-Cart ng-hide="cartCtrl.cart.isOpened" ng-submit="cartCtrl.checkout()")
+  div(am-Cart-Inner)
+    div(am-Grid-Row="middle between" am-offset-top="gutter" am-offset-bottom="gutter")
+      div(am-Text="heading white") Cart
+      div(ng-click="cartCtrl.cart.close()" am-Close-Icon)
 
-  div(am-Grid-Row="wrap" am-Flex-Item="fit" am-scroll)
-    div(ng-repeat="item in cartCtrl.cart.items" am-Cart-Item)
-      div(am-Grid-Row am-Flex-Item="fit")
-        div(am-Grid-Col="6" am-Flex-Item="fit")
-          div(am-Cart-Item-Img zddz-glitch-img data-img-src="{[{item.image}]}")
-          div(am-Grid-Row="middle" am-height="x1" am-Cart-Item-Controls)
-            div(am-Flex-Item="fit") -
-            div(am-Flex-Item="fit") {[{item.quantity}]}
-            div(am-Flex-Item="fit" )
-              div(am-width="parent" ng-click="cartCtrl.addItem(item)" ng-show="cartCtrl.canAddMoreItems()")
+    div(am-Cart-Items)
+      div(ng-repeat="item in cartCtrl.cart.items" am-Cart-Item)
+        div(am-Grid-Row am-Flex-Item="fit")
+          div(am-Grid-Col="4" am-Flex-Item="fit")
+            div(am-Cart-Item-Img zddz-glitch-img data-img-src="{[{item.image}]}")
+            div(am-Grid-Row="middle" am-Cart-Item-Controls)
+              div(am-Flex-Item="fit") -
+              div(am-Flex-Item="fit") {[{item.quantity}]}
+              div(am-Flex-Item="fit" )
+                div(am-width="parent" ng-click="cartCtrl.addItem(item)" ng-show="cartCtrl.canAddMoreItems()") +
 
-        div(am-Cart-Item-Details)
-          div {[{item.product_title}]}
-          div {[{item.variant_title | zddzSize }]}
-          div {[{item.price | money}]}
+          div(am-Cart-Item-Details)
+            div {[{item.product_title}]}
+            div {[{item.variant_title | zddzSize }]}
+            div {[{item.price | money}]}
 
-  div(am-offset-top="auto" am-height="x1")
-    div(am-Text="em") Subtotal: {[{cartCtrl.getSubtotal() | money}]}
+    div(am-offset-top="auto" am-offset-bottom="gutter")
+      div(am-Text="em") Subtotal: {[{cartCtrl.getSubtotal() | money}]}
+
+
+  input(type="submit" am-Button="fit"  value="Checkout" am-offset-top="gutter")
+  div(am-Cart-Disclaimer am-offset-top="auto") Shipping, taxes and discounts calculated at checkout

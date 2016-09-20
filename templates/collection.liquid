@@ -33,7 +33,13 @@
 <!--START PRODUCT GRID-->
 <section am-Grid-Row="wrap">
   {% include 'zd' %}
-  {% include 'dz' %}
+  <div am-DZ>
+    <div am-offset-bottom="auto" am-Flex-Item="end">
+      {% include 'cart-toggle' %}
+    </div>
+    <img src="{{ 'DZ-01.svg' | asset_url }}"/>
+  </div>
+
 	{% if collection.products.size > 0 %}
 		{% for product in collection.products %}
 		<div am-Collection-Item style="order:{{ forloop.index }};">
