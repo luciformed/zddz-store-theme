@@ -59,16 +59,13 @@ app.filter('money', () => {
 });
 
 app.filter('zddzSize', () => {
-  return (sizeName) => {
-    // console.log({
-    //   sizeName
-    // });
+  return (sizeName="-") => {
     return {
       "X-Small": "XS",
       "Small": "S",
       "Medium": "M",
       "Large": "L"
-    }[sizeName] || "-";
+    }[sizeName] || sizeName;
   };
 });
 
