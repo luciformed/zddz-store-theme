@@ -99,7 +99,7 @@
 		<div am-gutter am-offset-bottom="input-height" am-Grid-Row="bottom" am-height="x1" am-Text="heading">{% if settings.related_products_header == blank %} {% else %}{{ settings.related_products_header }}{% endif %}</div>
 
     <section id="related-products" am-Grid-Row="wrap">
-
+    {% comment %} wow, this is shit{% endcomment %}
 		{% comment %}Show three products from the current collection but make sure that doesn't include the current product{% endcomment %}
 		{% for product in collections.[current_collection].products | limit: 3 %}
 			{% if product.handle == current_product %}

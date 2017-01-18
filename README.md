@@ -1,6 +1,13 @@
 # zddz-store-theme
 
+
+
 # TODO
+
+MENU DOESN'T WORK AS IT IS. Too little space
+
+- text pages need a way to get back to homepage
+
 
 - [ ] responsive
   - [ ] text pages
@@ -36,4 +43,8 @@
 - [ ] test newsletter signup
 
 
-- [ ] menu in safari
+
+- [ ] safari bugs
+  - [ ] menu
+  - [ ] glitch
+  - [ ] product page
