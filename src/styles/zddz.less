@@ -148,6 +148,13 @@ body {
 
 [am-Collection-Item]:extend([am-Block]) {
   margin-bottom:@row-spacing - @product-info-height;
+  /*for safari*/
+  height:auto!important;
+
+  > [am-Grid-Col] {
+    flex-basis:auto;
+  }
+
 
 }
 
@@ -173,6 +180,7 @@ body {
 
 [am-Product-Summary] {
   height:@product-info-height;
+  min-height:@product-info-height;
   &:extend([am-Grid-Col], [am-Grid-Col~="bottom"]);
 }
 

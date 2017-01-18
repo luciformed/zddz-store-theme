@@ -34,3 +34,6 @@
 - [ ] contact us page
   - [ ] just remove the contact form?
 - [ ] test newsletter signup
+
+
+- [ ] menu in safari
