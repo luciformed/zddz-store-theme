@@ -4,7 +4,25 @@ export default function ProductCtrl($scope, $data, ShopifyApi, Cart) {
 
   let product = this.product = $data;
 
+
+
   this.showSizes = true;
+
+  let images = angular.copy(product.images);
+
+  const replaceImages = (a, b) => {
+    images[a] = images.splice(b, 1, images[a])[0];
+  };
+
+
+  this.getImageAt = index => {
+    return images[index];
+  };
+
+
+  this.setActiveImage = index => {
+    replaceImages(0, index);
+  };
 
   if (product.variants.length == 1 && product.variants[0].title.indexOf('Default') != -1) {
     this.showSizes = false;
@@ -24,10 +42,9 @@ export default function ProductCtrl($scope, $data, ShopifyApi, Cart) {
       return;
     }
 
-
     return Cart.add({
-      quantity:1,
-      id : this.selectedVariant.id
+      quantity: 1,
+      id: this.selectedVariant.id
     }).then(Cart.open);
   };
 
@@ -35,7 +52,7 @@ export default function ProductCtrl($scope, $data, ShopifyApi, Cart) {
 
 
 
-var test = {
+/*var test = {
   "id": 5781972485,
   "title": "Choker F-Dress",
   "handle": "choker-f-dress",
@@ -144,3 +161,4 @@ var test = {
   "options": ["Size"],
   "content": "<p><strong>Composition:</strong> 100% Cotton</p>"
 }
+*/

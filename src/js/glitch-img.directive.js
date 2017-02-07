@@ -7,9 +7,14 @@ export default function zddzGlitchImgDirective() {
       // console.debug({
       //   attrs
       // });
+      //
+      let sub = null;
 
       attrs.$observe('imgSrc', () => {
-        glitch(element, {
+        if(sub) {
+          sub.dispose();
+        }
+        sub = glitch(element, {
           src: attrs.imgSrc
         });
       });

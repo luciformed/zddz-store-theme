@@ -57367,7 +57367,116 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=ProductCtrl;function ProductCtrl($scope,$data,ShopifyApi,Cart){var _this=this;console.debug('productctrlnew',this,$scope,$data);var product=this.product=$data;this.showSizes=true;if(product.variants.length==1&&product.variants[0].title.indexOf('Default')!=-1){this.showSizes=false;}if(product.available){this.selectedVariant=product.variants.filter(function(v){return v.available;})[0];}this.canAddToCart=function(){return product.available&&!!_this.selectedVariant;};this.addToCart=function(){if(!_this.selectedVariant){return;}return Cart.add({quantity:1,id:_this.selectedVariant.id}).then(Cart.open);};};var test={"id":5781972485,"title":"Choker F-Dress","handle":"choker-f-dress","description":"<p><strong>Composition:</strong> 100% Cotton</p>","published_at":"2016-06-15T13:56:00+02:00","created_at":"2016-06-15T13:57:06+02:00","vendor":"ZDDZ Shop","type":"Dresses","tags":[],"price":9500,"price_min":9500,"price_max":9500,"available":true,"price_varies":false,"compare_at_price":19000,"compare_at_price_min":19000,"compare_at_price_max":19000,"compare_at_price_varies":false,"variants":[{"id":18330718853,"title":"X-Small","option1":"X-Small","option2":null,"option3":null,"sku":"","requires_shipping":true,"taxable":true,"featured_image":null,"available":true,"name":"Choker F-Dress - X-Small","public_title":"X-Small","options":["X-Small"],"price":9500,"weight":560,"compare_at_price":19000,"inventory_quantity":3,"inventory_management":"shopify","inventory_policy":"deny","barcode":""},{"id":18681806917,"title":"Small","option1":"Small","option2":null,"option3":null,"sku":"","requires_shipping":true,"taxable":true,"featured_image":null,"available":true,"name":"Choker F-Dress - Small","public_title":"Small","options":["Small"],"price":9500,"weight":560,"compare_at_price":19000,"inventory_quantity":3,"inventory_management":"shopify","inventory_policy":"deny","barcode":""},{"id":18681807045,"title":"Medium","option1":"Medium","option2":null,"option3":null,"sku":"","requires_shipping":true,"taxable":true,"featured_image":null,"available":true,"name":"Choker F-Dress - Medium","public_title":"Medium","options":["Medium"],"price":9500,"weight":560,"compare_at_price":19000,"inventory_quantity":1,"inventory_management":"shopify","inventory_policy":"deny","barcode":""},{"id":18681807173,"title":"Large","option1":"Large","option2":null,"option3":null,"sku":"","requires_shipping":true,"taxable":true,"featured_image":null,"available":true,"name":"Choker F-Dress - Large","public_title":"Large","options":["Large"],"price":9500,"weight":560,"compare_at_price":19000,"inventory_quantity":1,"inventory_management":"shopify","inventory_policy":"deny","barcode":""}],"images":["//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-1.jpg?v=1465991828","//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-2.jpg?v=1465991830","//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-3.jpg?v=1465991832","//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-4.jpg?v=1465991833"],"featured_image":"//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-1.jpg?v=1465991828","options":["Size"],"content":"<p><strong>Composition:</strong> 100% Cotton</p>"};
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=ProductCtrl;function ProductCtrl($scope,$data,ShopifyApi,Cart){var _this=this;console.debug('productctrlnew',this,$scope,$data);var product=this.product=$data;this.showSizes=true;var images=angular.copy(product.images);var replaceImages=function replaceImages(a,b){images[a]=images.splice(b,1,images[a])[0];};this.getImageAt=function(index){return images[index];};this.setActiveImage=function(index){replaceImages(0,index);};if(product.variants.length==1&&product.variants[0].title.indexOf('Default')!=-1){this.showSizes=false;}if(product.available){this.selectedVariant=product.variants.filter(function(v){return v.available;})[0];}this.canAddToCart=function(){return product.available&&!!_this.selectedVariant;};this.addToCart=function(){if(!_this.selectedVariant){return;}return Cart.add({quantity:1,id:_this.selectedVariant.id}).then(Cart.open);};};/*var test = {
+	  "id": 5781972485,
+	  "title": "Choker F-Dress",
+	  "handle": "choker-f-dress",
+	  "description": "<p><strong>Composition:</strong> 100% Cotton</p>",
+	  "published_at": "2016-06-15T13:56:00+02:00",
+	  "created_at": "2016-06-15T13:57:06+02:00",
+	  "vendor": "ZDDZ Shop",
+	  "type": "Dresses",
+	  "tags": [],
+	  "price": 9500,
+	  "price_min": 9500,
+	  "price_max": 9500,
+	  "available": true,
+	  "price_varies": false,
+	  "compare_at_price": 19000,
+	  "compare_at_price_min": 19000,
+	  "compare_at_price_max": 19000,
+	  "compare_at_price_varies": false,
+	  "variants": [{
+	    "id": 18330718853,
+	    "title": "X-Small",
+	    "option1": "X-Small",
+	    "option2": null,
+	    "option3": null,
+	    "sku": "",
+	    "requires_shipping": true,
+	    "taxable": true,
+	    "featured_image": null,
+	    "available": true,
+	    "name": "Choker F-Dress - X-Small",
+	    "public_title": "X-Small",
+	    "options": ["X-Small"],
+	    "price": 9500,
+	    "weight": 560,
+	    "compare_at_price": 19000,
+	    "inventory_quantity": 3,
+	    "inventory_management": "shopify",
+	    "inventory_policy": "deny",
+	    "barcode": ""
+	  }, {
+	    "id": 18681806917,
+	    "title": "Small",
+	    "option1": "Small",
+	    "option2": null,
+	    "option3": null,
+	    "sku": "",
+	    "requires_shipping": true,
+	    "taxable": true,
+	    "featured_image": null,
+	    "available": true,
+	    "name": "Choker F-Dress - Small",
+	    "public_title": "Small",
+	    "options": ["Small"],
+	    "price": 9500,
+	    "weight": 560,
+	    "compare_at_price": 19000,
+	    "inventory_quantity": 3,
+	    "inventory_management": "shopify",
+	    "inventory_policy": "deny",
+	    "barcode": ""
+	  }, {
+	    "id": 18681807045,
+	    "title": "Medium",
+	    "option1": "Medium",
+	    "option2": null,
+	    "option3": null,
+	    "sku": "",
+	    "requires_shipping": true,
+	    "taxable": true,
+	    "featured_image": null,
+	    "available": true,
+	    "name": "Choker F-Dress - Medium",
+	    "public_title": "Medium",
+	    "options": ["Medium"],
+	    "price": 9500,
+	    "weight": 560,
+	    "compare_at_price": 19000,
+	    "inventory_quantity": 1,
+	    "inventory_management": "shopify",
+	    "inventory_policy": "deny",
+	    "barcode": ""
+	  }, {
+	    "id": 18681807173,
+	    "title": "Large",
+	    "option1": "Large",
+	    "option2": null,
+	    "option3": null,
+	    "sku": "",
+	    "requires_shipping": true,
+	    "taxable": true,
+	    "featured_image": null,
+	    "available": true,
+	    "name": "Choker F-Dress - Large",
+	    "public_title": "Large",
+	    "options": ["Large"],
+	    "price": 9500,
+	    "weight": 560,
+	    "compare_at_price": 19000,
+	    "inventory_quantity": 1,
+	    "inventory_management": "shopify",
+	    "inventory_policy": "deny",
+	    "barcode": ""
+	  }],
+	  "images": ["//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-1.jpg?v=1465991828", "//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-2.jpg?v=1465991830", "//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-3.jpg?v=1465991832", "//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-4.jpg?v=1465991833"],
+	  "featured_image": "//cdn.shopify.com/s/files/1/0274/0369/products/image-chocker-f-sweatshirt-dress-1.jpg?v=1465991828",
+	  "options": ["Size"],
+	  "content": "<p><strong>Composition:</strong> 100% Cotton</p>"
+	}
+	*/
 
 /***/ },
 /* 11 */
@@ -57394,7 +57503,8 @@
 	"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=zddzGlitchImgDirective;var _glitch=__webpack_require__(14);var _glitch2=_interopRequireDefault(_glitch);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function zddzGlitchImgDirective(){return{restrict:"A",link:function link(scope,element,attrs){// console.debug({
 	//   attrs
 	// });
-	attrs.$observe('imgSrc',function(){(0,_glitch2.default)(element,{src:attrs.imgSrc});});}};}
+	//
+	var sub=null;attrs.$observe('imgSrc',function(){if(sub){sub.dispose();}sub=(0,_glitch2.default)(element,{src:attrs.imgSrc});});}};}
 
 /***/ },
 /* 14 */
@@ -57403,9 +57513,9 @@
 	"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=glitch;var _glitchCanvas=__webpack_require__(15);var _glitchCanvas2=_interopRequireDefault(_glitchCanvas);var _rxAll=__webpack_require__(6);var _rxAll2=_interopRequireDefault(_rxAll);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var DEFAULT_PARAMS={quality:37,amount:70,iterations:20,mousemove_throttle:300,glitch_throttle:5000,glitch_chance:15,second_glitch:50,flash:1};var getRand100=function getRand100(){return Math.round(Math.random()*100);};var getGlitchParams=function getGlitchParams(){return{seed:getRand100(),// integer between 0 and 99
 	quality:DEFAULT_PARAMS['quality'],amount:DEFAULT_PARAMS['amount'],iterations:DEFAULT_PARAMS['iterations']};};// let throttled = _.throttle(() => {
 	// }, 500);
-	function glitch(elements,opts){elements.each(function(index,el){el=$(el);var imgSrc=opts.src||el.data('img-src');if(!imgSrc){throw new Error("No image source");}var image=new Image();image.setAttribute('crossOrigin','');var originalImgDataUrl=void 0;var setToOriginalImage=function setToOriginalImage(){el.css('background-image',"url("+imgSrc+")");};var setGlitchedImage=function setGlitchedImage(){// console.time('toglitch');
+	function glitch(el,opts){el=$(el);var imgSrc=opts.src||el.data('img-src');if(!imgSrc){throw new Error("No image source");}var image=new Image();image.setAttribute('crossOrigin','');var originalImgDataUrl=void 0;var setToOriginalImage=function setToOriginalImage(){el.css('background-image',"url("+imgSrc+")");};var setGlitchedImage=function setGlitchedImage(){// console.time('toglitch');
 	return(0,_glitchCanvas2.default)(getGlitchParams()).fromImage(image).toDataURL().then(function(dataURL){// console.timeEnd('toglitch');
-	el.css('background-image',"url("+dataURL+"), url("+imgSrc+")");});};image.src=imgSrc;image.onload=function(){setToOriginalImage();(0,_glitchCanvas2.default)().fromImage(image).toDataURL().then(function(dataURL){originalImgDataUrl=dataURL;});};var mouseMove=_rxAll2.default.Observable.fromEvent(el,"mousemove");var mouseWheel=_rxAll2.default.Observable.fromEvent(el,"mousewheel");var wait=function wait(time){return function(){return new Promise(function(resolve,reject){setTimeout(resolve,time);});};};mouseMove.merge(mouseWheel).throttle(DEFAULT_PARAMS.mousemove_throttle).filter(function(){return getRand100()<DEFAULT_PARAMS.glitch_chance;}).throttle(DEFAULT_PARAMS.glitch_throttle).subscribe(function(){setGlitchedImage().then(wait(DEFAULT_PARAMS.second_glitch)).then(setGlitchedImage).then(wait(DEFAULT_PARAMS.flash)).then(setToOriginalImage);});});};
+	el.css('background-image',"url("+dataURL+"), url("+imgSrc+")");});};image.src=imgSrc;image.onload=function(){setToOriginalImage();(0,_glitchCanvas2.default)().fromImage(image).toDataURL().then(function(dataURL){originalImgDataUrl=dataURL;});};var mouseMove=_rxAll2.default.Observable.fromEvent(el,"mousemove");var mouseWheel=_rxAll2.default.Observable.fromEvent(el,"mousewheel");var wait=function wait(time){return function(){return new Promise(function(resolve,reject){setTimeout(resolve,time);});};};var sub=mouseMove.merge(mouseWheel).throttle(DEFAULT_PARAMS.mousemove_throttle).filter(function(){return getRand100()<DEFAULT_PARAMS.glitch_chance;}).throttle(DEFAULT_PARAMS.glitch_throttle).subscribe(function(){setGlitchedImage().then(wait(DEFAULT_PARAMS.second_glitch)).then(setGlitchedImage).then(wait(DEFAULT_PARAMS.flash)).then(setToOriginalImage);});return sub;};
 
 /***/ },
 /* 15 */

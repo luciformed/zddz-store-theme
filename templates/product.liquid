@@ -9,7 +9,9 @@
   	<section  am-Grid-Col="12 wide:6" am-gutter>
       {% if product.featured_image %}
     		<div am-Featured-Image ZDDZ-in-stock="{{ product.available }}"
-            am-gutter zddz-glitch-img data-img-src="{{ product.featured_image.src | product_img_url: 'master' }}" > </div>
+            am-gutter zddz-glitch-img
+            data-img-src="{[{ productCtrl.getImageAt(0) }]}"
+            > </div>
       {% endif %}
 
   	</section>
@@ -51,7 +53,7 @@
                {% endfor %}{% endcomment %}
           </div>
 
-  			{% comment %}<div id="product-variants" class="{% if hide_default_title %} hidden{% endif %}">
+  			{% comment %}<div id="product-Variants" class="{% if hide_default_title %} hidden{% endif %}">
   		       <select id="product-select" name="id" class="hidden">
   		       {% for variant in product.variants %}
   		         <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
@@ -69,10 +71,14 @@
   	<!--END BUY-->
 
     <section am-Block am-gutter am-height="wide:item-block">
-        <a ng-if="productCtrl.product.images[1]" am-Secondary-Image target="_blank" href="{{ product.images[1].src | product_img_url: 'master' }}"" zddz-glitch-img data-img-src="{{ product.images[1].src | product_img_url: 'grande' }}">
+        <a ng-if="productCtrl.getImageAt(1)" am-Secondary-Image
+           ng-click="productCtrl.setActiveImage(1)"
+           zddz-glitch-img data-img-src="{[{ productCtrl.getImageAt(1) }]}">
         </a>
 
-        <a ng-if="productCtrl.product.images[2]" am-Secondary-Image target="_blank" href="{{ product.images[2].src | product_img_url: 'master' }}"" zddz-glitch-img data-img-src="{{ product.images[2].src | product_img_url: 'grande' }}">
+        <a ng-if="productCtrl.getImageAt(2)" am-Secondary-Image
+        ng-click="productCtrl.setActiveImage(2)"
+        zddz-glitch-img data-img-src="{[{ productCtrl.getImageAt(2) }]}">
         </a>
 
     </section>
@@ -83,7 +89,9 @@
 
       <img am-Secondary-Image dz src="{{ 'DZ-01.svg' | asset_url }}"/>
 
-      <a ng-if="productCtrl.product.images[3]" am-Secondary-Image target="_blank" href="{{ product.images[3].src | product_img_url: 'master' }}"" zddz-glitch-img data-img-src="{{ product.images[3].src | product_img_url: 'grande' }}">
+      <a ng-if="productCtrl.getImageAt(3)" am-Secondary-Image
+           ng-click="productCtrl.setActiveImage(3)"
+           zddz-glitch-img data-img-src="{[{ productCtrl.getImageAt(3) }]}">
       </a>
 
     </section>
