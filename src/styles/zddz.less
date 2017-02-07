@@ -294,9 +294,12 @@ body[am-Main-Container] {
   background-size:cover;
 
   @media only screen and (min-width:@width-wide) {
-    width:100%;
+    // width:100%;
+
+    flex:1;
     height:(@item-block-height * 2) + @row-spacing;
-    left:0;
+    left:@gutter;
+    right:@gutter;
     position:absolute;
     margin:0;
   }
