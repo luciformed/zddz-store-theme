@@ -8,10 +8,15 @@
     {% include 'zd' %}
   	<section  am-Grid-Col="12 wide:6" am-gutter>
       {% if product.featured_image %}
-    		<div am-Featured-Image ZDDZ-in-stock="{{ product.available }}"
-            am-gutter zddz-glitch-img
+    		{% comment %}<div am-Featured-Image ZDDZ-in-stock="{{ product.available }}"
+            am-gutter
+            zddz-glitch-img
             data-img-src="{[{ productCtrl.getImageAt(0) }]}"
-            > </div>
+            > </div>{% endcomment %}
+
+        <img ng-src="{[{ productCtrl.getImageAt(0) }]}"
+              am-Featured-Image
+              zoom-img data-zoom-image="{[{ productCtrl.getImageAt(0) }]}">
       {% endif %}
 
   	</section>

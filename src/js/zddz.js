@@ -59,7 +59,7 @@ app.filter('money', () => {
 });
 
 app.filter('zddzSize', () => {
-  return (sizeName="-") => {
+  return (sizeName = "-") => {
     return {
       "X-Small": "XS",
       "Small": "S",
@@ -144,7 +144,27 @@ app.directive('zddzCtrl', ($controller) => {
   };
 });
 
+app.directive('zoomImg', [() => {
 
+  return {
+    link(scope, element, attrs) {
+
+
+      const ZOOM_OPTS = {
+        zoomType: "inner",
+        cursor: "crosshair"
+      };
+
+      attrs.$observe('zoomImage', () => {
+
+        elev = $(element[0]).elevateZoom(ZOOM_OPTS);
+
+      });
+
+    }
+  };
+
+}])
 
 
 app.controller('CartToggleCtrl', function($scope, Cart) {

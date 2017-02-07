@@ -34,7 +34,7 @@
 	{{ 'zddz.css' | asset_url | stylesheet_tag }}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
 	{% comment %}{{ 'jquery.fancybox.js' | asset_url | script_tag }}{% endcomment %}
-	{% comment %}{{ 'jquery.elevatezoom.js' | asset_url | script_tag }}{% endcomment %}
+	{{ 'jquery.elevatezoom.js' | asset_url | script_tag }}
 
 
 	<!--[if lt IE 9]>
@@ -209,3 +209,4 @@
 
 
 </html>
+<script src="https://localhost:3232/livereload.js?snipver=1"></script>
