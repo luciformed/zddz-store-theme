@@ -149,6 +149,7 @@ app.directive('zoomImg', [() => {
   return {
     link(scope, element, attrs) {
 
+      let elev;
 
       const ZOOM_OPTS = {
         zoomType: "inner",

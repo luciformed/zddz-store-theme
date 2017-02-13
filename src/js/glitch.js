@@ -47,11 +47,11 @@ export default function glitch(el, opts) {
   image.setAttribute('crossOrigin', '');
   let originalImgDataUrl;
 
-  let setToOriginalImage = () => {
+  const setToOriginalImage = () => {
     el.css('background-image', `url(${imgSrc})`);
   };
 
-  let setGlitchedImage = () => {
+  const setGlitchedImage = () => {
     // console.time('toglitch');
     return glitchCanvas(getGlitchParams())
       .fromImage(image)
@@ -76,11 +76,11 @@ export default function glitch(el, opts) {
   };
 
 
-  let mouseMove = Rx.Observable.fromEvent(el, "mousemove");
+  const mouseMove = Rx.Observable.fromEvent(el, "mousemove");
 
-  let mouseWheel = Rx.Observable.fromEvent(el, "mousewheel");
+  const mouseWheel = Rx.Observable.fromEvent(el, "mousewheel");
 
-  let wait = (time) => {
+  const wait = (time) => {
     return () => {
       return new Promise((resolve, reject) => {
         setTimeout(resolve, time);

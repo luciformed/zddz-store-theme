@@ -36,6 +36,22 @@
 	{% comment %}{{ 'jquery.fancybox.js' | asset_url | script_tag }}{% endcomment %}
 	{{ 'jquery.elevatezoom.js' | asset_url | script_tag }}
 
+	{{ 'pseudo-worker.js' | asset_url | script_tag }}
+
+	<script>
+		var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
+
+		console.log('isSafari', isSafari);
+
+		if (isSafari) {
+			window.Worker = window.PseudoWorker;
+			window._workerFilePath = "{{'glitch-web-worker.js' | asset_url}}";
+		}
+
+
+
+	</script>
+
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
