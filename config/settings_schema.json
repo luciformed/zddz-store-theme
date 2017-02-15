@@ -129,7 +129,7 @@
   "name": "Social Media",
   "settings": [{
     "type": "paragraph",
-    "content": "Social media links appear as icons in the sidebar"
+    "content": "Social media links appear in footer"
   }, {
     "type": "text",
     "id": "facebook_url",
@@ -150,36 +150,6 @@
     "id": "pinterest_url",
     "label": "Your Pinterest page URL",
     "info": "Start the URL with http:\/\/"
-  }, {
-    "type": "text",
-    "id": "youtube_url",
-    "label": "Your YouTube page URL",
-    "info": "Start the URL with http:\/\/"
-  }, {
-    "type": "text",
-    "id": "vimeo_url",
-    "label": "Your Vimeo page URL",
-    "info": "Start the URL with http:\/\/"
-  }, {
-    "type": "text",
-    "id": "flickr_url",
-    "label": "Your Flickr page URL",
-    "info": "Start the URL with http:\/\/"
-  }, {
-    "type": "checkbox",
-    "id": "show_rss",
-    "label": "Show RSS?"
-  }, {
-    "type": "blog",
-    "id": "main_blog",
-    "label": "Your blog"
-  }, {
-    "type": "header",
-    "content": "Use black Social Media Icons"
-  }, {
-    "type": "checkbox",
-    "id": "light_social_icons",
-    "label": "Use black social icons"
   }]
 }, {
   "name": "Footer",

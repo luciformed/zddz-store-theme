@@ -139,8 +139,6 @@ function PseudoWorker(path) {
 
   var xhr = new XMLHttpRequest();
 
-  console.debug('PATH', path);
-
   /*monkey patched it*/
 
   if (path.indexOf("blob:") == 0){

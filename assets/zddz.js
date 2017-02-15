@@ -48,7 +48,7 @@
 	// import glitch from "./glitch.js";
 	function getRandomIntInclusive(min,max){return Math.floor(Math.random()*(max-min+1))+min;};var log=console.debug.bind(console);$(document).ready(function(){/*TODO:*/var DZ=$('[am-DZ]');var order=getRandomIntInclusive(5,7);DZ.attr('am-Flex-Item',"order:"+order);/*TODO:TMP DEV!*/setTimeout(function(){$('.shopify-preview-bar').hide();},3000);});var app=_index2.default.module('zddz',['ngAnimate','zddz.templates',_shopifyApi2.default.name]).config(['$interpolateProvider',function($interpolateProvider){$interpolateProvider.startSymbol('{[{');$interpolateProvider.endSymbol('}]}');}]).run(function($http){});app.factory('Cart',_cartService2.default);app.directive('zddzCart',_cartDirective2.default);app.directive('zddzGlitchImg',_glitchImgDirective2.default);app.controller('ProductCtrl',_productController2.default);app.filter('money',function(){return function(price){return Shopify.formatMoney(price,Shopify.money_format);};});app.filter('zddzSize',function(){return function(){var sizeName=arguments.length<=0||arguments[0]===undefined?"-":arguments[0];return{"X-Small":"XS","Small":"S","Medium":"M","Large":"L"}[sizeName]||sizeName;};});app.directive('zddzInStock',function(){var redTape=function redTape(element){var soldOutEl=_index2.default.element('<div am-Sold-Out> </div>');element.append(soldOutEl);var soldOutElWidth=soldOutEl.width();return function(){/*<3 пифагор*/var width=element.outerWidth();var height=element.outerHeight();var c=Math.sqrt(Math.pow(width,2)+Math.pow(height,2));soldOutEl.height(c);soldOutEl.width(soldOutElWidth);var atan=Math.atan(width/height);var degrees=atan*(180/Math.PI);soldOutEl.css({'transform':"rotate("+degrees+"deg)",'top':(height-c)/2+"px",'left':width/2-Math.floor(soldOutElWidth/2)+"px"});};};return{restrict:"A",link:function link(scope,element,attrs){var inStock=attrs.zddzInStock!="false";if(!inStock){var adjustPosition=redTape(element);var sub=_rxAll.Observable.fromEvent(window,'resize').debounce(50).startWith(null).subscribe(adjustPosition);scope.$on('$destroy',sub.dispose.bind(sub));}}};});app.directive('zddzCtrl',function($controller){return{restrict:"A",link:function link(scope,element,attrs){var data=(0,_ramda.tryCatch)(function(){return JSON.parse(attrs.zddzData.replace(/`/g,'"'));},function(){return{};})();var ctrl=$controller(attrs.zddzCtrl,{$scope:scope,$data:data});// console.log('attrs.data', data);
 	// ctrl.$data = attrs.zddzData;
-	}};});app.directive('zoomImg',[function(){return{link:function link(scope,element,attrs){var elev=void 0;var ZOOM_OPTS={zoomType:"inner",cursor:"crosshair"};attrs.$observe('zoomImage',function(){elev=$(element[0]).elevateZoom(ZOOM_OPTS);});}};}]);app.controller('CartToggleCtrl',function($scope,Cart){this.getItemCount=function(){return Cart.item_count;};this.toggle=Cart.toggle;});
+	}};});app.directive('zoomImg',[function(){return{link:function link(scope,element,attrs){var ZOOM_OPTS={zoomType:"inner",cursor:"crosshair"};/*this jquery plugin is a piece of shit*//*it will actually pollute the DOM with its garbage */var elev=void 0;attrs.$observe('src',function(val){if(!elev){element.elevateZoom(ZOOM_OPTS);elev=element.data("elevateZoom");}elev.init(ZOOM_OPTS,element[0]);});}};}]);app.controller('CartToggleCtrl',function($scope,Cart){this.getItemCount=function(){return Cart.item_count;};this.toggle=Cart.toggle;});
 
 /***/ },
 /* 1 */
@@ -57510,18 +57510,17 @@
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=glitch;var _glitchCanvas=__webpack_require__(15);var _glitchCanvas2=_interopRequireDefault(_glitchCanvas);var _rxAll=__webpack_require__(6);var _rxAll2=_interopRequireDefault(_rxAll);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var DEFAULT_PARAMS={quality:37,amount:70,iterations:20,mousemove_throttle:300,glitch_throttle:5000,glitch_chance:15,second_glitch:50,flash:1};var getRand100=function getRand100(){return Math.round(Math.random()*100);};var getGlitchParams=function getGlitchParams(){return{seed:getRand100(),// integer between 0 and 99
+	"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=glitch;var _glitchCanvas=__webpack_require__(15);var _glitchCanvas2=_interopRequireDefault(_glitchCanvas);var _rxAll=__webpack_require__(6);var _rxAll2=_interopRequireDefault(_rxAll);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var DEFAULT_PARAMS={quality:37,amount:70,iterations:20,mousemove_throttle:300,glitch_throttle:5000,glitch_chance:15,second_glitch:50,flash:1};var getRand100=function getRand100(){return Math.round(Math.random()*100);};var getGlitchParams=function getGlitchParams(){return{seed:1/*getRand100()*/,// integer between 0 and 99
 	quality:DEFAULT_PARAMS['quality'],amount:DEFAULT_PARAMS['amount'],iterations:DEFAULT_PARAMS['iterations']};};// let throttled = _.throttle(() => {
 	// }, 500);
-	function glitch(el,opts){el=$(el);var imgSrc=opts.src||el.data('img-src');if(!imgSrc){throw new Error("No image source");}var image=new Image();image.setAttribute('crossOrigin','');var originalImgDataUrl=void 0;var setToOriginalImage=function setToOriginalImage(){el.css('background-image',"url("+imgSrc+")");};var setGlitchedImage=function setGlitchedImage(){// console.time('toglitch');
-	return(0,_glitchCanvas2.default)(getGlitchParams()).fromImage(image).toDataURL().then(function(dataURL){// console.timeEnd('toglitch');
-	el.css('background-image',"url("+dataURL+"), url("+imgSrc+")");});};image.src=imgSrc;image.onload=function(){setToOriginalImage();(0,_glitchCanvas2.default)().fromImage(image).toDataURL().then(function(dataURL){originalImgDataUrl=dataURL;});};var mouseMove=_rxAll2.default.Observable.fromEvent(el,"mousemove");var mouseWheel=_rxAll2.default.Observable.fromEvent(el,"mousewheel");var wait=function wait(time){return function(){return new Promise(function(resolve,reject){setTimeout(resolve,time);});};};var sub=mouseMove.merge(mouseWheel).throttle(DEFAULT_PARAMS.mousemove_throttle).filter(function(){return getRand100()<DEFAULT_PARAMS.glitch_chance;}).throttle(DEFAULT_PARAMS.glitch_throttle).subscribe(function(){setGlitchedImage().then(wait(DEFAULT_PARAMS.second_glitch)).then(setGlitchedImage).then(wait(DEFAULT_PARAMS.flash)).then(setToOriginalImage);});return sub;};
+	function glitch(el,opts){el=$(el);var imgSrc=opts.src||el.data('img-src');if(!imgSrc){throw new Error("No image source");}var image=new Image();image.setAttribute('crossOrigin','');var originalImgDataUrl=void 0;var setToOriginalImage=function setToOriginalImage(){el.css('background-image',"url("+imgSrc+")");};var setGlitchedImage=function setGlitchedImage(){return(0,_glitchCanvas2.default)(getGlitchParams()).fromImage(image).toDataURL().then(function(dataURL){el.css('background-image',"url("+dataURL+"), url("+imgSrc+")");});};image.src=imgSrc;image.onload=function(){setToOriginalImage();(0,_glitchCanvas2.default)().fromImage(image).toDataURL().then(function(dataURL){originalImgDataUrl=dataURL;});};var mouseMove=_rxAll2.default.Observable.fromEvent(el,"mousemove");var mouseWheel=_rxAll2.default.Observable.fromEvent(el,"mousewheel");var wait=function wait(time){return function(){return new Promise(function(resolve,reject){setTimeout(resolve,time);});};};var sub=mouseMove.merge(mouseWheel).throttle(DEFAULT_PARAMS.mousemove_throttle).filter(function(){return getRand100()<DEFAULT_PARAMS.glitch_chance;}).throttle(DEFAULT_PARAMS.glitch_throttle).subscribe(function(){setGlitchedImage().then(wait(DEFAULT_PARAMS.second_glitch)).then(setGlitchedImage).then(wait(DEFAULT_PARAMS.flash)).then(setToOriginalImage);});return sub;};
 
 /***/ },
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var require;(function(f) {
+	var require;var require;
+	(function(f) {
 	    if (true) {
 	        module.exports = f();
 	    } else {
@@ -57798,7 +57797,7 @@
 	                    }
 	                    previousByte = currentByte;
 	                }
-	                return 0 === byteNum ? (result.push(_base64Map.map[(3 & previousByte) << 4]), result.push('==')) : 1 === byteNum && (result.push(_base64Map.map[(15 & previousByte) << 2]), 
+	                return 0 === byteNum ? (result.push(_base64Map.map[(3 & previousByte) << 4]), result.push('==')) : 1 === byteNum && (result.push(_base64Map.map[(15 & previousByte) << 2]),
 	                result.push('=')), result.join('');
 	            };
 	            var _base64Map = _dereq_('./base64Map');
@@ -57840,8 +57839,8 @@
 	                value: !0
 	            }), exports['default'] = function(imageData, base64URL, params) {
 	                if ((0, _isImageData2['default'])(imageData)) {
-	                    var byteArray = (0, _base64ToByteArray2['default'])(base64URL), glitchedByteArray = (0, 
-	                    _glitchByteArray2['default'])(byteArray, params.seed, params.amount, params.iterations), glitchedBase64URL = (0, 
+	                    var byteArray = (0, _base64ToByteArray2['default'])(base64URL), glitchedByteArray = (0,
+	                    _glitchByteArray2['default'])(byteArray, params.seed, params.amount, params.iterations), glitchedBase64URL = (0,
 	                    _byteArrayToBase2['default'])(glitchedByteArray);
 	                    return glitchedBase64URL;
 	                }
@@ -57886,8 +57885,8 @@
 	                    var canvas = new _canvasBrowserify2['default'](image.naturalWidth, image.naturalHeight), ctx = canvas.getContext('2d');
 	                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 	                    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-	                    return imageData.data && imageData.data.length && ('undefined' == typeof imageData.width && (imageData.width = image.naturalWidth), 
-	                    'undefined' == typeof imageData.height && (imageData.height = image.naturalHeight)), 
+	                    return imageData.data && imageData.data.length && ('undefined' == typeof imageData.width && (imageData.width = image.naturalWidth),
+	                    'undefined' == typeof imageData.height && (imageData.height = image.naturalHeight)),
 	                    imageData;
 	                }
 	                throw new Error('This object does not seem to be an image.');
@@ -57929,9 +57928,9 @@
 	                    return 'iterations' !== key;
 	                });
 	                return defaultKeys.forEach(function(key) {
-	                    'number' != typeof params[key] || isNaN(params[key]) ? params[key] = _defaultParams2['default'][key] : params[key] = (0, 
+	                    'number' != typeof params[key] || isNaN(params[key]) ? params[key] = _defaultParams2['default'][key] : params[key] = (0,
 	                    _clamp2['default'])(params[key], 0, 100), params[key] = Math.round(params[key]);
-	                }), ('number' != typeof params.iterations || isNaN(params.iterations) || params.iterations <= 0) && (params.iterations = _defaultParams2['default'].iterations), 
+	                }), ('number' != typeof params.iterations || isNaN(params.iterations) || params.iterations <= 0) && (params.iterations = _defaultParams2['default'].iterations),
 	                params.iterations = Math.round(params.iterations), params;
 	            };
 	            var _clamp = _dereq_('../util/clamp'), _clamp2 = _interopRequireDefault(_clamp), _clone = _dereq_('../util/clone'), _clone2 = _interopRequireDefault(_clone), _defaultParams = _dereq_('./defaultParams'), _defaultParams2 = _interopRequireDefault(_defaultParams);
@@ -57970,7 +57969,7 @@
 	            }), exports['default'] = function(base64URL, options, resolve, reject) {
 	                (0, _loadBase64Image2['default'])(base64URL).then(function(image) {
 	                    var size = (0, _getImageSize2['default'])(image), imageData = (0, _canvasFromImage2['default'])(image).ctx.getImageData(0, 0, size.width, size.height);
-	                    imageData.width || (imageData.width = size.width), imageData.height || (imageData.height = size.height), 
+	                    imageData.width || (imageData.width = size.width), imageData.height || (imageData.height = size.height),
 	                    resolve(imageData);
 	                }, reject);
 	            };
@@ -58081,7 +58080,7 @@
 	                    var imageData = msg.data.imageData, params = msg.data.params, base64URL = msg.data.base64URL;
 	                    if (imageData && base64URL && params) {
 	                        try {
-	                            'undefined' == typeof imageData.width && 'number' == typeof msg.data.imageDataWidth && (imageData.width = msg.data.imageDataWidth), 
+	                            'undefined' == typeof imageData.width && 'number' == typeof msg.data.imageDataWidth && (imageData.width = msg.data.imageDataWidth),
 	                            'undefined' == typeof imageData.height && 'number' == typeof msg.data.imageDataHeight && (imageData.height = msg.data.imageDataHeight);
 	                            var glitchedBase64URL = (0, _glitchImageData2['default'])(imageData, base64URL, params);
 	                            success(glitchedBase64URL);

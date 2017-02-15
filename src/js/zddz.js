@@ -149,17 +149,23 @@ app.directive('zoomImg', [() => {
   return {
     link(scope, element, attrs) {
 
-      let elev;
-
       const ZOOM_OPTS = {
         zoomType: "inner",
         cursor: "crosshair"
       };
 
-      attrs.$observe('zoomImage', () => {
+      /*this jquery plugin is a piece of shit*/
+      /*it will actually pollute the DOM with its garbage */
 
-        elev = $(element[0]).elevateZoom(ZOOM_OPTS);
+      let elev;
 
+      attrs.$observe('src', (val) => {
+
+        if (!elev) {
+          element.elevateZoom(ZOOM_OPTS);
+          elev = element.data("elevateZoom");
+        }
+        elev.init(ZOOM_OPTS, element[0]);
       });
 
     }
