@@ -163,13 +163,14 @@ body {
   text-decoration:none;
   margin-bottom:@row-spacing - @product-info-height;
   height:auto!important;
+
   > [am-Grid-Col] {
     flex-basis:auto;
   }
 }
 
 [am-Home-Section-Text]:extend([am-Product-Summary], [am-Product-Title]) {
-
+  padding-bottom:14px; /*item price text adjust*/
 }
 
 [am-Home-Section-Img]:extend([am-Product-Img] all) {
