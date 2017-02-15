@@ -154,32 +154,29 @@
 }, {
   "name": "Footer",
   "settings": [{
-    "type" : "header",
-    "content" : "Footer - About"
-  },{
+    "type": "header",
+    "content": "Footer - About"
+  }, {
     "type": "text",
     "id": "short_about_us",
     "label": "Short 'About Us'"
-  },{
+  }, {
     "type": "text",
     "id": "phone_number",
     "label": "Phone number"
-  },{
+  }, {
     "type": "text",
     "id": "email",
     "label": "Email"
-  },
-  {
+  }, {
     "type": "text",
     "id": "email_disclaimer",
     "label": "Email disclaimer"
-  },
-  {
+  }, {
     "type": "text",
     "id": "copyright_text",
     "label": "Copyright text"
-  },
-  {
+  }, {
     "type": "header",
     "content": "Mailing List"
   }, {
@@ -247,26 +244,27 @@
   "name": "Frontpage",
   "settings": [{
     "type": "header",
-    "content": "Banner Image"
-  }, {
+    "content": "Large home section"
+  },{
     "type": "checkbox",
-    "id": "show_frontpage_hero",
-    "label": "Show a banner image on the frontpage?"
+    "id": "show_large_section",
+    "label": "Show large home section?"
   }, {
     "type": "image",
-    "id": "hero.jpg",
-    "label": "Upload banner image",
-    "info": "Should be at least 950px wide"
+    "id": "large_section_img.jpg",
+    "label": "Large home section image",
+    "info": "1200px wide required"
   }, {
     "type": "text",
-    "id": "banner_url",
-    "label": "Banner url",
-    "info": "Where does the banner image link"
-  }, {
+    "id": "large_section_text",
+    "label": "Large home section text"
+  },
+   {
     "type": "text",
-    "id": "frontpage_hero_alt",
-    "label": "Banner ALT text"
-  }, {
+    "id": "large_section_url",
+    "label": "Large home section URL",
+    "info": "Where does the section link?"
+  },{
     "type": "header",
     "content": "Featured Products"
   }, {
