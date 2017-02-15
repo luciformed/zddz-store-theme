@@ -245,7 +245,7 @@
   "settings": [{
     "type": "header",
     "content": "Large home section"
-  },{
+  }, {
     "type": "checkbox",
     "id": "show_large_section",
     "label": "Show large home section?"
@@ -253,18 +253,57 @@
     "type": "image",
     "id": "large_section_img.jpg",
     "label": "Large home section image",
-    "info": "1200px wide required"
+    "info": "large image"
   }, {
     "type": "text",
     "id": "large_section_text",
     "label": "Large home section text"
-  },
-   {
+  }, {
     "type": "text",
     "id": "large_section_url",
     "label": "Large home section URL",
     "info": "Where does the section link?"
-  },{
+  }, {
+    "type": "header",
+    "content": "Medium home section"
+  }, {
+    "type": "checkbox",
+    "id": "show_medium_section",
+    "label": "Show medium home section?"
+  }, {
+    "type": "image",
+    "id": "medium_section_img.jpg",
+    "label": "Medium home section image"
+  }, {
+    "type": "text",
+    "id": "medium_section_text",
+    "label": "Medium home section text"
+  }, {
+    "type": "text",
+    "id": "medium_section_url",
+    "label": "Medium home section URL",
+    "info": "Where does the section link?"
+  }, {
+    "type": "header",
+    "content": "Small home section"
+  }, {
+    "type": "checkbox",
+    "id": "show_small_section",
+    "label": "Show small home section?"
+  }, {
+    "type": "image",
+    "id": "small_section_img.jpg",
+    "label": "Small home section image"
+  }, {
+    "type": "text",
+    "id": "small_section_text",
+    "label": "Small home section text"
+  }, {
+    "type": "text",
+    "id": "small_section_url",
+    "label": "Small home section URL",
+    "info": "Where does the section link?"
+  }, {
     "type": "header",
     "content": "Featured Products"
   }, {

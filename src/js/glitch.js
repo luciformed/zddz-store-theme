@@ -13,11 +13,11 @@ const DEFAULT_PARAMS = {
   flash: 1
 };
 
-let getRand100 = () => {
+const getRand100 = () => {
   return Math.round(Math.random() * 100);
 };
 
-let getGlitchParams = () => {
+const getGlitchParams = () => {
 
   return {
     seed: getRand100(), // integer between 0 and 99
@@ -52,12 +52,10 @@ export default function glitch(el, opts) {
   };
 
   const setGlitchedImage = () => {
-    // console.time('toglitch');
     return glitchCanvas(getGlitchParams())
       .fromImage(image)
       .toDataURL()
       .then((dataURL) => {
-        // console.timeEnd('toglitch');
         el.css('background-image', `url(${dataURL}), url(${imgSrc})`);
       })
   };

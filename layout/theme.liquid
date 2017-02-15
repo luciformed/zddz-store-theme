@@ -149,7 +149,7 @@
 	</div>{% endcomment %}
 	<!--END DRAWER-->
    <!--START HEADER-->
-	<div style="overflow-x:hidden;">
+	<div style="overflow-x:hidden;" zddz-ctrl="SettingsCtrl as settingsCtrl" zddz-data="{{ settings | json | replace: '"' : '`'}}">
 		<div am-pos="rel">
 			{{ content_for_layout }}
 			<zddz-cart> </zddz-cart>
@@ -178,7 +178,7 @@
 					<a href="{{settings.facebook_url}}" target="_blank" am-Footer-Item="facebook">Facebook</a>
 					<a href="{{settings.twitter_url}}" target="_blank" am-Footer-Item="twitter">Twitter</a>
 					<a href="{{settings.pinterest_url}}" target="_blank" am-Footer-Item="pinterest">Pinterest</a>
-					<a href="{{settings.intagram_url}}" target="_blank" am-Footer-Item="instagram">Instagram</a>
+					<a href="{{settings.instagram_url}}" target="_blank" am-Footer-Item="instagram">Instagram</a>
 				</div>
 
 

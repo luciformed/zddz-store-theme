@@ -1,39 +1,8 @@
-{% if current_tags %}
-<h1>{{ current_tags }}</h1>
-{% else %}
-{% comment %}<div am-gutter am-Page-Title>{{ collection.title }} </div>{% endcomment %}
-{% endif %}
-{% assign show_hero = false %}
-{% if collection.image %}
-	{% assign show_hero = true %}
-{% endif %}
-{% if collection.description.size > 0 %}
-	{% assign show_hero = true %}
-{% endif %}
 
-{% comment %}tmp{% endcomment %}
-{% assign show_hero = false %}
-
-{% comment %}{% if show_hero == true %}
-	{% unless current_tags %}
-	<!--START HERO-->
-	<div class="twelve columns alpha omega">
-		{% if collection.image %}
-			<section id="collection-hero" class="animated fadeInUpBig">
-				<img src="{{ collection.image.src | collection_img_url: 'large' }}" alt="{{ collection.title }}">
-			</section>
-		{% endif %}
-		{% if collection.description.size > 0 %}
-			<p id="collection-description" class="animated fadeInUpBig wysiwyg">{{ collection.description | strip_html }}</p>
-		{% endif %}
-	</div>
-	<!--END HERO-->
-	{% endunless %}
-{% endif %}{% endcomment %}
-<!--START PRODUCT GRID-->
 <section am-Grid-Row="wrap">
   {% include 'zd' %}
-  <div am-DZ>
+
+  <div am-DZ am-Flex-Item="order:{[{settingsCtrl.getDZOrder()}]}">
     <div am-offset-bottom="auto" am-Flex-Item="end">
       {% include 'cart-toggle' %}
     </div>
@@ -42,7 +11,7 @@
 
 	{% if collection.products.size > 0 %}
 		{% for product in collection.products %}
-		<div am-Collection-Item style="order:{{ forloop.index }};">
+		<div am-Collection-Item am-Flex-Item="order:{{ forloop.index }}">
 			{% include 'product-grid-item-new' %}
 	  </div>
 		{% endfor %}
@@ -50,6 +19,5 @@
 		<p id="no-products" class="animated fadeInUpBig">There aren't any products in this collection!</p>
 	{% endif %}
 </section>
-<!--END PRODUCT GRID-->
 
 

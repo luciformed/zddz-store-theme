@@ -6,8 +6,16 @@
 
 MENU DOESN'T WORK AS IT IS. Too little space
 
-- text pages need a way to get back to homepage
 
+!!! - [ ] replacing images on click won't work for mobile
+!!! - [ ] also featured image looks bad now on mobile
+
+- text pages need a way to get back to homepage
+- "as seen on instagram"
+
+
+- [ ] 404 page
+- [ ] add tumblr
 
 - [ ] responsive
   - [ ] text pages
@@ -17,7 +25,7 @@ MENU DOESN'T WORK AS IT IS. Too little space
   - [ ] search results
   - [ ] home page
   - [ ] sold out stripe
-- [ ] glitch on touchmove
+- [ ] glitch on touchmove?
 - [x] search icon
 - [ ] carousel
 - [ ] inventory quantity + items in cart logic
@@ -46,5 +54,7 @@ MENU DOESN'T WORK AS IT IS. Too little space
 
 - [ ] safari bugs
   - [ ] menu
-  - [ ] glitch
-  - [ ] product page
+  - [ ] glitch (https://ecommerce.shopify.com/c/shopify-apis-and-technology/t/content-security-policy-response-headers-401287)
+  - [x] product page
+
+- [ ] delete useless presets and old stuff

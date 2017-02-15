@@ -1,5 +1,5 @@
 export default function ProductCtrl($scope, $data, ShopifyApi, Cart) {
-  console.debug('productctrlnew', this, $scope, $data);
+  // console.debug('productctrlnew', this, $scope, $data);
 
 
   let product = this.product = $data;

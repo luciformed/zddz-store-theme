@@ -23,16 +23,16 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-var log = console.debug.bind(console);
+const log = console.debug.bind(console);
 
 
 $(document).ready(() => {
   /*TODO:*/
-  let DZ = $('[am-DZ]');
+  // let DZ = $('[am-DZ]');
 
-  let order = getRandomIntInclusive(5, 7);
+  // let order = getRandomIntInclusive(5, 7);
 
-  DZ.attr('am-Flex-Item', `order:${order}`);
+  // DZ.attr('am-Flex-Item', `order:${order}`);
 
   /*TODO:TMP DEV!*/
 
@@ -179,5 +179,76 @@ app.controller('CartToggleCtrl', function($scope, Cart) {
   this.getItemCount = () => Cart.item_count;
 
   this.toggle = Cart.toggle;
+
+});
+
+
+app.controller('SettingsCtrl', function($scope, $data) {
+
+  // console.log('settingsCtrl', $data);
+
+  let previousIndex = Number(window.localStorage.getItem('DZIDX')) || null;
+
+  const getNewIndex = (a, b) => {
+    let res;
+    if (b - a > 0 && previousIndex) {
+      res = previousIndex;
+
+      while (res == previousIndex) {
+        res = getRandomIntInclusive(a, b);
+      }
+
+    } else {
+      res = getRandomIntInclusive(a, b);
+    }
+
+    return res;
+
+  };
+
+
+
+  // log({
+  //   previousIndex
+  // });
+
+  $scope.$settings = $data;
+
+  let start = 5;
+  let end = 7;
+
+
+
+
+
+
+  let adjustedStart = start + ($data.show_large_section && $data.show_medium_section);
+
+  // log({
+  //   adjustedStart,
+  //   end
+  // });
+
+
+  let order = getNewIndex(adjustedStart, end);
+
+  window.localStorage.setItem("DZIDX", order);
+
+  // log({
+  //   order
+  // });
+
+  let adjust = ($data.show_large_section * 3) + ($data.show_medium_section * 2) + ($data.show_small_section * 1);
+
+
+  this.getDZOrder = () => {
+    return order;
+  };
+
+  this.getOrderForCollectionItem = index => {
+    /*liquid index starts at 1? ...*/
+
+    return adjust + index;
+  };
 
 });
