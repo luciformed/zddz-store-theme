@@ -175,10 +175,11 @@
 					<div am-Footer-Section-Heading>
 						Follow us
 					</div>
-					<a href="{{settings.facebook_url}}" target="_blank" am-Footer-Item="facebook">Facebook</a>
-					<a href="{{settings.twitter_url}}" target="_blank" am-Footer-Item="twitter">Twitter</a>
-					<a href="{{settings.pinterest_url}}" target="_blank" am-Footer-Item="pinterest">Pinterest</a>
-					<a href="{{settings.instagram_url}}" target="_blank" am-Footer-Item="instagram">Instagram</a>
+					<a href="{{settings.facebook_url}}" ng-if="$settings.facebook_url" target="_blank" am-Footer-Item="facebook">Facebook</a>
+					<a href="{{settings.twitter_url}}" ng-if="$settings.twitter_url" target="_blank" am-Footer-Item="twitter">Twitter</a>
+					<a href="{{settings.pinterest_url}}" ng-if="$settings.pinterest_url" target="_blank" am-Footer-Item="pinterest">Pinterest</a>
+					<a href="{{settings.instagram_url}}" ng-if="$settings.instagram_url" target="_blank" am-Footer-Item="instagram">Instagram</a>
+					<a href="{{settings.tumblr_url}}" ng-if="$settings.tumblr_url" target="_blank" am-Footer-Item="tumblr">Tumblr</a>
 				</div>
 
 
